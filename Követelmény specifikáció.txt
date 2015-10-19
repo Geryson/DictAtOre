@@ -1,0 +1,11 @@
+Követelmény specifikáció
+
+A DictAtOre egy szabadon felhasználható nyelvtanuló alkalmazás, amely kreatív módon valósítja meg a kívánt nyelv gyakorlását.
+
+Fõbb funkciók:
+	- tetszõleges számú szótár létrehozható
+	- szópárok egyszerû hozzáadása / módosítása / eltávolítása
+	- több jelentéssel rendelkezõ szavak kezelése
+	- tanulást segítõ gyakorló-funkció
+
+A DictAtOre futtatásához legalább egy Android 2.3.3 operációs rendszert futtató eszköz szükséges. (FOLYT. KÖV.)
