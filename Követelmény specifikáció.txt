@@ -8,4 +8,8 @@ Fõbb funkciók:
 	- több jelentéssel rendelkezõ szavak kezelése
 	- tanulást segítõ gyakorló-funkció
 
-A DictAtOre futtatásához legalább egy Android 2.3.3 operációs rendszert futtató eszköz szükséges. (FOLYT. KÖV.)
+A gyakorló-funkció lényege, hogy az alkalmazás a kiválasztott szótárból véletlenszerû szavakat jelenít meg, a cél a szó párjának
+kitalálása és memorizálása. Ha ez elsõ próbálkozásra nem sikerül, az alkalmazás segítséget ajánl fel azáltal, hogy a megfejtendõ
+kifejezésbõl gombnyomásra megjelenít egy véletlenszerû karaktert. A megfejtés akkor helyes, ha a felhasználó a felület szövegbeviteli mezõjébe beírja azt.
+
+A DictAtOre futtatásához legalább egy Android 2.3.3 operációs rendszert futtató eszközre van szükség, speciális jogosultságok nem szükségesek. A szótár(ak) tartalmát az alkalmazás egy adatbázisban tárolja az eszközön, futtatás után pedig azt az alkalmazáson belül lehet módosítani.
