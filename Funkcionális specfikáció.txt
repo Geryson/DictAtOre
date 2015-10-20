@@ -1,0 +1,6 @@
+Funkcionális specifikáció
+
+Az alkalmazás megnyitása után 2 gomb fogadja a felhasználót:
+
+	- TUDÁSPRÓBA: segítségével gyakorolhatóak a szavak
+	- SZÓTÁRAK: a programhoz adott nyelvek, azon belül a szavak kezelésének felülete
