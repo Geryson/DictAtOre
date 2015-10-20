@@ -4,3 +4,7 @@ Az alkalmazás megnyitása után 2 gomb fogadja a felhasználót:
 
 	- TUDÁSPRÓBA: segítségével gyakorolhatóak a szavak
 	- SZÓTÁRAK: a programhoz adott nyelvek, azon belül a szavak kezelésének felülete
+
+TUDÁSPRÓBA: a gomb megnyomásakor a felhasználónak ki kell választania azt a 2 nyelvet (MIVEL?...), amelyet szeretne
+a gyakorláshoz használni. Amennyiben nincs létrehozva legalább 2 használható nyelvi adatbázis, az alkalmazás figyelmeztet
+erre, és visszatér a fõmenübe. Sikeres nyelvválasztás esetén a gyakorlófelület jelenik meg.
