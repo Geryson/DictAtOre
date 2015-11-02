@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=cfxwXz6Xlag     			//apk build
+http://www.szintan.hu/keret.htm   				//színkódok
+http://zeus.nyf.hu/~blahota/sqlite/SQLite_13_06_03.pdf  		//sqlite alapok
+https://intermatrix.hu/regexp					//reguláris kifejezések
