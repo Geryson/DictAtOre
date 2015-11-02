@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" colour="#484439">DictAtOre</string>
+    <string name="title_activity_nyelv_valaszto1" colour="#484439">NyelvValaszto1Activity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
