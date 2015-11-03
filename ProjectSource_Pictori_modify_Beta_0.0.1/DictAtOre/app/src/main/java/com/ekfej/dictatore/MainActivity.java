@@ -9,16 +9,21 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button TudastesztButton, SzotarakButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //saját szöveg
+        TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //saját szöveg
         TudastesztButton.setOnClickListener(this);
+        SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
+        SzotarakButton.setOnClickListener(this);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -43,9 +48,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Tudáspróba", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, NyelvValaszto1Activity.class);
-        startActivity(intent);
+        if (v == TudastesztButton)
+        {
+            Toast.makeText(this, "Tudáspróba", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, NyelvValaszto1Activity.class);
+            startActivity(intent);
     }
+
+    else
+
+    {
+        if (v == SzotarakButton)
+
+        {
+            Toast.makeText(this, "Szótár", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, Szotar_ValasztoActivity.class);
+            startActivity(intent);
+        }
+    }
+}
 }
