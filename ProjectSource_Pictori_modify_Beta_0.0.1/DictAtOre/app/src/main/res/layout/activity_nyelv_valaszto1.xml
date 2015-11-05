@@ -13,7 +13,11 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:background="@color/hatter1"
+<<<<<<< HEAD
         tools:context="com.ekfej.dictatore.NyelvValaszto1Activity"
         android:choiceMode="multipleChoice" />
+=======
+        tools:context="com.ekfej.dictatore.NyelvValaszto1Activity"/>
+>>>>>>> 447beee0b67d6d3bf96408b21fe9dae424c75d19
 
 </RelativeLayout>
