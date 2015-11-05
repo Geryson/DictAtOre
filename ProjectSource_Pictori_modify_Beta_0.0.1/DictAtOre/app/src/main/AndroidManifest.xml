@@ -19,13 +19,10 @@
             android:name=".NyelvValaszto1Activity"
             android:label="@string/title_activity_nyelv_valaszto1" >
         </activity>
-<<<<<<< HEAD
-=======
         <activity
             android:name=".Szotar_ValasztoActivity"
             android:label="@string/title_activity_szotar__valaszto" >
         </activity>
->>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
     </application>
 
 </manifest>
