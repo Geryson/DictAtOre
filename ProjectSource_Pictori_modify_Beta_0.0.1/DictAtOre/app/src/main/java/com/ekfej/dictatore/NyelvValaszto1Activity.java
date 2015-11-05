@@ -1,13 +1,10 @@
 package com.ekfej.dictatore;
 
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class NyelvValaszto1Activity extends AppCompatActivity {
-=======
 
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class NyelvValaszto1Activity extends ActionBarActivity {
+public class NyelvValaszto1Activity extends AppCompatActivity {
 
     TextView idView;
     EditText LanguagesBox;
@@ -37,37 +34,25 @@ public class NyelvValaszto1Activity extends ActionBarActivity {
             idView.setText("No Match Found");
         }
     }
->>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nyelv_valaszto1);
-<<<<<<< HEAD
-    }
-
-    @Override
-=======
-
         idView = (TextView) findViewById(R.id.TudastesztButton);
-        LanguagesBox = (EditText) findViewById(R.id.SzotarakButton);
+        //LanguagesBox = (EditText) findViewById(R.id.SzotarakButton);
     }
+
+
 
     /*@Override
->>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-<<<<<<< HEAD
     }
 
-    @Override
-=======
-    }*/
-
     /*@Override
->>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -81,8 +66,6 @@ public class NyelvValaszto1Activity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-<<<<<<< HEAD
-=======
    */
 
 
@@ -101,8 +84,4 @@ public class NyelvValaszto1Activity extends ActionBarActivity {
             quantityBox.setText("");
         }
 */
-
-
-
->>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
 }
