@@ -4,4 +4,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
+=======
+    <string name="title_activity_szotar__valaszto">Szotar_ValasztoActivity</string>
+>>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
 </resources>

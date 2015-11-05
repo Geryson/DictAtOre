@@ -9,16 +9,31 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.content.Intent;
 
+<<<<<<< HEAD
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+=======
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button TudastesztButton, SzotarakButton;
+>>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         Button TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //saját szöveg
         TudastesztButton.setOnClickListener(this);
     }
+=======
+        TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //saját szöveg
+        TudastesztButton.setOnClickListener(this);
+        SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
+        SzotarakButton.setOnClickListener(this);
+    }
+
+>>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -43,9 +58,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+<<<<<<< HEAD
         Toast.makeText(this, "Tudáspróba", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, NyelvValaszto1Activity.class);
         startActivity(intent);
     }
 }
+=======
+
+        if (v == TudastesztButton)
+        {
+            Toast.makeText(this, "Tudáspróba", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, NyelvValaszto1Activity.class);
+            startActivity(intent);
+    }
+
+    else
+
+    {
+        if (v == SzotarakButton)
+
+        {
+            Toast.makeText(this, "Szótár", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, Szotar_ValasztoActivity.class);
+            startActivity(intent);
+        }
+    }
+}
+}
+>>>>>>> 186317e93dded085c22f2b33c3d343473ed7976c
