@@ -26,4 +26,6 @@ folyamatosan ellenõrzi, mi található a szövegmezõben.
 
 Ha a begépelt kifejezés helyes, errõl a felhasználó értesítést kap egy felugró felületen. Ennek tartalma egy szöveges üzenet (pl. 
 "Szép munka!" / "Fantasztikus" / stb.), valamint egy továbblépésre és egy kilépésre használható gomb (lásd 2 bekezdéssel fentebb). 
-Több másodlagos nyelvû szóalak esetén a felület tartalmazza a többi lehetséges megfejtést, amelyet a szótár tartalmaz.
+Több másodlagos nyelvû szóalak esetén a felület tartalmazza a többi lehetséges megfejtést is, amelyet a szótár tartalmaz.
+
+FOLYT. KÖV...
