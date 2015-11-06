@@ -7,4 +7,25 @@ Az alkalmazás megnyitása után 2 gomb fogadja a felhasználót:
 
 TUDÁSPRÓBA: a gomb megnyomásakor a felhasználónak ki kell választania azt a 2 nyelvet (MIVEL?...), amelyet szeretne
 a gyakorláshoz használni. Amennyiben nincs létrehozva legalább 2 használható nyelvi adatbázis, az alkalmazás figyelmeztet
-erre, és visszatér a fõmenübe. Sikeres nyelvválasztás esetén a gyakorlófelület jelenik meg.
+erre, és visszatér a fõmenübe. Az elsõ nyelv lesz az ELSÕDLEGES, vagyis ezen a nyelven jelenik meg a lefordítandó szó; a második
+(MÁSODLAGOS) így értelemszerûen az a nyelv, amelyen az alkalmazás a megfejtést várja (pl. magyar(#1) és angol(#2) választása esetén 
+magyar szavak fognak megjelenni, amelyeket angolul kell az alkalmazásnak megadni). Sikeres nyelvválasztás esetén a gyakorlófelület 
+jelenik meg.
+
+Egy gyakorlás során 15 szót kell a felhasználónak begépelnie az arra szolgáló szövegmezõbe. Lehetõség van természetesen a játék
+félbeszakítására is, erre az eszköz beépített "Vissza" gombja használható. Ezen kívül egy helyes megfejtést követõen az alkalmazás 
+szintén felkínálja a kilépés lehetõségét egy kijelzõn lévõ gombbal. A játék állapota (azaz hány szó megfejtése sikerült eddig a 
+15-bõl) figyelemmel kísérhetõ a kijelzõ alján.
+
+A tudáspróba alatt a kijelzõ felsõ részén jelenik meg a megfejtendõ szó elsõdleges nyelvû párja; csak olyan szó kerülhet ide,
+mely szerepel a kiválasztott elsõdleges nyelv listáján. Az alkalmazás az összes lehetséges szó közül sorsolással választja ki
+az aktuális szópárt. Amennyiben az elsõdleges nyelv kifejezésének a másodlagos nyelven több alakja is meg van adva a szótárban, 
+újabb sorsolás történik, ami eldönti, melyik alak lesz a megfejtés. A felhasználó a kijelzõ közepén elhelyezett szövegmezõbe 
+gépelheti a megfejtést.  A megfejtés helyességét a felhasználónak nem kell külön utasítással jeleznie, az alkalmazás ugyanis 
+folyamatosan ellenõrzi, mi található a szövegmezõben.
+
+Ha a begépelt kifejezés helyes, errõl a felhasználó értesítést kap egy felugró felületen. Ennek tartalma egy szöveges üzenet (pl. 
+"Szép munka!" / "Fantasztikus" / stb.), valamint egy továbblépésre és egy kilépésre használható gomb (lásd 2 bekezdéssel fentebb). 
+Több másodlagos nyelvû szóalak esetén a felület tartalmazza a többi lehetséges megfejtést is, amelyet a szótár tartalmaz.
+
+FOLYT. KÖV...
