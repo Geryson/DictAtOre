@@ -7,5 +7,9 @@ Az alkalmazás megnyitása után 2 gomb fogadja a felhasználót:
 
 TUDÁSPRÓBA: a gomb megnyomásakor a felhasználónak ki kell választania azt a 2 nyelvet (MIVEL?...), amelyet szeretne
 a gyakorláshoz használni. Amennyiben nincs létrehozva legalább 2 használható nyelvi adatbázis, az alkalmazás figyelmeztet
-erre, és visszatér a fõmenübe. Az elsõ nyelv lesz az elsõdleges, vagyis ezen a nyelven jelenik meg a lefordítandó szó; a második
-így értelemszerûen az a nyelv, amelyen az alkalmazás a megfejtést várja (pl. magyar(#1) és angol(#2) választása esetén magyar szavak fognak megjelenni, amelyeket angolul kell az alkalmazásnak megadni). Sikeres nyelvválasztás esetén a gyakorlófelület jelenik meg.
+erre, és visszatér a fõmenübe. Az elsõ nyelv lesz az ELSÕDLEGES, vagyis ezen a nyelven jelenik meg a lefordítandó szó; a második
+(MÁSODLAGOS) így értelemszerûen az a nyelv, amelyen az alkalmazás a megfejtést várja (pl. magyar(#1) és angol(#2)választása esetén magyar szavak fognak megjelenni, amelyeket angolul kell az alkalmazásnak megadni). Sikeres nyelvválasztás esetén a gyakorlófelület jelenik meg.
+
+Egy gyakorlás során 15 szót kell a felhasználónak begépelnie az arra szolgáló szövegmezõbe. Lehetõség van természetesen a játék
+félbeszakítására is, erre az eszköz beépített "Vissza" gombja használható. A játék állapota (azaz hány szó megfejtése sikerült
+eddig a 15-bõl) figyelemmel kísérhetõ a kijelzõ alján.
