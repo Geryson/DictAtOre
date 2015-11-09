@@ -28,4 +28,12 @@ Ha a begépelt kifejezés helyes, errõl a felhasználó értesítést kap egy felugró f
 "Szép munka!" / "Fantasztikus" / stb.), valamint egy továbblépésre és egy kilépésre használható gomb (lásd 2 bekezdéssel fentebb). 
 Több másodlagos nyelvû szóalak esetén a felület tartalmazza a többi lehetséges megfejtést is, amelyet a szótár tartalmaz.
 
+Természetesen helytelen kifejezés esetén nem történik semmi - legalábbis azonnal. Ha a felhasználó még nem kért segítséget, olyan
+hosszú szöveget írhat a szövegmezõbe, amekkorát csak szeretne.
+
+A Segítség gomb adott szónál történt legelsõ megnyomásával a szövegmezõben jelenik meg az elsõ segítség: alsóvonalak jelennek meg
+benne, annyi, ahány betûbõl áll a megfejtés. Innentõl kezdve egyértelmû, hogy nincs értelme a megfejtésnél hosszabb kifejezést
+keresni, ezért csak annyi betû gépelhetõ be, ahány vonal látszik a mezõben. A felhasználó tippelésének megkönnyítését segíti, hogy
+gépelés alatt is a helyén marad minden alsóvonal, jelezve ezzel, hogy a megfejtendõ kifejezésen belül hol tart.
+
 FOLYT. KÖV...
