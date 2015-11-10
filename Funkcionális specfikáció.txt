@@ -34,6 +34,11 @@ hosszú szöveget írhat a szövegmezõbe, amekkorát csak szeretne.
 A Segítség gomb adott szónál történt legelsõ megnyomásával a szövegmezõben jelenik meg az elsõ segítség: alsóvonalak jelennek meg
 benne, annyi, ahány betûbõl áll a megfejtés. Innentõl kezdve egyértelmû, hogy nincs értelme a megfejtésnél hosszabb kifejezést
 keresni, ezért csak annyi betû gépelhetõ be, ahány vonal látszik a mezõben. A felhasználó tippelésének megkönnyítését segíti, hogy
-gépelés alatt is a helyén marad minden alsóvonal, jelezve ezzel, hogy a megfejtendõ kifejezésen belül hol tart.
+gépelés alatt is a helyén marad minden alsóvonal, amit még nem írtunk felül betûvel, jelezve ezzel, hogy a megfejtendõ kifejezésen 
+belül hol tart.
 
-FOLYT. KÖV...
+A következõ alkalomtól kezdve az bizonyul segítségnek, hogy a megfejtést jelképezõ alsóvonalak egyikét a megfejtendõ
+kifejezés aktuális betûjére cseréljük. Egy ilyen segítség kérésekor a már szövegmezõbe írt betûk törölve lesznek. Úgy is eljuthatunk a teljes megfejtésig, ha a Segítség gomb "elárulja" a felhasználónak az összes betût - igaz, ez nem cél a szavak
+tanulása során.
+
+SZÓTÁRAK: ...
