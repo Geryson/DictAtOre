@@ -12,7 +12,7 @@ import android.database.Cursor;
 public class DictDatabaseHandler extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "DictDB.db";
+    private static final String DATABASE_NAME = "DictDatabaseV2.db";
     private static final String TABLE_LANGUAGES = "Languages";
     private static final String TABLE_WORDS = "Words";
 
