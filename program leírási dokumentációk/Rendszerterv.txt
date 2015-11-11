@@ -1,0 +1,59 @@
+felhasznált "forrás" ProgTechJegyzet.v.1.1 (154 oldaltól)
+//elkészítése folyamatban
+
+------mit, miért, hogyan, mikor és mibõl-----
+..A rendszer célja..
+A program célja, hogy a felhasználója, minél könnyebben és hatékonyabban elsajátíthassa az általa kívánt nyelve(ke)t. 
+Ehhez 2 módot is alkalmazunk: Egy szótárat, melyben a felhasználó maga adja meg a kívánt nyelve(ke)t és ahhoz a szavakat, így nem egy általános szótárt kap, hanem csak azokat melyekre tényleg szüksége van. A másik mód a tudásteszt ahol a hozzáadott szavait tudja gyakorolni.
+
+A projekt-ben elkészített aplikáció Androidos operációs rendszerekkel rendelkezõ készülékekre van tervezve - elsõdlegesen telefonokra. Ebbõl következik, hogy lesznek java és xml forráskódjaink. Az adatbázist Sqlite-ban valósítjuk meg.
+Az egész aplikáció az MVP fizikai tervezésmintára épül.
+
+Felhasznált programok
+- Android Studio
+- Genymotion (program szimulálására)
+- SQLiteman (az adatbázis szerkezetének elkészítésére)
+- MySQL WorkBench (adatbázis szerkezetének modellezésére, tervezésre)
+- Sublime Text 2 (forráskód olvasására)
+- Pidoco (külsõ tervezéshez)
+
+...Projekt terv...
+Projekt szerepkörök, felelõsségek:
+Modell réteg : adatbázis tervezése, megvalósítása, karbantartása
+View réteg : külsõ réteg
+Presenter réteg : az elõzõ két réteg közötti kapcsolatok megvalósítása (logika)
+
+...Projekt munkások és felelõsségeik...
+Csávás Gergely (projektvezetõ): View réteg, projekt irányítása
+Nyirati Máté Zsolt: Presenter réteg
+Buda Viktor: Modell réteg
+
+
+
+...Üzleti folyamatok modellje...
+
+..Követelmények...
+
+..Funkcionális terv..
+
+...Fizikai környezet...
+
+...Absztrakt domain modell...
+
+...Architekturális terv...
+
+....Adatbázis terv....
+//majd ezt én megcsinálom (pictori)
+
+...Implementációs terv...
+
+...Tesztterv...
+
+...Telepítési terv...
+
+...Karbantartási terv...
+
+
+---Logikai rendszerterv---
+
+--Fizikai Rendszerterv--
