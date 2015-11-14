@@ -1,5 +1,6 @@
 package com.ekfej.dictatore;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -56,16 +57,6 @@ public class DatabaseAccess {
      *
      * @return a List of quotes
      */
-    public List<String> getQuotes() {
-        List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT Name FROM Languages", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(0));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
+
 }
 

@@ -1,6 +1,5 @@
 package com.ekfej.dictatore;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -25,9 +24,11 @@ public class NyelvValaszto1Activity extends AppCompatActivity {
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        List<String> quotes = databaseAccess.getQuotes();
+        //databaseAccess.LanguageInsert("rab", 66);
+        List<String> quotes = databaseAccess.LanguageSelect();
         databaseAccess.close();
 
+        databaseAccess.LanguageInsert("rab", 66);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.listView.setAdapter(adapter);
     }

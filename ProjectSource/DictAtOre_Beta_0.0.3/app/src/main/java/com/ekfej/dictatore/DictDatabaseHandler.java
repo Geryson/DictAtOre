@@ -6,10 +6,76 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
- * Created by Buda Viktor on 2015.11.03..
+ * Created by Buda Viktor
  */
-public class DictDatabaseHandler extends SQLiteOpenHelper{
+    public class DictDatabaseHandler {
+    Context context;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(null);
+
+    public List<String> LanguageSelect() {
+
+        databaseAccess.open();
+        List<String> quotes = databaseAccess.LanguageSelect();
+        databaseAccess.close();
+        List<String> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT Name FROM Languages", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    //saját
+
+    public boolean LanguageInsert(String Name, int Id) {
+
+        ContentValues cv = new ContentValues();
+        cv.put("Id", Id);
+        cv.put("Name", Name);
+        //String sql="insert into Languages (ID, Name) values (" + Id + Name + ")" ;
+        //Cursor cursor = database.rawQuery(sql, null);
+        database.insert("Languages", "Id", cv);
+        return true;
+    }
+    public boolean LanguageUpdate(String NewName,String OldName) {
+        String sql="update Languages SET Name= " + NewName + " where Name= " + OldName ;
+        Cursor cursor = database.rawQuery(sql, null);
+        return true;
+    }
+    public boolean LanguageDelete(String Name) {
+        String sql="delete from Languages where Name= " + Name ;
+        Cursor cursor = database.rawQuery(sql, null);
+        return true;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    public class DictDatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "DictDatabaseV2.db";
@@ -94,7 +160,7 @@ public class DictDatabaseHandler extends SQLiteOpenHelper{
         return result;
     }
 }
-
+*/
 
 
 
