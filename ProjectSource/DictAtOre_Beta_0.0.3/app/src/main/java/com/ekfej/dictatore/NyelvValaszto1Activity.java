@@ -24,11 +24,17 @@ public class NyelvValaszto1Activity extends AppCompatActivity {
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        //databaseAccess.LanguageInsert("rab", 66);
+        //ezek a parancsok mind működnek
+        //databaseAccess.LanguageDelete("rabbiwdwd");
+        //databaseAccess.LanguageUpdate("Francia", "terrolista");
+        //databaseAccess.LanguageInsert("Orosz", 158);
+        //databaseAccess.WordInsert("Orosz", 158, 5, 2);
+         // jelen állapotban csak úgy működik (tudtam megoldani), hogy mielőtt az insert fgv-t meghívjuk, példányosítani kell és előtte open, utána close
+         // fgv-eket meg kell hívni, ugyanez igaz a selctre és a töbire is...
         List<String> quotes = databaseAccess.LanguageSelect();
         databaseAccess.close();
 
-        databaseAccess.LanguageInsert("rab", 66);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.listView.setAdapter(adapter);
     }
