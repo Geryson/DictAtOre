@@ -9,45 +9,52 @@ insert into words values (25,"autóbusz", 18, 1);
 
 select * from languages;
 
-select * from words;
-
-
-//új szavak felvitele
-insert into words (word, meaning, language_ID) values ("autóusz", 18, 1); //values utáni értékek kicserélése változóra
-insert into words (word, meaning, language_ID) values ("autóusz", NULL, 1); //ha nincs még párja
-//az fontos lehet hogy a szó mindig arra a szóra mutasson ami rá mutat (oda-vissza mutassanak)
-
-
-//szavak törlése
-delete from words where (word = "busz"  and Language_ID=1); //máté szerint öszes word mezõvel megegyzezõ és nyelvû szót and meaning= (select  ID from words where ID=1);
-select  ID from words where ID=(select meaning from words where Language_ID= 1);
-select * from words where Language_ID=1;
-
-update words SET meaning= NULL where meaning = 9;  // szavak törlésekor a rámutató szavak meaningje legyen null  
-update words SET meaning= NULL where meaning = (select ID from words where Language_ID=2 and word="bus" ); 
-
- //szavak módosítása
- update words Set word=""  where ID=1;
- update words Set meaning=5 where ID=1;
- update words Set Language_ID=2 where ID=1;
- 
- //szavak listázása
+select * from words;
+
+
+//új szavak felvitele
+insert into words (word, meaning, language_ID) values ("autóusz", 18, 1); //values utáni értékek kicserélése változóra
+insert into words (word, meaning, language_ID) values ("autóusz", NULL, 1); //ha nincs még párja
+//az fontos lehet hogy a szó mindig arra a szóra mutasson ami rá mutat (oda-vissza mutassanak)
+
+
+//szavak törlése
+delete from words where (word = "busz"  and Language_ID=1); //máté szerint öszes word mezõvel megegyzezõ és nyelvû szót and meaning= (select  ID from words where ID=1);
+select  ID from words where ID=(select meaning from words where Language_ID= 1);
+select * from words where Language_ID=1;
+
+update words SET meaning= NULL where meaning = 9;  // szavak törlésekor a rámutató szavak meaningje legyen null  
+update words SET meaning= NULL where meaning = (select ID from words where Language_ID=2 and word="bus" ); 
+
+ //szavak módosítása
+ update words Set word=""  where ID=1;
+ update words Set meaning=5 where ID=1;
+ update words Set Language_ID=2 where ID=1;
+ 
+ //szavak listázása
  select * from words where  Language_ID = (select ID from  languages where Name = 'Német' ); //azok a szavak listázása melyek .. nyevûek
 
  select * from words where  Language_ID = (select ID from  languages where Name = 'Német')and word like  '%us%'; //azok a szavak listázása melyek .. nyelvûek és .. rész van a szóban
 
 SELECT * FROM `words` WHERE Meaning = (select ID from words where word="bus" and 
  Language_ID= (select ID from  languages where Name = 'Német')) and
- Language_ID = (select ID from  languages where Name = 'Magyar'); //a .. szónak mely .. nyelvû, a .. nyelvû párjai
+ Language_ID = (select ID from  languages where Name = 'Magyar'); //a .. szónak mely .. nyelvû, a .. nyelvû párjai
+ 
+ //nyelvek felvite
+ insert into Languages (Name) values ("Arab"); 
+ 
+ //nyelvek törlése
+ delete from Languages where Name='Arab';
+ 
+ //nyelvek módosítása
+ update Languages SET Name="arab" where Name="Arab";
+ 
+ //nyelvek listázása
+ select Name from Languages;
  
- //nyelvek felvite
- insert into Languages (Name) values ("Arab"); 
  
- //nyelvek törlése
- delete from Languages where Name='Arab';
  
- //nyelvek módosítása
- update Languages SET Name="arab" where Name="Arab";
  
- //nyelvek listázása
- select Name from Languages;
+ 
+ update words Set word= "buszocska"  where word= "autó" and nyelv=nyelv and meaning =1;
+ update words SET word= "" where meaning = (select ID from words where Language_ID=2 and word="bus" ); 

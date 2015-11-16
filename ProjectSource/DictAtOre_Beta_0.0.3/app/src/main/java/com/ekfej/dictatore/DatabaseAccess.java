@@ -73,7 +73,7 @@ public class DatabaseAccess {
 
     public List<String> WordsSelect(String Name) {  //nem tökéletes
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("select word from words where nyelv = (select ID from languages where Name =\"" + Name + "\")", null);
+        Cursor cursor = database.rawQuery("select word from words where Languages_ID = (select ID from languages where Name =\"" + Name + "\")", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
@@ -85,10 +85,10 @@ public class DatabaseAccess {
 
     //saját
 
-    public boolean WordInsert(String word, int Id, int meaning, int Language_ID) {
+    public boolean WordInsert(String word, int meaning, int Language_ID) {
 
         try {
-            String sql = "insert into Words (Id, word, meaning, nyelv) values (" + Id + ", \"" + word + "\" ," + meaning + ", " + Language_ID + ")";
+            String sql = "insert into Words (word, meaning, Language_ID) values (\"" + word + "\" ," + meaning + ", " + Language_ID + ")";
             database.execSQL(sql);
             return true;
         }
@@ -97,7 +97,7 @@ public class DatabaseAccess {
             return false;
         }
     }
-    public boolean LanguageInsert(String Name, int Id) {
+    public boolean LanguageInsert(String Name) {
 
         try {
 
@@ -107,7 +107,7 @@ public class DatabaseAccess {
             cv.put("Name", Name);
             database.insert("Languages", "Id", cv);
             */
-            String sql="insert into Languages (ID, Name) values (" + Id + ", \"" + Name + "\")" ;
+            String sql="insert into Languages ( Name) values (\"" + Name + "\")" ;
             database.execSQL(sql);
 
             return true;
@@ -129,19 +129,61 @@ public class DatabaseAccess {
             return  false;
         }
     }
+    public boolean WordsWordUpdate(String NewWord, String OldWord, int Meaning, int Language_ID) {
+
+        try {
+            String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Languages_ID=" + Language_ID + "and meaning =" + Meaning;
+            database.execSQL(sql);
+            return true;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            return  false;
+        }
+    }
+    public boolean WordsMeaningUpdate(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
+
+        try {
+            String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Languages_ID=" + Language_ID + "and word =\"" + Word + "\"";
+            database.execSQL(sql);
+            return true;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            return  false;
+        }
+    }
+    public boolean WordsLanguages_IDUpdate(int NewLanguages_ID, int OldLanguages_ID, int Meaning, String Word) {
+
+        try {
+            String sql = "update words Set Languages_ID="+ NewLanguages_ID + "  where Languages_ID=" + OldLanguages_ID + " and meaning=" + Meaning + "and word=\"" + Word + "\"";
+            database.execSQL(sql);
+            return true;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            return  false;
+        }
+    }
     public boolean LanguageDelete(String Name) {
         try {
             String sql = "delete from Languages where Name= \"" + Name + "\"";
             database.execSQL(sql);
-        /*
-        ContentValues cv = new ContentValues();
-        cv.put("Id", Id);
-        cv.put("Name", Name);
-        database.delete("Language", Name, cv);
-        */
+
             return true;
         }
         catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean WordDelete(String Name) {
+        try {
+            String sql = "delete from Words where Name= \"" + Name + "\"";
+            database.execSQL(sql);
+
+            return true;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
