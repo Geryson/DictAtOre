@@ -60,6 +60,7 @@ public class DatabaseAccess {
      * @return a List of quotes
      */
     public List<String> LanguageSelect() {
+        open();
         List<String> list = new ArrayList<>();
         Cursor cursor = database.rawQuery("SELECT Name FROM Languages", null);
         cursor.moveToFirst();
@@ -68,37 +69,42 @@ public class DatabaseAccess {
             cursor.moveToNext();
         }
         cursor.close();
+        close();
         return list;
     }
 
     public List<String> WordsSelect(String Name) {  //nem tökéletes
+        open();
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("select word from words where Languages_ID = (select ID from languages where Name =\"" + Name + "\")", null);
+        Cursor cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\")", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
             cursor.moveToNext();
         }
         cursor.close();
+        close();
         return list;
     }
 
     //saját
 
     public boolean WordInsert(String word, int meaning, int Language_ID) {
-
+        open();
         try {
             String sql = "insert into Words (word, meaning, Language_ID) values (\"" + word + "\" ," + meaning + ", " + Language_ID + ")";
             database.execSQL(sql);
+            close();
             return true;
         }
         catch (SQLException e) {
             e.printStackTrace();
+            close();
             return false;
         }
     }
     public boolean LanguageInsert(String Name) {
-
+        open();
         try {
 
             /* Ez is működik (beépített insert fgv), de már megtaláltam hol írhatom be a saját sql parancsaim :D
@@ -109,82 +115,95 @@ public class DatabaseAccess {
             */
             String sql="insert into Languages ( Name) values (\"" + Name + "\")" ;
             database.execSQL(sql);
-
+            close();
             return true;
         }
         catch (SQLException e) {
             e.printStackTrace();
+            close();
             return false;
         }
     }
     public boolean LanguageUpdate(String NewName,String OldName) {
-
+        open();
         try {
             String sql = "update Languages SET Name= \"" + NewName + "\" where Name= \"" + OldName + "\"";
             database.execSQL(sql);
+            close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            close();
             return  false;
         }
     }
     public boolean WordsWordUpdate(String NewWord, String OldWord, int Meaning, int Language_ID) {
-
+        open();
         try {
-            String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Languages_ID=" + Language_ID + "and meaning =" + Meaning;
+            String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Language_ID=" + Language_ID + "and meaning =" + Meaning;
             database.execSQL(sql);
+            close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            close();
             return  false;
         }
     }
     public boolean WordsMeaningUpdate(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
-
+        open();
         try {
-            String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Languages_ID=" + Language_ID + "and word =\"" + Word + "\"";
+            String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Language_ID=" + Language_ID + "and word =\"" + Word + "\"";
             database.execSQL(sql);
+            close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            close();
             return  false;
         }
     }
-    public boolean WordsLanguages_IDUpdate(int NewLanguages_ID, int OldLanguages_ID, int Meaning, String Word) {
-
+    public boolean WordsLanguage_IDUpdate(int NewLanguage_ID, int OldLanguage_ID, int Meaning, String Word) {
+        open();
         try {
-            String sql = "update words Set Languages_ID="+ NewLanguages_ID + "  where Languages_ID=" + OldLanguages_ID + " and meaning=" + Meaning + "and word=\"" + Word + "\"";
+            String sql = "update words Set Language_ID="+ NewLanguage_ID + "  where Language_ID=" + OldLanguage_ID + " and meaning=" + Meaning + "and word=\"" + Word + "\"";
             database.execSQL(sql);
+            close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            close();
             return  false;
         }
     }
     public boolean LanguageDelete(String Name) {
+        open();
         try {
             String sql = "delete from Languages where Name= \"" + Name + "\"";
             database.execSQL(sql);
-
+            close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            close();
             return false;
         }
     }
     public boolean WordDelete(String Name) {
+        open();
         try {
             String sql = "delete from Words where Name= \"" + Name + "\"";
             database.execSQL(sql);
-
+            close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            close();
             return false;
         }
     }
