@@ -6,15 +6,22 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.jar.Attributes;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
     private static DatabaseAccess instance;
+    private List<Words> WordsObject;
+    public Dictionary<Words,Languages>  Dict;
 
     /**
      * Private constructor to aboid object creation from outside classes.
@@ -113,10 +120,13 @@ public class DatabaseAccess {
             cv.put("Name", Name);
             database.insert("Languages", "Id", cv);
             */
-            String sql="insert into Languages ( Name) values (\"" + Name + "\")" ;
-            database.execSQL(sql);
-            close();
-            return true;
+            if(Name == null || Name == "") {return false;} //többi fgv-nél is kell vizsgálni (de itt se működik rendesen)
+            else {
+                String sql = "insert into Languages ( Name) values (\"" + Name + "\")";
+                database.execSQL(sql);
+                close();
+                return true;
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -155,6 +165,7 @@ public class DatabaseAccess {
     public boolean WordsMeaningUpdate(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
         open();
         try {
+            //if (NewMeaning == -1) { NewMeaning = null;}
             String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Language_ID=" + Language_ID + "and word =\"" + Word + "\"";
             database.execSQL(sql);
             close();
@@ -194,10 +205,17 @@ public class DatabaseAccess {
             return false;
         }
     }
-    public boolean WordDelete(String Name) {
+
+    public boolean WordDelete(String Name) {  //ne használd még nincs kész
         open();
         try {
-            String sql = "delete from Words where Name= \"" + Name + "\"";
+            //kikeressük a keresett szót
+            int modifyLanguage_ID = 0; //ide
+            String modifyword =""; //ide
+            int modifyoldmeaning = 0; //és ide belerakjuk a keresett szó elemeit
+            int modifymeaning = -1;
+            WordsMeaningUpdate(modifymeaning, modifyoldmeaning, modifyword, modifyLanguage_ID); //itt módosítjuk a kersett szónak a meaningjét
+            String sql = "delete from Words where Name= \"" + Name + "\""; //itt pedig töröljük a törölni kívánt szót
             database.execSQL(sql);
             close();
             return true;

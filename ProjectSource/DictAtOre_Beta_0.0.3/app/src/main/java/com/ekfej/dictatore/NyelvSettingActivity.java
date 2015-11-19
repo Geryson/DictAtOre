@@ -1,34 +1,40 @@
 package com.ekfej.dictatore;
 
+import android.app.PendingIntent;
+import android.content.IntentSender;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class NyelvSettingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button TudastesztButton, SzotarakButton;
+    Button Ok;
+    EditText LanguageName;
+    String Name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_nyelv_setting);
 
-		TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //nem kell újrapéldányosítani
-        TudastesztButton.setOnClickListener(this);
+        Ok = (Button) findViewById(R.id.OkButton);
+        Ok.setOnClickListener(this);
 
-        SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
-        SzotarakButton.setOnClickListener(this);
+        LanguageName = (EditText) findViewById(R.id.LanguageNameText);
+        LanguageName.getText();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_nyelv_setting, menu);
         return true;
     }
 
@@ -49,18 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, NyelvValaszto1Activity.class);
-
-        String nextActivity = v == TudastesztButton ? "Tudásteszt" : "Szótárak"; //jelöljük a nyelvválasztást követő Activity azonosítóját
-        Bundle bundy = new Bundle();
-        bundy.putString("nextActivity", nextActivity);
-        intent.putExtras(bundy); // és beletesszük a futtatandó intentbe
-
-        startActivity(intent);
+        if(v == Ok)
+        {
+            Name = LanguageName.getText().toString();
+            DatabaseAccess db = DatabaseAccess.getInstance(this);
+            db.LanguageInsert(Name);
+            finish();
+        }
 
     }
 }
-
-
-
-

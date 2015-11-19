@@ -23,6 +23,10 @@
             android:name=".Szotar_ValasztoActivity"
             android:label="@string/title_activity_szotar__valaszto" >
         </activity>
+        <activity
+            android:name=".NyelvSettingActivity"
+            android:label="@string/title_activity_nyelv_setting" >
+        </activity>
     </application>
 
 </manifest>
