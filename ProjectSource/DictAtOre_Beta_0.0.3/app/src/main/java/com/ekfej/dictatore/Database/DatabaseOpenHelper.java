@@ -1,4 +1,4 @@
-package com.ekfej.dictatore;
+package com.ekfej.dictatore.Database;
         import android.content.Context;
 
         import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;

@@ -1,17 +1,19 @@
-package com.ekfej.dictatore;
+package com.ekfej.dictatore.Database;
 
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.widget.EditText;
+
+import java.util.List;
 
 /**
  * Created by Buda Viktor on 2015.11.03..
  */
     public class DictDatabaseHandler {
-
-
 
 
 }

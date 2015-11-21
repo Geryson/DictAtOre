@@ -1,4 +1,4 @@
-package com.ekfej.dictatore;
+package com.ekfej.dictatore.Database;
 
 /**
  * Created by Buda Viktor on 2015.11.03..

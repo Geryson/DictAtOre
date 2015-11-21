@@ -1,27 +1,20 @@
-package com.ekfej.dictatore;
+package com.ekfej.dictatore.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
+import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Dictionary;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.jar.Attributes;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
     private static DatabaseAccess instance;
-    private List<Words> WordsObject;
-    public Dictionary<Words,Languages>  Dict;
 
     /**
      * Private constructor to aboid object creation from outside classes.
@@ -42,6 +35,7 @@ public class DatabaseAccess {
         if (instance == null) {
             instance = new DatabaseAccess(context);
         }
+
         return instance;
     }
 
@@ -228,6 +222,29 @@ public class DatabaseAccess {
         } catch (SQLException e) {
             e.printStackTrace();
             close();
+            return false;
+        }
+    }
+    //endregion
+
+    //region Presenter rétegnek való fgv-ek
+    public boolean LanguageInsert(EditText LanguageName) {
+        String Name = LanguageName.getText().toString();
+        List<String> nyelvek = LanguageSelect();
+        boolean re = true;
+        for (int i=0; i < nyelvek.size(); i++)
+        {
+            String n = nyelvek.get(i);
+            if (nyelvek.get(i).toString() == Name.toString())
+            {
+                re = false;
+                break;
+            }
+        }
+        if (re == true && 0 < (Name.length())) {
+            LanguageInsert(Name);
+            return true;
+        } else {
             return false;
         }
     }

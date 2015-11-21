@@ -1,8 +1,5 @@
 package com.ekfej.dictatore;
 
-import android.app.PendingIntent;
-import android.content.IntentSender;
-import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.content.Intent;
 import android.widget.Toast;
+
+import com.ekfej.dictatore.Database.DatabaseAccess;
 
 public class NyelvSettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,11 +58,8 @@ public class NyelvSettingActivity extends AppCompatActivity implements View.OnCl
         if(v == Ok)
         {
 
-                Name = LanguageName.getText().toString();
-
-            if ( 0 < (Name.length())) {
                 DatabaseAccess db = DatabaseAccess.getInstance(this);
-                db.LanguageInsert(Name);
+            if (db.LanguageInsert(LanguageName)) {
                 finish();
             }
             else {
