@@ -4,3 +4,4 @@ http://zeus.nyf.hu/~blahota/sqlite/SQLite_13_06_03.pdf  		//sqlite alapok
 https://intermatrix.hu/regexp					//reguláris kifejezések
 http://www.techotopia.com/index.php/An_Android_Studio_SQLite_Database_Tutorial    //sqlite androidban
 http://sqlitebrowser.org/	//alternatív .db-szerkesztõ, nekem (Gery) jobban tetszik az Sqliteman-nál ;)
+http://szatyika.hu/files/Android_26m3y1we.alapu.szoftverfejlesztes.2012.eBOOk-digIT.pdf  //android könyv
