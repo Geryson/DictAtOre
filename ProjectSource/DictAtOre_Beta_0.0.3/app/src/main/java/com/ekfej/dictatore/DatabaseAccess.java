@@ -96,6 +96,8 @@ public class DatabaseAccess {
 
     //saját
 
+    //region Elemi fgv-ek
+
     public boolean WordInsert(String word, int meaning, int Language_ID) {
         open();
         try {
@@ -110,6 +112,7 @@ public class DatabaseAccess {
             return false;
         }
     }
+
     public boolean LanguageInsert(String Name) {
         open();
         try {
@@ -120,13 +123,14 @@ public class DatabaseAccess {
             cv.put("Name", Name);
             database.insert("Languages", "Id", cv);
             */
-            if(Name == null || Name == "") {return false;} //többi fgv-nél is kell vizsgálni (de itt se működik rendesen)
-            else {
+
+
                 String sql = "insert into Languages ( Name) values (\"" + Name + "\")";
                 database.execSQL(sql);
                 close();
                 return true;
-            }
+
+
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -206,16 +210,18 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean WordDelete(String Name) {  //ne használd még nincs kész
+    public boolean WordDelete(String Name, int Language_ID) {  //ne használd még nincs kész
         open();
         try {
+            /*
             //kikeressük a keresett szót
             int modifyLanguage_ID = 0; //ide
             String modifyword =""; //ide
             int modifyoldmeaning = 0; //és ide belerakjuk a keresett szó elemeit
             int modifymeaning = -1;
             WordsMeaningUpdate(modifymeaning, modifyoldmeaning, modifyword, modifyLanguage_ID); //itt módosítjuk a kersett szónak a meaningjét
-            String sql = "delete from Words where Name= \"" + Name + "\""; //itt pedig töröljük a törölni kívánt szót
+            */
+            String sql = "delete from Words where Name= \"" + Name + "\" and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
             database.execSQL(sql);
             close();
             return true;
@@ -225,5 +231,6 @@ public class DatabaseAccess {
             return false;
         }
     }
+    //endregion
 }
 
