@@ -38,7 +38,10 @@ gépelés alatt is a helyén marad minden alsóvonal, amit még nem írtunk felül betû
 belül hol tart.
 
 A következõ alkalomtól kezdve az bizonyul segítségnek, hogy a megfejtést jelképezõ alsóvonalak egyikét a megfejtendõ
-kifejezés aktuális betûjére cseréljük. Egy ilyen segítség kérésekor a már szövegmezõbe írt betûk törölve lesznek. Úgy is eljuthatunk a teljes megfejtésig, ha a Segítség gomb "elárulja" a felhasználónak az összes betût - igaz, ez nem cél a szavak
+kifejezés aktuális betûjére cseréljük. Egy ilyen segítség kérésekor a már szövegmezõbe írt betûk törölve lesznek. Úgy is 
+eljuthatunk a teljes megfejtésig, ha a Segítség gomb "elárulja" a felhasználónak az összes betût - igaz, ez nem cél a szavak 
 tanulása során.
 
-SZÓTÁRAK: ...
+SZÓTÁRAK: a gomb megnyomását követõen az alkalmazáshoz adott szótárakat, illetve azok tartalmát tudjuk módosítani. Hasonló 
+nyelvválasztó-lista jelenik meg, mint a Tudáspróba gomb megnyomásakor, de van egy fontos különbség: egy gombbal új nyelv is a
+listához adható. (Törlés még nincs eldöntve, folytatás hamarosan...)

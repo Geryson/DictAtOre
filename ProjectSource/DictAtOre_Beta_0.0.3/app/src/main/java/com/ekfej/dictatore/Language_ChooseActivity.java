@@ -28,10 +28,12 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
         NewLanguageButton = (Button) findViewById(R.id.NewLanguageButton);
         NewLanguageButton.setOnClickListener(this);
+        if (nextActivity.length() == 8){
+            NewLanguageButton.setVisibility(View.VISIBLE);
+        }
 
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
 
         //ezek a parancsok mind működnek
         //databaseAccess.LanguageDelete("rabbiwdwd");
@@ -41,7 +43,6 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
          // jelen állapotban úgy működik (tudtam megoldani), hogy mielőtt az insert fgv-t meghívjuk, példányosítani kell a databaseaccess-t
          // ugyanez igaz a selectre és a töbire is...
         List<String> quotes = databaseAccess.LanguageSelect();
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.listView.setAdapter(adapter);

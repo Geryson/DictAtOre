@@ -48,17 +48,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, Language_ChooseActivity.class);
-
-        String nextActivity = v == TudastesztButton ? "Tudásteszt" : "Szótárak"; //jelöljük a nyelvválasztást követő Activity azonosítóját
         Bundle bundy = new Bundle();
-        bundy.putString("nextActivity", nextActivity);
-        intent.putExtras(bundy); // és beletesszük a futtatandó intentbe
+        if (v == this.TudastesztButton){
+            bundy.putString("nextActivity", "Tudásteszt");
+        }
+        else{
+            bundy.putString("nextActivity", "Szótárak");
+        }
+
+        intent.putExtras(bundy);
 
         startActivity(intent);
 
     }
 }
-
-
-
-
