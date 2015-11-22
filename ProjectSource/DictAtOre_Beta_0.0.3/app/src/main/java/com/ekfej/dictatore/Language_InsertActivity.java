@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 
-public class NyelvSettingActivity extends AppCompatActivity implements View.OnClickListener {
+public class Language_InsertActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button Ok;
     EditText LanguageName;
@@ -21,7 +21,7 @@ public class NyelvSettingActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nyelv_setting);
+        setContentView(R.layout.activity_language_insert);
 
         Ok = (Button) findViewById(R.id.OkButton);
         Ok.setOnClickListener(this);

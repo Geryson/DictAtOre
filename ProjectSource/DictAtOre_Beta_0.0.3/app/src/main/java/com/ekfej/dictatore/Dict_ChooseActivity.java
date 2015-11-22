@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Szotar_ValasztoActivity extends AppCompatActivity {
+public class Dict_ChooseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_szotar__valaszto);
+        setContentView(R.layout.activity_dict_choose);
     }
 
     @Override

@@ -13,14 +13,14 @@ import com.ekfej.dictatore.Database.DatabaseAccess;
 
 import java.util.List;
 
-public class NyelvValaszto1Activity extends AppCompatActivity implements View.OnClickListener {
+public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nyelv_valaszto1);
+        setContentView(R.layout.activity_language_choose);
 
         Bundle bundy = getIntent().getExtras();
         String nextActivity = bundy.getString("nextActivity"); //kiszedjük az intent extra tartalmát
@@ -51,7 +51,7 @@ public class NyelvValaszto1Activity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (v == NewLanguageButton)
         {
-            Intent intent = new Intent(this, NyelvSettingActivity.class);
+            Intent intent = new Intent(this, Language_InsertActivity.class);
 
             String nextActivity = "Felvitel";
             Bundle bundy = new Bundle();

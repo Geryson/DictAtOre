@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.ekfej.dictatore.SzotarActivity"
+    tools:context="com.ekfej.dictatore.DictActivity"
     android:background="@color/hatter1">
 
     <LinearLayout
