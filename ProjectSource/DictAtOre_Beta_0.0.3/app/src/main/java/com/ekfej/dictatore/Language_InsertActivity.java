@@ -59,7 +59,8 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
         {
 
                 DatabaseAccess db = DatabaseAccess.getInstance(this);
-            if (db.LanguageInsert(LanguageName)) {
+            if (db.LanguageInsert(LanguageName)){
+                setResult(RESULT_OK);
                 finish();
             }
             else {

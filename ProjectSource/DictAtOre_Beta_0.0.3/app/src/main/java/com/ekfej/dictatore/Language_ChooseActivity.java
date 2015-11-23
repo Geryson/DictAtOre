@@ -16,6 +16,7 @@ import java.util.List;
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton;
+    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,15 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
             bundy.putString("nextActivity", nextActivity);
             intent.putExtras(bundy); // és beletesszük a futtatandó intentbe
 
-            startActivity(intent);
-
+            startActivityForResult(intent, 0);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        List<String> quotes = databaseAccess.LanguageSelect();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
+        this.listView.setAdapter(adapter);
     }
 }
