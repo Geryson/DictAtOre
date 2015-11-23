@@ -35,6 +35,8 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
+        databaseAccess.WordDelete();
+
         //ezek a parancsok mind működnek
         //databaseAccess.LanguageDelete("rabbiwdwd");
         //databaseAccess.LanguageUpdate("Francia", "terrolista");

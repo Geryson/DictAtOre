@@ -77,7 +77,14 @@ public class DatabaseAccess {
     public List<String> WordsSelect(String Name) {  //nem tökéletes
         open();
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\")", null);
+        Cursor cursor;
+        if (Name == "-")
+        {
+            cursor = database.rawQuery("select word from words", null);
+        }
+        else {
+            cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\")", null);
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
@@ -247,6 +254,12 @@ public class DatabaseAccess {
         } else {
             return false;
         }
+    }
+
+    public boolean WordDelete()
+    {
+        List<String> Szavak = WordsSelect("-");
+        return true;
     }
     //endregion
 }
