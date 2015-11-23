@@ -16,7 +16,7 @@ import java.util.List;
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton;
-    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    //DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-
-        databaseAccess.WordDelete();
+        
 
         //ezek a parancsok mind működnek
         //databaseAccess.LanguageDelete("rabbiwdwd");
@@ -49,6 +48,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     }
 
     private void LoadList(DatabaseAccess databaseAccess) {
+
         List<String> quotes = databaseAccess.LanguageSelect();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.listView.setAdapter(adapter);
@@ -71,6 +71,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         LoadList(databaseAccess);
     }
 }

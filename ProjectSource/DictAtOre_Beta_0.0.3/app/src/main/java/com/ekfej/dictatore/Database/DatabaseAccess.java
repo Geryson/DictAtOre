@@ -85,6 +85,7 @@ public class DatabaseAccess {
         else {
             cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\")", null);
         }
+
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
@@ -256,7 +257,7 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean WordDelete()
+    public boolean WordDelete() //csak bele van kezdve
     {
         List<String> Szavak = WordsSelect("-");
         return true;
