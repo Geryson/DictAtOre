@@ -57,14 +57,15 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         if(v == Ok)
         {
-
+                String hiba = "Nincs hiba";
                 DatabaseAccess db = DatabaseAccess.getInstance(this);
             if (db.LanguageInsert(LanguageName)){
                 setResult(RESULT_OK);
                 finish();
             }
             else {
-                Toast.makeText(this, "Üres mező", Toast.LENGTH_SHORT).show();
+                if (! db.NullHossz(LanguageName.getText().toString())) { hiba = "Üres mező"; }  else { hiba = "Már létezik";}
+                Toast.makeText(this, hiba, Toast.LENGTH_SHORT).show();
             }
         }
 

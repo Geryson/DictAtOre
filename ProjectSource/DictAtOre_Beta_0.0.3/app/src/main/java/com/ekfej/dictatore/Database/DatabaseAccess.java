@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+import com.ekfej.dictatore.Language_InsertActivity;
+
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -249,20 +251,28 @@ public class DatabaseAccess {
         for (int i=0; i < nyelvek.size(); i++)
         {
             String n = nyelvek.get(i);
-            if (nyelvek.get(i).toString() == Name.toString())
+           if( Name.equals(nyelvek.get(i)))
+
             {
                 re = false;
                 break;
             }
         }
-        if (re == true && 0 < (Name.length())) {
+        if (re == true && NullHossz(Name)) {
             LanguageInsert(Name);
+            return true;
+        } else {
+            //if (re == true ) { hiba = "Üres mező"; } else { hiba = "Már létezik";}
+            return false;
+        }
+    }
+    public boolean NullHossz(String szoveg) {
+        if ( 0 < (szoveg.length())) {
             return true;
         } else {
             return false;
         }
     }
-
     public boolean WordDelete() //csak bele van kezdve
     {
         List<String> Szavak = WordsSelect("-");
