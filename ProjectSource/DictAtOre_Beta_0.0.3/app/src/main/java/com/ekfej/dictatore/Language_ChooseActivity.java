@@ -93,6 +93,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                 Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show();
                 DatabaseAccess db= DatabaseAccess.getInstance(this);
                 db.LanguageDelete(Language);
+                LoadList(db);
             }
         }
     }
