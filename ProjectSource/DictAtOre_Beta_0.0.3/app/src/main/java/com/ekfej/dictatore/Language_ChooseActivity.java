@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +17,8 @@ import java.util.List;
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton;
+    Button DeleteLanguageButton;
+    String Language= null;
     //DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
     @Override
@@ -29,24 +32,38 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
         NewLanguageButton = (Button) findViewById(R.id.NewLanguageButton);
         NewLanguageButton.setOnClickListener(this);
+        DeleteLanguageButton = (Button) findViewById(R.id.DeleteLanguageButton);
+        DeleteLanguageButton.setOnClickListener(this);
+
         if (nextActivity.length() == 8){
             NewLanguageButton.setVisibility(View.VISIBLE);
+            DeleteLanguageButton.setVisibility(View.VISIBLE);
         }
 
         this.listView = (ListView) findViewById(R.id.listView);
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        
+        listView.setOnItemClickListener(ListClick);
 
-        //ezek a parancsok mind működnek
-        //databaseAccess.LanguageDelete("rabbiwdwd");
-        //databaseAccess.LanguageUpdate("Francia", "terrolista");
-        //databaseAccess.LanguageInsert("Olasz");
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+
 
          // jelen állapotban úgy működik (tudtam megoldani), hogy mielőtt az insert fgv-t meghívjuk, példányosítani kell a databaseaccess-t
          // ugyanez igaz a selectre és a töbire is...
         LoadList(databaseAccess);
     }
 
+    public final ListView.OnItemClickListener ListClick = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            // your action
+            if (view != NewLanguageButton && view !=DeleteLanguageButton) {
+
+            DatabaseAccess db = DatabaseAccess.getInstance(this);
+              List<String> L =  db.LanguageSelect();
+                Language = L.get(position); //nem tudtam kiszedni az itemet
+
+
+            }
+        }
+    };
     private void LoadList(DatabaseAccess databaseAccess) {
 
         List<String> quotes = databaseAccess.LanguageSelect();
@@ -66,6 +83,17 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
             intent.putExtras(bundy); // és beletesszük a futtatandó intentbe
 
             startActivityForResult(intent, 0);
+        }
+
+
+        if (v == DeleteLanguageButton)
+        {
+            if(Language != null) {
+                String nextActivity = "Törlés";
+                Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show();
+                DatabaseAccess db= DatabaseAccess.getInstance(this);
+                db.LanguageDelete(Language);
+            }
         }
     }
 

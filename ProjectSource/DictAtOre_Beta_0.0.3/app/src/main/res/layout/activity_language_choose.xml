@@ -16,11 +16,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Új nyelv"
+        android:text="@string/NewLanguageButton"
         android:id="@+id/NewLanguageButton"
         android:layout_alignTop="@+id/listView"
         android:layout_alignRight="@+id/listView"
         android:layout_alignEnd="@+id/listView"
         android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Törlés"
+        android:id="@+id/DeleteLanguageButton"
+        android:layout_below="@+id/NewLanguageButton"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView"
+        android:visibility="invisible"
+        android:layout_marginTop="39dp" />
+
 
 </RelativeLayout>

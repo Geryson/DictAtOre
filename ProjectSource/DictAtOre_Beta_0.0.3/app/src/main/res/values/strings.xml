@@ -6,4 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_szotar__valaszto">Szotar_ValasztoActivity</string>
     <string name="title_activity_nyelv_setting">NyelvSettingActivity</string>
+    <string name="DeleteLanguageButton">Törlés</string>
+    <string name="NewLanguageButton">Új nyelv</string>
 </resources>

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -35,6 +36,11 @@ public class DatabaseAccess {
         if (instance == null) {
             instance = new DatabaseAccess(context);
         }
+
+        return instance;
+    }
+
+    public static DatabaseAccess getInstance(AdapterView.OnItemClickListener onItemClickListener) { //működik, kérdés hogy baj-e hogy nincs feltétel
 
         return instance;
     }
@@ -74,7 +80,7 @@ public class DatabaseAccess {
         return list;
     }
 
-    public List<String> WordsSelect(String Name) {  //nem tökéletes
+    public List<String> WordsSelect(String Name) {
         open();
         List<String> list = new ArrayList<>();
         Cursor cursor;
@@ -262,6 +268,8 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
+
+
     //endregion
 }
 
