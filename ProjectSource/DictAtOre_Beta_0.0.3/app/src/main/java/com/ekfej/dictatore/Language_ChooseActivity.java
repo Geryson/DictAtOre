@@ -13,11 +13,13 @@ import android.widget.Toast;
 import com.ekfej.dictatore.Database.DatabaseAccess;
 
 import java.util.List;
+import java.util.jar.Attributes;
 
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton;
     Button DeleteLanguageButton;
+    Button UpdateLanguageButton;
     String Language= null;
     //DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
 
@@ -34,10 +36,13 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         NewLanguageButton.setOnClickListener(this);
         DeleteLanguageButton = (Button) findViewById(R.id.DeleteLanguageButton);
         DeleteLanguageButton.setOnClickListener(this);
+        UpdateLanguageButton = (Button) findViewById(R.id.UpdateLanguageButton);
+        UpdateLanguageButton.setOnClickListener(this);
 
         if (nextActivity.length() == 8){
             NewLanguageButton.setVisibility(View.VISIBLE);
             DeleteLanguageButton.setVisibility(View.VISIBLE);
+            UpdateLanguageButton.setVisibility(View.VISIBLE);
         }
 
         this.listView = (ListView) findViewById(R.id.listView);
@@ -58,7 +63,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
             DatabaseAccess db = DatabaseAccess.getInstance(this);
               List<String> L =  db.LanguageSelect();
-                Language = L.get(position); //nem tudtam kiszedni az itemet
+                Language = L.get(position);
 
 
             }
@@ -92,8 +97,27 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                 String nextActivity = "Törlés";
                 Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show();
                 DatabaseAccess db= DatabaseAccess.getInstance(this);
-                db.LanguageDelete(Language);
+                db.LanguageDeleteElemi(Language);
                 LoadList(db);
+            }
+        }
+
+        if (v == UpdateLanguageButton)
+        {
+            if(Language != null) {
+                Intent intent = new Intent(this, Language_InsertActivity.class);
+
+                String nextActivity = "Módosítás";
+                Bundle bundy = new Bundle();
+                bundy.putString("nextActivity", nextActivity);
+
+                Bundle LanguageName = new Bundle();
+                LanguageName.putString("LanguageName", Language);
+                intent.putExtras(LanguageName);
+
+                intent.putExtras(bundy);
+
+                startActivityForResult(intent, 0);
             }
         }
     }

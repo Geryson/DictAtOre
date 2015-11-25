@@ -34,5 +34,15 @@
         android:visibility="invisible"
         android:layout_marginTop="0dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Módosít"
+        android:id="@+id/UpdateLanguageButton"
+        android:visibility="invisible"
+        android:layout_below="@+id/DeleteLanguageButton"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView" />
+
 
 </RelativeLayout>

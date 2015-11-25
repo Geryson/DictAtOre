@@ -108,7 +108,7 @@ public class DatabaseAccess {
 
     //region Elemi fgv-ek
 
-    public boolean WordInsert(String word, int meaning, int Language_ID) {
+    public boolean WordInsertElemi(String word, int meaning, int Language_ID) {
         open();
         try {
             String sql = "insert into Words (word, meaning, Language_ID) values (\"" + word + "\" ," + meaning + ", " + Language_ID + ")";
@@ -123,7 +123,7 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean LanguageInsert(String Name) {
+    public boolean LanguageInsertElemi(String Name) {
         open();
         try {
 
@@ -148,7 +148,7 @@ public class DatabaseAccess {
             return false;
         }
     }
-    public boolean LanguageUpdate(String NewName,String OldName) {
+    public boolean LanguageUpdateElemi(String NewName,String OldName) {
         open();
         try {
             String sql = "update Languages SET Name= \"" + NewName + "\" where Name= \"" + OldName + "\"";
@@ -162,7 +162,7 @@ public class DatabaseAccess {
             return  false;
         }
     }
-    public boolean WordsWordUpdate(String NewWord, String OldWord, int Meaning, int Language_ID) {
+    public boolean WordsWordUpdateElemi(String NewWord, String OldWord, int Meaning, int Language_ID) {
         open();
         try {
             String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Language_ID=" + Language_ID + "and meaning =" + Meaning;
@@ -176,7 +176,7 @@ public class DatabaseAccess {
             return  false;
         }
     }
-    public boolean WordsMeaningUpdate(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
+    public boolean WordsMeaningUpdateElemi(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
         open();
         try {
             //if (NewMeaning == -1) { NewMeaning = null;}
@@ -191,7 +191,7 @@ public class DatabaseAccess {
             return  false;
         }
     }
-    public boolean WordsLanguage_IDUpdate(int NewLanguage_ID, int OldLanguage_ID, int Meaning, String Word) {
+    public boolean WordsLanguage_IDUpdateElemi(int NewLanguage_ID, int OldLanguage_ID, int Meaning, String Word) {
         open();
         try {
             String sql = "update words Set Language_ID="+ NewLanguage_ID + "  where Language_ID=" + OldLanguage_ID + " and meaning=" + Meaning + "and word=\"" + Word + "\"";
@@ -205,7 +205,7 @@ public class DatabaseAccess {
             return  false;
         }
     }
-    public boolean LanguageDelete(String Name) {
+    public boolean LanguageDeleteElemi(String Name) {
         open();
         try {
             String sql = "delete from Languages where Name= \"" + Name + "\"";
@@ -220,7 +220,7 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean WordDelete(String Name, int Language_ID) {  //ne használd még nincs kész
+    public boolean WordDeleteElemi(String Name, int Language_ID) {  //ne használd még nincs kész
         open();
         try {
             /*
@@ -259,7 +259,7 @@ public class DatabaseAccess {
             }
         }
         if (re == true && NullHossz(Name)) {
-            LanguageInsert(Name);
+            LanguageInsertElemi(Name);
             return true;
         } else {
             //if (re == true ) { hiba = "Üres mező"; } else { hiba = "Már létezik";}
@@ -268,6 +268,14 @@ public class DatabaseAccess {
     }
     public boolean NullHossz(String szoveg) {
         if ( 0 < (szoveg.length())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean LanguageUpdate(String OldName, String NewName) {
+        if (NullHossz(NewName)) {
+            LanguageUpdateElemi(OldName, NewName);
             return true;
         } else {
             return false;

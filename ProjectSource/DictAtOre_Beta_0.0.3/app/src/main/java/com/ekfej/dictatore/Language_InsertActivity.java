@@ -16,6 +16,7 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
     Button Ok;
     EditText LanguageName;
     String Name;
+    String LanguageNamebeforeactivity = null;
 
 
     @Override
@@ -29,6 +30,13 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
         LanguageName = (EditText) findViewById(R.id.LanguageNameText);
         LanguageName.getText();
 
+        Bundle gomb = getIntent().getExtras();
+        String gombString = gomb.getString("nextActivity");
+        Toast.makeText(this, gombString, Toast.LENGTH_SHORT).show();
+        if (gombString.equals("Módosítás")) {
+            LanguageNamebeforeactivity = gomb.getString("LanguageName");
+            LanguageName.setText(LanguageNamebeforeactivity);
+        }
     }
 
     @Override
@@ -57,15 +65,38 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         if(v == Ok)
         {
+
                 String hiba = "Nincs hiba";
                 DatabaseAccess db = DatabaseAccess.getInstance(this);
-            if (db.LanguageInsert(LanguageName)){
-                setResult(RESULT_OK);
-                finish();
+            if (LanguageNamebeforeactivity == null) {
+                if (db.LanguageInsert(LanguageName)) {
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    if (!db.NullHossz(LanguageName.getText().toString())) {
+                        hiba = "Üres mező";
+                    }
+                    else {
+                        hiba = "Már létezik";
+                    }
+                    Toast.makeText(this, hiba, Toast.LENGTH_SHORT).show();
+                }
             }
             else {
-                if (! db.NullHossz(LanguageName.getText().toString())) { hiba = "Üres mező"; }  else { hiba = "Már létezik";}
-                Toast.makeText(this, hiba, Toast.LENGTH_SHORT).show();
+                if (db.LanguageUpdate(LanguageName.getText().toString(), LanguageNamebeforeactivity)) {
+                    setResult(RESULT_OK);
+                    finish();
+                }
+                else {
+                    if (!db.NullHossz(LanguageName.getText().toString())) {
+                        hiba = "Üres mező";
+                    }
+                    /*else {
+                        hiba = "Már létezik";
+                    }*/
+                    Toast.makeText(this, hiba, Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
 
