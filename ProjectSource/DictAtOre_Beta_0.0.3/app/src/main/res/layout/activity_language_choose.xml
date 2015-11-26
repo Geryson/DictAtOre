@@ -44,5 +44,15 @@
         android:layout_alignRight="@+id/listView"
         android:layout_alignEnd="@+id/listView" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tovább"
+        android:visibility="invisible"
+        android:id="@+id/TovábbButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView" />
+
 
 </RelativeLayout>

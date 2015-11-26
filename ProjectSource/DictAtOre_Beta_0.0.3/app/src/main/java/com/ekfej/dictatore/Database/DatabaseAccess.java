@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
-import com.ekfej.dictatore.Language_InsertActivity;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Random;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
@@ -24,6 +24,7 @@ public class DatabaseAccess {
      *
      * @param context
      */
+    //region importálás
     private DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
     }
@@ -68,6 +69,10 @@ public class DatabaseAccess {
      *
      * @return a List of quotes
      */
+
+    //endregion
+
+    //region Listázás
     public List<String> LanguageSelect() {
         open();
         List<String> list = new ArrayList<>();
@@ -103,6 +108,8 @@ public class DatabaseAccess {
         close();
         return list;
     }
+
+    //endregion
 
     //saját
 
@@ -286,7 +293,23 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
+    //region Tudásteszt
 
+    public String Expression(String LanguageName) throws Exception {
+        List<String> szavak = WordsSelect(LanguageName);
+        Random rnd = new Random();
+        if (szavak.size() > 0) {
+            int random = rnd.nextInt(szavak.size());
+            return szavak.get(random);
+        }
+        else {
+            return null;
+            //throw new Exception("Nincs " + LanguageName + " nyelvű szó az adatbázisban");
+
+        }
+    }
+
+    //endregion
 
     //endregion
 }

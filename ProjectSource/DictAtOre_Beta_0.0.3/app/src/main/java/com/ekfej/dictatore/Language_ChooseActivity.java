@@ -17,11 +17,8 @@ import java.util.jar.Attributes;
 
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
-    Button NewLanguageButton;
-    Button DeleteLanguageButton;
-    Button UpdateLanguageButton;
-    String Language= null;
-    //DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton;
+    String Language= null, Language2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +35,18 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         DeleteLanguageButton.setOnClickListener(this);
         UpdateLanguageButton = (Button) findViewById(R.id.UpdateLanguageButton);
         UpdateLanguageButton.setOnClickListener(this);
+        NextButton = (Button) findViewById(R.id.TovábbButton);
+        NextButton.setOnClickListener(this);
 
         if (nextActivity.length() == 8){
             NewLanguageButton.setVisibility(View.VISIBLE);
             DeleteLanguageButton.setVisibility(View.VISIBLE);
             UpdateLanguageButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            if (nextActivity.length() == 10) {
+                NextButton.setVisibility(View.VISIBLE);
+            }
         }
 
         this.listView = (ListView) findViewById(R.id.listView);
@@ -63,8 +67,12 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
             DatabaseAccess db = DatabaseAccess.getInstance(this);
               List<String> L =  db.LanguageSelect();
-                Language = L.get(position);
-
+                if (Language == null)
+                { Language = L.get(position); }
+                else {
+                    if (Language2 == null && !Language.equals(L.get(position)))
+                    { Language2 = L.get(position); }
+                }
 
             }
         }
@@ -93,7 +101,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
         if (v == DeleteLanguageButton)
         {
-            if(Language != null) {
+            if(Language != null && Language2 == null) {
                 String nextActivity = "Törlés";
                 Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show();
                 DatabaseAccess db= DatabaseAccess.getInstance(this);
@@ -104,7 +112,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
         if (v == UpdateLanguageButton)
         {
-            if(Language != null) {
+            if(Language != null && Language2 == null) {
                 Intent intent = new Intent(this, Language_InsertActivity.class);
 
                 String nextActivity = "Módosítás";
@@ -118,6 +126,21 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                 intent.putExtras(bundy);
 
                 startActivityForResult(intent, 0);
+            }
+        }
+        if (v == NextButton) {
+            if (Language != null && Language2 != null) {
+                Intent intent = new Intent(this, KnowledgeTestActivity.class);
+
+                Bundle FistLanguage = new Bundle();
+                FistLanguage.putString("FirstLanguage", Language);
+                intent.putExtras(FistLanguage);
+
+                Bundle SecondLanguage = new Bundle();
+                SecondLanguage.putString("SecondLanguage", Language2);
+                intent.putExtras(SecondLanguage);
+
+                startActivity(intent);
             }
         }
     }

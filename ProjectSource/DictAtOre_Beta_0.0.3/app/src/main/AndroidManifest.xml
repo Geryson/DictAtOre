@@ -27,6 +27,10 @@
             android:name=".Language_InsertActivity"
             android:label="@string/title_activity_nyelv_setting" >
         </activity>
+        <activity
+            android:name=".KnowledgeTestActivity"
+            android:label="Tudásteszt">
+        </activity>
     </application>
 
 </manifest>
