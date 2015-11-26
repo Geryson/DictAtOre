@@ -71,4 +71,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kész"
+        android:id="@+id/AgreeButton"
+        android:textColor="@color/gomb1"
+        android:background="@color/gombbetu1"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/tudasteszt_helpButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

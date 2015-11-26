@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.Random;
 
@@ -114,6 +113,24 @@ public class DatabaseAccess {
     //saját
 
     //region Elemi fgv-ek
+
+    public List<String> WordsSelectMatch(String Language, String wordLanguage, String word) {
+        open();
+        List<String> list = new ArrayList<>();
+
+        Cursor cursor = database.rawQuery("SELECT word FROM `words` WHERE Meaning = (select ID from words where word= \"" +
+                word + "\" and Language_ID = (select ID from  languages where Name = \"" + wordLanguage +
+                "\")) and Language_ID = (select ID from languages where Name = \"" + Language + "\")", null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        close();
+        return list;
+    }
 
     public boolean WordInsertElemi(String word, int meaning, int Language_ID) {
         open();
@@ -248,32 +265,35 @@ public class DatabaseAccess {
             return false;
         }
     }
-    //endregion
 
-    //region Presenter rétegnek való fgv-ek
-    public boolean LanguageInsert(EditText LanguageName) {
-        String Name = LanguageName.getText().toString();
-        List<String> nyelvek = LanguageSelect();
+    public boolean ListEqualsElement(String Elem, List<String> List) //akkor igaz ha az elem nincs benne a listába
+    {
         boolean re = true;
-        for (int i=0; i < nyelvek.size(); i++)
+        for (int i=0; i < List.size(); i++)
         {
-            String n = nyelvek.get(i);
-           if( Name.equals(nyelvek.get(i)))
-
+            if( Elem.equals(List.get(i)))
             {
                 re = false;
                 break;
             }
         }
-        if (re == true && NullHossz(Name)) {
-            LanguageInsertElemi(Name);
-            return true;
-        } else {
-            //if (re == true ) { hiba = "Üres mező"; } else { hiba = "Már létezik";}
-            return false;
-        }
+        if (re == true) { return true; }
+        else { return false; }
     }
-    public boolean NullHossz(String szoveg) {
+    //endregion
+
+
+    //region Presenter rétegnek való fgv-ek
+    public boolean LanguageInsert(EditText LanguageName) {
+        String Name = LanguageName.getText().toString();
+        List<String> nyelvek = LanguageSelect();
+        if (ListEqualsElement(Name, nyelvek) && NullHossz(Name)) {
+            LanguageInsertElemi(Name);
+            return  true;
+        }
+        else { return false; }
+    }
+    public boolean NullHossz(String szoveg) { //akkor igaz a szöveg hossza nagyobb mint nulla
         if ( 0 < (szoveg.length())) {
             return true;
         } else {
@@ -307,6 +327,29 @@ public class DatabaseAccess {
             //throw new Exception("Nincs " + LanguageName + " nyelvű szó az adatbázisban");
 
         }
+    }
+    public List<String> Decipherment(String Language, String wordLanguage, String word)
+    {
+        List<String> decipherment = null;
+        try {
+            if (NullHossz(word)) {
+                decipherment = WordsSelectMatch(Language, wordLanguage, word);
+                return decipherment;
+            }
+        }
+        catch (Exception e)
+        {
+           e.printStackTrace();
+            //return decipherment;
+        }
+        return decipherment;
+    }
+    public boolean DeciphermentVsElement(EditText User_decipherment, List<String> decipherment) {
+        String user_d = User_decipherment.getText().toString();
+        if ( (!ListEqualsElement(user_d, decipherment)) && NullHossz(user_d)) {
+            return  true;
+        }
+        else { return  false; }
     }
 
     //endregion
