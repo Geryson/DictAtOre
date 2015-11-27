@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Presenter.Word;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DictActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +33,15 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
         FirstWords.setAdapter(adapter);
 
+        List<Word> DictionaryList = db.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
+        List<String> SecondLanguageList = new ArrayList<String>();
+        for (int i =0; i< DictionaryList.size(); i++)
+        {
+            SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord()); //a getmenaing indexe csak ideiglensen nulla
+                                                                                        //ha megoldjuk megfelelően a view-ba
+        }
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
+        SecondWords.setAdapter(adapter2);
 
     }
 

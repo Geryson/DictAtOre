@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 
 
+import com.ekfej.dictatore.Presenter.Language;
+import com.ekfej.dictatore.Presenter.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -95,8 +98,8 @@ public class DatabaseAccess {
             cursor = database.rawQuery("select word from words", null);
         }
         else {
-            cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\")", null);
-        }
+            cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
+        }                                                                                                                                 //de lehet később group by nélküljobb
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -108,6 +111,17 @@ public class DatabaseAccess {
         return list;
     }
 
+    public int LanguageIdSelect (String Name) {
+        int Idint = 0;
+        String sql = "SELECT ID FROM Languages WHERE Name = \"" + Name + "\"";
+        open();
+        Cursor cursor = database.rawQuery(sql, null);
+        cursor.moveToFirst();
+        Idint = cursor.getInt(0);
+        cursor.close();
+        close();
+        return Idint;
+    }
     //endregion
 
     //saját
@@ -313,14 +327,32 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
-    public List<String> DictionarySelect(String FirstLanguage, String SecondLanguage) { //későb osztály típusú lesz a visszatérő lista típusa
+
+    public List<Word> DictionarySelect(String FirstLanguage, String SecondLanguage) { //későb osztály típusú lesz a visszatérő lista típusa
+        List<Word> Dictionary = new ArrayList<Word>();
         List<String> FirstWords = WordsSelect(FirstLanguage);
         List<String> SecondWords = new ArrayList<String>();
+        List<Language> Nyelvek = new ArrayList<Language>();
+        Nyelvek.add(new Language(LanguageIdSelect(FirstLanguage), FirstLanguage));
+        Nyelvek.add(new Language(LanguageIdSelect(SecondLanguage), SecondLanguage));
         for ( int i= 0; i < FirstWords.size(); i++) {
             String actualWord = FirstWords.get(i);
             SecondWords = (Decipherment(SecondLanguage, FirstLanguage, actualWord));
+
+            int LanguageIndex, LanguageIndex2;
+            if (FirstLanguage.equals(Nyelvek.get(0)))
+            { LanguageIndex = 0; LanguageIndex2 = 1;}
+            else {LanguageIndex = 1; LanguageIndex2 = 0;}
+
+            List<Word> SecondWordTypeList = new ArrayList<Word>();
+            for (int indexer= 0; indexer < SecondWords.size(); indexer++) {
+                SecondWordTypeList.add(new Word(SecondWords.get(indexer),
+                        Nyelvek.get(LanguageIndex2))); //itt lehetnek még problémák
+            }
+            Dictionary.add(new Word(FirstWords.get(i), SecondWordTypeList, Nyelvek.get(LanguageIndex)));
+
         }
-        return FirstWords;
+        return Dictionary;
     }
     //region Tudásteszt
 
