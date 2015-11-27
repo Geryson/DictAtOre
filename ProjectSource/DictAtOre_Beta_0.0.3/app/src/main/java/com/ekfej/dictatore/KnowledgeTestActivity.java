@@ -41,7 +41,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         String FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
         String SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
-        FirstLanguage.setText(FirstLanguageBundle);
+        FirstLanguage.setText(FirstLanguageBundle + " nyelven");
 
         expression = (TextView) findViewById(R.id.tudasteszt_wordBox);
         try {
