@@ -19,6 +19,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     private ListView listView;
     Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton;
     String Language= null, Language2 = null;
+    String actualactivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         Bundle bundy = getIntent().getExtras();
         String nextActivity = bundy.getString("nextActivity"); //kiszedjük az intent extra tartalmát
         Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show(); // a kiíratás csak jelzi, hogy sikerült, majd ki kell törölni!
+        actualactivity = nextActivity;
 
         NewLanguageButton = (Button) findViewById(R.id.NewLanguageButton);
         NewLanguageButton.setOnClickListener(this);
@@ -42,6 +44,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
             NewLanguageButton.setVisibility(View.VISIBLE);
             DeleteLanguageButton.setVisibility(View.VISIBLE);
             UpdateLanguageButton.setVisibility(View.VISIBLE);
+            NextButton.setVisibility(View.VISIBLE);
         }
         else {
             if (nextActivity.length() == 10) {
@@ -131,17 +134,40 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         }
         if (v == NextButton) {
             if (Language != null && Language2 != null) {
-                Intent intent = new Intent(this, KnowledgeTestActivity.class);
+                if (actualactivity.equals("Tudásteszt")) {
+                    Intent intent = new Intent(this, KnowledgeTestActivity.class);
 
-                Bundle FistLanguage = new Bundle();
-                FistLanguage.putString("FirstLanguage", Language);
-                intent.putExtras(FistLanguage);
+                    Bundle FistLanguage = new Bundle();
+                    FistLanguage.putString("FirstLanguage", Language);
+                    intent.putExtras(FistLanguage);
 
-                Bundle SecondLanguage = new Bundle();
-                SecondLanguage.putString("SecondLanguage", Language2);
-                intent.putExtras(SecondLanguage);
+                    Bundle SecondLanguage = new Bundle();
+                    SecondLanguage.putString("SecondLanguage", Language2);
+                    intent.putExtras(SecondLanguage);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
+                else {
+                    if (actualactivity.equals("Szótárak")) {
+                        Intent intent = new Intent(this, DictActivity.class);
+
+                        /*
+                        Bundle Language_ChooseActivityBundle = new Bundle();
+                        Language_ChooseActivityBundle.putString("Language_ChooseActivity", this.getTitle().toString());
+                        intent.putExtras(Language_ChooseActivityBundle);
+                        */
+
+                        Bundle FistLanguage = new Bundle();
+                        FistLanguage.putString("FirstLanguage", Language);
+                        intent.putExtras(FistLanguage);
+
+                        Bundle SecondLanguage = new Bundle();
+                        SecondLanguage.putString("SecondLanguage", Language2);
+                        intent.putExtras(SecondLanguage);
+
+                        startActivity(intent);
+                    }
+                }
             }
         }
     }

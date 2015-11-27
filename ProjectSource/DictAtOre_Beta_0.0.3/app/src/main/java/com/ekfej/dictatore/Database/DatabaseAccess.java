@@ -313,6 +313,15 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
+    public List<String> DictionarySelect(String FirstLanguage, String SecondLanguage) { //későb osztály típusú lesz a visszatérő lista típusa
+        List<String> FirstWords = WordsSelect(FirstLanguage);
+        List<String> SecondWords = new ArrayList<String>();
+        for ( int i= 0; i < FirstWords.size(); i++) {
+            String actualWord = FirstWords.get(i);
+            SecondWords = (Decipherment(SecondLanguage, FirstLanguage, actualWord));
+        }
+        return FirstWords;
+    }
     //region Tudásteszt
 
     public String Expression(String LanguageName) throws Exception {
