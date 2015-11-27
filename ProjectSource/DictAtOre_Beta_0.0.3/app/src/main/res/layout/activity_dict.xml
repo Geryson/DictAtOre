@@ -40,14 +40,14 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView2"
+            android:id="@+id/FirstWords"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView3"
+            android:id="@+id/SecondWords"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
     </LinearLayout>
