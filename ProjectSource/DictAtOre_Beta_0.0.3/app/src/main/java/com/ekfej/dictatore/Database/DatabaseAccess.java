@@ -327,8 +327,20 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
+    public boolean WordInsert(String word, int meaning, int language_id) //kérdés mikor mondjuk azt hogy a szó már benne van az adatbázisban?
+    {                                                                       //meaning egyezés stb...
+        String language_idString = ""+ language_id + "";                //kérdés hogy a language egy int vagy string paraméter lesz-e?
+        if (NullHossz(word) && NullHossz(language_idString)) {
+            /*
+            List<Word> sumword = new ArrayList<Word>();
+            sumword.add(new Word())
+            */
+            return WordInsertElemi(word, meaning, language_id);
+        }
+        return false;
+    }
 
-    public List<Word> DictionarySelect(String FirstLanguage, String SecondLanguage) { //későb osztály típusú lesz a visszatérő lista típusa
+    public List<Word> DictionarySelect(String FirstLanguage, String SecondLanguage) {
         List<Word> Dictionary = new ArrayList<Word>();
         List<String> FirstWords = WordsSelect(FirstLanguage);
         List<String> SecondWords = new ArrayList<String>();
