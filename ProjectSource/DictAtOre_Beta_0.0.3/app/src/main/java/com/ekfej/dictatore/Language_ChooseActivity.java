@@ -137,9 +137,9 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                 if (actualactivity.equals("Tudásteszt")) {
                     Intent intent = new Intent(this, KnowledgeTestActivity.class);
 
-                    Bundle FistLanguage = new Bundle();
-                    FistLanguage.putString("FirstLanguage", Language);
-                    intent.putExtras(FistLanguage);
+                    Bundle FirstLanguage = new Bundle();
+                    FirstLanguage.putString("FirstLanguage", Language);
+                    intent.putExtras(FirstLanguage);
 
                     Bundle SecondLanguage = new Bundle();
                     SecondLanguage.putString("SecondLanguage", Language2);
@@ -157,9 +157,9 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                         intent.putExtras(Language_ChooseActivityBundle);
                         */
 
-                        Bundle FistLanguage = new Bundle();
-                        FistLanguage.putString("FirstLanguage", Language);
-                        intent.putExtras(FistLanguage);
+                        Bundle FirstLanguage = new Bundle();
+                        FirstLanguage.putString("FirstLanguage", Language);
+                        intent.putExtras(FirstLanguage);
 
                         Bundle SecondLanguage = new Bundle();
                         SecondLanguage.putString("SecondLanguage", Language2);
