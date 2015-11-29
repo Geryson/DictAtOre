@@ -78,13 +78,44 @@ public class DatabaseAccess {
     public List<String> LanguageSelect() {
         open();
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT Name FROM Languages", null);
+        Cursor cursor = database.rawQuery("SELECT Name FROM Languages order by Name asc", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
             cursor.moveToNext();
         }
         cursor.close();
+        close();
+        return list;
+    }
+    public List<Word> WordObjectSelect(String Name) {
+        open();
+        List<Word> list = new ArrayList<>();
+        List<String> listword = new ArrayList<>();
+        Cursor word = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
+        Cursor meaning = database.rawQuery("select meaning from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
+        Cursor language = database.rawQuery("select ID from languages where Name =\"" + Name + "\" ", null);
+
+        word.moveToFirst();
+        while (!word.isAfterLast()) {
+            listword.add(word.getString(0));
+            word.moveToNext();
+        }
+        word.close();
+        language.moveToFirst();
+        int l = language.getInt(0);
+        language.close();
+        meaning.moveToFirst();
+        int index =0;
+        while (!meaning.isAfterLast()) {
+            List<Word> meaningList = new ArrayList<Word>();
+            meaningList.add(new Word(meaning.getInt(0)));
+            list.add(new Word(listword.get(index), meaningList, new Language(l, Name)));
+            index++;
+            meaning.moveToNext();
+        }
+        meaning.close();
+
         close();
         return list;
     }
@@ -99,7 +130,7 @@ public class DatabaseAccess {
         }
         else {
             cursor = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
-        }                                                                                                                                 //de lehet később group by nélküljobb
+        }                                                                                                                                 //de lehet később group by nélkül jobb
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -149,7 +180,10 @@ public class DatabaseAccess {
     public boolean WordInsertElemi(String word, int meaning, int Language_ID) {
         open();
         try {
-            String sql = "insert into Words (word, meaning, Language_ID) values (\"" + word + "\" ," + meaning + ", " + Language_ID + ")";
+            String sql = null;
+            if (meaning == -1)
+            { sql = "insert into Words (word, Language_ID) values (\"" + word + "\" ," + Language_ID + ")";}
+           else {sql  = "insert into Words (word, meaning, Language_ID) values (\"" + word + "\" ," + meaning + ", " + Language_ID + ")";}
             database.execSQL(sql);
             close();
             return true;
@@ -327,17 +361,42 @@ public class DatabaseAccess {
         List<String> Szavak = WordsSelect("-");
         return true;
     }
-    public boolean WordInsert(String word, int meaning, int language_id) //kérdés mikor mondjuk azt hogy a szó már benne van az adatbázisban?
-    {                                                                       //meaning egyezés stb...
-        String language_idString = ""+ language_id + "";                //kérdés hogy a language egy int vagy string paraméter lesz-e?
-        if (NullHossz(word) && NullHossz(language_idString)) {
-            /*
-            List<Word> sumword = new ArrayList<Word>();
-            sumword.add(new Word())
-            */
-            return WordInsertElemi(word, meaning, language_id);
+    public boolean WordInsert(Word word)
+    {
+        int end =0;
+        if (NullHossz(word.getWord()) && NullHossz(word.getLanguage().getName())) {
+            List<String> nyelvek = LanguageSelect();
+            boolean nyelvB = false;
+            for (int j =0; j < nyelvek.size(); j++)
+            {
+                if (word.getLanguage().getName().equals(nyelvek.get(j))) {
+                    nyelvB = true; break;
+                }
+            }
+            if (nyelvB) {
+                List<Word> sumword = WordObjectSelect(word.getLanguage().getName());
+                for (int i = 0; i < sumword.size(); i++) {
+                    if (sumword.get(i).equals(word)) {
+                        nyelvB = false; break;
+                    }
+                }
+                if (nyelvB == true) {
+                    end = 1;
+                    if (word.getMeaning() == null)
+                    {
+                      boolean b =  WordInsertElemi(word.getWord(), -1, word.getLanguage().getId());
+                    }
+                    else {
+                        boolean b = WordInsertElemi(word.getWord(), word.getMeaning().get(0).getId(), word.getLanguage().getId());
+                    }
+                }
+            }
         }
-        return false;
+
+        if (end == 1)
+        { return true; }
+        else
+        {return false; }
     }
 
     public List<Word> DictionarySelect(String FirstLanguage, String SecondLanguage) {

@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Presenter.Language;
 import com.ekfej.dictatore.Presenter.Word;
 
 import java.util.ArrayList;
@@ -77,6 +78,10 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         }
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
         SecondWords.setAdapter(adapter2);
+
+        //region pictori
+        db.WordInsert(new Word("mama", new Language(2,"Magyar")));
+        //endregion
 
     }
 

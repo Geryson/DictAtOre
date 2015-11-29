@@ -58,6 +58,10 @@ public class Word {
         this.meaning = meaning;
     }
 
+    public Word(int id) {
+        this.id =id;
+    }
+
 
 
     public void AddMeaning(Word word) {
