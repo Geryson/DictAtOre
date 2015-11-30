@@ -49,6 +49,10 @@ public class DatabaseAccess {
 
         return instance;
     }
+    public static DatabaseAccess getInstance() {
+
+        return instance;
+    }
 
     /**
      * Open the database connection.
