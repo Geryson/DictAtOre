@@ -373,23 +373,39 @@ public class DatabaseAccess {
         {
             for (int j =0; j < Szavak.size(); j++) {
                 if (TörlendőSzavak.get(i).getWord().equals(Szavak.get(j).getWord()) &&
-                        TörlendőSzavak.get(i).getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(0).getId() &&
                         TörlendőSzavak.get(i).getLanguage().equals(Szavak.get(j).getLanguage())) {
-
-                    WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
-                    b = true;
-                    break;
+                    for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
+                        if (TörlendőSzavak.get(i).getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(m).getId()) {
+                            WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
+                        b = true;
+                        break;
+                        }
+                    }
                 }
             }
         }
         return b;
     }
-    public boolean WordUpdate(Word word) { //ne hasznád nincs kész, csak belekezdtem
-        List<Word> Szavak = WordObjectSelect(word.getLanguage().getName());
+    public boolean WordUpdate(Word word, String NewValue, int mezőindex) { //egyszerre csak egyet lehet módosítani
+        List<Word> Szavak = WordObjectSelect(word.getLanguage().getName());  //nincs kipróbálva
         for (int j =0; j < Szavak.size(); j++) {
             if (word.getWord().equals(Szavak.get(j).getWord()) && word.getLanguage().equals(Szavak.get(j).getLanguage())) {
-               // WordsWordUpdateElemi()
-                return  true;
+                for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
+                    if (word.getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(0).getId()) {
+                        switch (mezőindex) {
+                            case 2:
+                                WordsWordUpdateElemi(NewValue, word.getWord(), word.getMeaning().get(0).getId(), word.getLanguage().getId());
+                                return true;
+                            case 3:
+                                WordsMeaningUpdateElemi(Integer.decode(NewValue), word.getMeaning().get(0).getId(), word.getWord(), word.getLanguage().getId());
+                                return true;
+                            case 4:
+                                WordsLanguage_IDUpdateElemi(Integer.decode(NewValue), word.getLanguage().getId(), word.getMeaning().get(0).getId(), word.getWord());
+                                return true;
+
+                        }
+                    }
+                }
             }
         }
         return false;
