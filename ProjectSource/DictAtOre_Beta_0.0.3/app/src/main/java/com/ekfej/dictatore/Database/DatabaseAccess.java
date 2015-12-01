@@ -299,14 +299,6 @@ public class DatabaseAccess {
     public boolean WordDeleteElemi(String Name, int Language_ID) {  //ne használd még nincs kész
         open();
         try {
-            /*
-            //kikeressük a keresett szót
-            int modifyLanguage_ID = 0; //ide
-            String modifyword =""; //ide
-            int modifyoldmeaning = 0; //és ide belerakjuk a keresett szó elemeit
-            int modifymeaning = -1;
-            WordsMeaningUpdate(modifymeaning, modifyoldmeaning, modifyword, modifyLanguage_ID); //itt módosítjuk a kersett szónak a meaningjét
-            */
             String sql = "delete from Words where Name= \"" + Name + "\" and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
             database.execSQL(sql);
             close();
@@ -336,6 +328,8 @@ public class DatabaseAccess {
 
 
     //region Presenter rétegnek való fgv-ek
+
+
     public boolean LanguageInsert(EditText LanguageName) {
         String Name = LanguageName.getText().toString();
         List<String> nyelvek = LanguageSelect();
@@ -360,10 +354,22 @@ public class DatabaseAccess {
             return false;
         }
     }
-    public boolean WordDelete() //csak bele van kezdve
-    {
-        List<String> Szavak = WordsSelect("-");
-        return true;
+    //region Szórár
+    public boolean WordDelete(Word RemoveWord) //A RemoveWord egy id nélküli konstruktort vár
+    {                                           //nincs kipróbálva
+        Boolean b = false;
+        List<Word> Szavak = WordObjectSelect(RemoveWord.getLanguage().getName());
+        for (int i=0; i < Szavak.size(); i++)
+        {
+            /*
+            if (RemoveWord.equals(Szavak.get(i)))
+            {   }
+            */
+            if (RemoveWord.getWord().equals(Szavak.get(i).getWord()) && RemoveWord.getLanguage().equals(Szavak.get(i).getLanguage())) {
+                WordDeleteElemi(RemoveWord.getWord(),RemoveWord.getLanguage().getId()); b = true;
+            }
+        }
+        return b;
     }
     public boolean WordInsert(Word word)
     {
@@ -429,6 +435,8 @@ public class DatabaseAccess {
         }
         return Dictionary;
     }
+
+    //endregion
     //region Tudásteszt
 
     public String Expression(String LanguageName) throws Exception {
