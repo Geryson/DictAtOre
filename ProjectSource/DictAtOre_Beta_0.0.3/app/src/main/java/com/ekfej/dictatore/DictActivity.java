@@ -58,18 +58,17 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         int Spinner1Position = Spinner1Adapter.getPosition(FirstLanguageBundle);
-        int Spinner2Position = Spinner1Adapter.getPosition(FirstLanguageBundle);
+        int Spinner2Position = Spinner2Adapter.getPosition(SecondLanguageBundle);
         Spinner1.setAdapter(Spinner1Adapter);
         Spinner2.setAdapter(Spinner2Adapter);
         Spinner1.setSelection(Spinner1Position);
         Spinner2.setSelection(Spinner2Position);
 
-        DatabaseAccess db = DatabaseAccess.getInstance(this);
-        List<String> FirstLanguageList = db.WordsSelect(FirstLanguageBundle);
+        List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
         FirstWords.setAdapter(adapter);
 
-        List<Word> DictionaryList = db.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
+        List<Word> DictionaryList = databaseAccess.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
         List<String> SecondLanguageList = new ArrayList<String>();
         for (int i =0; i< DictionaryList.size(); i++)
         {
@@ -80,7 +79,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         SecondWords.setAdapter(adapter2);
 
         //region pictori
-        db.WordInsert(new Word("mama", new Language(2,"Magyar")));
+        databaseAccess.WordInsert(new Word("mama", new Language(2,"Magyar")));
         //endregion
 
     }
