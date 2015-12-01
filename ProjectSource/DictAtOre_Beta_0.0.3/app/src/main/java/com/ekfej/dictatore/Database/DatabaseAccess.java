@@ -308,7 +308,7 @@ public class DatabaseAccess {
     public boolean WordDeleteElemi(String Name, int meaning, int Language_ID) {  //ne használd még nincs kész
         open();
         try {
-            String sql = "delete from Words where Name= \"" + Name + "\" and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
+            String sql = "delete from Words where word= \"" + Name + "\" and Meaning =" + Language_ID + "and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
             database.execSQL(sql);
             close();
             return true;
@@ -363,19 +363,36 @@ public class DatabaseAccess {
             return false;
         }
     }
+
     //region Szórár
-    public boolean WordDelete(List<Word> TörlendőSzavak) //A RemoveWord egy id nélküli konstruktort vár
+    public boolean WordDelete(List<Word> TörlendőSzavak)
     {                                           //nincs kipróbálva
         Boolean b = false;
         List<Word> Szavak = WordObjectSelect(TörlendőSzavak.get(0).getLanguage().getName());
         for (int i=0; i < TörlendőSzavak.size(); i++)
         {
             for (int j =0; j < Szavak.size(); j++) {
-                WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
-                b = true;
+                if (TörlendőSzavak.get(i).getWord().equals(Szavak.get(j).getWord()) &&
+                        TörlendőSzavak.get(i).getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(0).getId() &&
+                        TörlendőSzavak.get(i).getLanguage().equals(Szavak.get(j).getLanguage())) {
+
+                    WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
+                    b = true;
+                    break;
+                }
             }
         }
         return b;
+    }
+    public boolean WordUpdate(Word word) { //ne hasznád nincs kész, csak belekezdtem
+        List<Word> Szavak = WordObjectSelect(word.getLanguage().getName());
+        for (int j =0; j < Szavak.size(); j++) {
+            if (word.getWord().equals(Szavak.get(j).getWord()) && word.getLanguage().equals(Szavak.get(j).getLanguage())) {
+               // WordsWordUpdateElemi()
+                return  true;
+            }
+        }
+        return false;
     }
     public boolean WordInsert(Word word)
     {
