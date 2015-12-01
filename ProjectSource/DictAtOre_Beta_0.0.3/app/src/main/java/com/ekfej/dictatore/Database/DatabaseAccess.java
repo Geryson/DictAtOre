@@ -96,9 +96,18 @@ public class DatabaseAccess {
         open();
         List<Word> list = new ArrayList<>();
         List<String> listword = new ArrayList<>();
+        List<Integer> IdList = new ArrayList<Integer>();
+        Cursor ID = database.rawQuery("select ID from word where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor word = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor meaning = database.rawQuery("select meaning from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor language = database.rawQuery("select ID from languages where Name =\"" + Name + "\" ", null);
+
+        ID.moveToFirst();
+        while (!ID.isAfterLast()) {
+            IdList.add(ID.getInt(0));
+            ID.moveToNext();
+        }
+        ID.close();
 
         word.moveToFirst();
         while (!word.isAfterLast()) {
@@ -296,7 +305,7 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean WordDeleteElemi(String Name, int Language_ID) {  //ne használd még nincs kész
+    public boolean WordDeleteElemi(String Name, int meaning, int Language_ID) {  //ne használd még nincs kész
         open();
         try {
             String sql = "delete from Words where Name= \"" + Name + "\" and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
@@ -355,18 +364,15 @@ public class DatabaseAccess {
         }
     }
     //region Szórár
-    public boolean WordDelete(Word RemoveWord) //A RemoveWord egy id nélküli konstruktort vár
+    public boolean WordDelete(List<Word> TörlendőSzavak) //A RemoveWord egy id nélküli konstruktort vár
     {                                           //nincs kipróbálva
         Boolean b = false;
-        List<Word> Szavak = WordObjectSelect(RemoveWord.getLanguage().getName());
-        for (int i=0; i < Szavak.size(); i++)
+        List<Word> Szavak = WordObjectSelect(TörlendőSzavak.get(0).getLanguage().getName());
+        for (int i=0; i < TörlendőSzavak.size(); i++)
         {
-            /*
-            if (RemoveWord.equals(Szavak.get(i)))
-            {   }
-            */
-            if (RemoveWord.getWord().equals(Szavak.get(i).getWord()) && RemoveWord.getLanguage().equals(Szavak.get(i).getLanguage())) {
-                WordDeleteElemi(RemoveWord.getWord(),RemoveWord.getLanguage().getId()); b = true;
+            for (int j =0; j < Szavak.size(); j++) {
+                WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
+                b = true;
             }
         }
         return b;
