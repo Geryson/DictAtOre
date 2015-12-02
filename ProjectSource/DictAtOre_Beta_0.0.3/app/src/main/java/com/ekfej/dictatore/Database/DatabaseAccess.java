@@ -97,7 +97,7 @@ public class DatabaseAccess {
         List<Word> list = new ArrayList<>();
         List<String> listword = new ArrayList<>();
         List<Integer> IdList = new ArrayList<Integer>();
-        Cursor ID = database.rawQuery("select ID from word where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
+        Cursor ID = database.rawQuery("select ID from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor word = database.rawQuery("select word from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor meaning = database.rawQuery("select meaning from words where Language_ID = (select ID from languages where Name =\"" + Name + "\") group by word", null);
         Cursor language = database.rawQuery("select ID from languages where Name =\"" + Name + "\" ", null);
@@ -305,10 +305,10 @@ public class DatabaseAccess {
         }
     }
 
-    public boolean WordDeleteElemi(String Name, int meaning, int Language_ID) {  //ne használd még nincs kész
+    public boolean WordDeleteElemi(String Name, int meaning, int Language_ID) { 
         open();
         try {
-            String sql = "delete from Words where word= \"" + Name + "\" and Meaning =" + Language_ID + "and Language_ID =" + Language_ID; //itt pedig töröljük a törölni kívánt szót
+            String sql = "delete from Words where word= \"" + Name + "\" and meaning = " + meaning + " and Language_ID = " + Language_ID;
             database.execSQL(sql);
             close();
             return true;
@@ -365,19 +365,17 @@ public class DatabaseAccess {
     }
 
     //region Szórár
-    public boolean WordDelete(List<Word> TörlendőSzavak)
-    {                                           //nincs kipróbálva
+    public boolean WordDelete(List<Word> TörlendőSzavak) //kipróbálva, kevés teszt
+    {
         Boolean b = false;
         List<Word> Szavak = WordObjectSelect(TörlendőSzavak.get(0).getLanguage().getName());
         for (int i=0; i < TörlendőSzavak.size(); i++)
         {
             for (int j =0; j < Szavak.size(); j++) {
-                if (TörlendőSzavak.get(i).getWord().equals(Szavak.get(j).getWord()) &&
-                        TörlendőSzavak.get(i).getLanguage().equals(Szavak.get(j).getLanguage())) {
+                if (TörlendőSzavak.get(i).getWord().equals(Szavak.get(j).getWord())) {
                     for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
                         if (TörlendőSzavak.get(i).getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(m).getId()) {
-                            WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
-                        b = true;
+                            b =  WordDeleteElemi(TörlendőSzavak.get(i).getWord(), TörlendőSzavak.get(i).getMeaning().get(0).getId(), TörlendőSzavak.get(i).getLanguage().getId());
                         break;
                         }
                     }
@@ -410,7 +408,7 @@ public class DatabaseAccess {
         }
         return false;
     }
-    public boolean WordInsert(Word word)
+    public boolean WordInsert(Word word) //kipróbálva, működött (kevés teszt)
     {
         int end =0;
         if (NullHossz(word.getWord()) && NullHossz(word.getLanguage().getName())) {
@@ -425,8 +423,11 @@ public class DatabaseAccess {
             if (nyelvB) {
                 List<Word> sumword = WordObjectSelect(word.getLanguage().getName());
                 for (int i = 0; i < sumword.size(); i++) {
-                    if (sumword.get(i).equals(word)) {
-                        nyelvB = false; break;
+                    for (int index =0; index < sumword.get(i).getMeaning().size(); index++) {
+                        if (word.getWord().equals(sumword.get(i).getWord()) && word.getMeaning().get(0).getId() == sumword.get(i).getMeaning().get(index).getId()) {
+                            nyelvB = false;
+                            break;
+                        }
                     }
                 }
                 if (nyelvB == true) {

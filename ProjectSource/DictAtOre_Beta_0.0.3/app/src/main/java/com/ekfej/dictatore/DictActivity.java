@@ -72,14 +72,21 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         List<String> SecondLanguageList = new ArrayList<String>();
         for (int i =0; i< DictionaryList.size(); i++)
         {
+            if(DictionaryList.get(i).getMeaning().size() == 0) //a probléma az hogy a secondlist rövidebb mint a firstlist (most már megoldva)
+            {break;}
             SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord()); //a getmenaing indexe csak ideiglensen nulla
                                                                                         //ha megoldjuk megfelelően a view-ba
         }
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
         SecondWords.setAdapter(adapter2);
 
-        //region pictori
-        databaseAccess.WordInsert(new Word("mama", new Language(2,"Magyar")));
+        //region pictori fgv tesuztek
+        List<Word> insert = new ArrayList<Word>();
+        insert.add(new Word(8));
+        //databaseAccess.WordInsert(new Word("papa", insert, new Language(2, "Magyar")));
+        List<Word> s = new ArrayList<Word>();
+        s.add(new Word("papa", insert, new Language(2, "Magyar")));
+        //databaseAccess.WordDelete(s);
         //endregion
 
     }
