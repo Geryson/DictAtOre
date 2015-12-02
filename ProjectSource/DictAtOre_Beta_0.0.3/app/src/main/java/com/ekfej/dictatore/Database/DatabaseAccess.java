@@ -364,7 +364,7 @@ public class DatabaseAccess {
         }
     }
 
-    //region Szórár
+    //region Szótár
     public boolean WordDelete(List<Word> TörlendőSzavak) //kipróbálva, kevés teszt
     {
         Boolean b = false;
