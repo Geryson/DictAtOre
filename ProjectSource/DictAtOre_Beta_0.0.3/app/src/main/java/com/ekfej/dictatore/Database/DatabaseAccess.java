@@ -250,7 +250,7 @@ public class DatabaseAccess {
     public boolean WordsWordUpdateElemi(String NewWord, String OldWord, int Meaning, int Language_ID) {
         open();
         try {
-            String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Language_ID=" + Language_ID + "and meaning =" + Meaning;
+            String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Language_ID=" + Language_ID + " and meaning =" + Meaning;
             database.execSQL(sql);
             close();
             return true;
@@ -265,7 +265,7 @@ public class DatabaseAccess {
         open();
         try {
             //if (NewMeaning == -1) { NewMeaning = null;}
-            String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Language_ID=" + Language_ID + "and word =\"" + Word + "\"";
+            String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Language_ID=" + Language_ID + " and word =\"" + Word + "\"";
             database.execSQL(sql);
             close();
             return true;
@@ -279,7 +279,7 @@ public class DatabaseAccess {
     public boolean WordsLanguage_IDUpdateElemi(int NewLanguage_ID, int OldLanguage_ID, int Meaning, String Word) {
         open();
         try {
-            String sql = "update words Set Language_ID="+ NewLanguage_ID + "  where Language_ID=" + OldLanguage_ID + " and meaning=" + Meaning + "and word=\"" + Word + "\"";
+            String sql = "update words Set Language_ID="+ NewLanguage_ID + "  where Language_ID=" + OldLanguage_ID + " and meaning=" + Meaning + " and word=\"" + Word + "\"";
             database.execSQL(sql);
             close();
             return true;
@@ -384,22 +384,19 @@ public class DatabaseAccess {
         }
         return b;
     }
-    public boolean WordUpdate(Word word, String NewValue, int mezőindex) { //egyszerre csak egyet lehet módosítani
-        List<Word> Szavak = WordObjectSelect(word.getLanguage().getName());  //nincs kipróbálva
+    public boolean WordUpdate(Word word, String NewValue, int mezoindex) { //egyszerre csak egyet lehet módosítani
+        List<Word> Szavak = WordObjectSelect(word.getLanguage().getName());  //kipróbálva, de kevés teszt
         for (int j =0; j < Szavak.size(); j++) {
-            if (word.getWord().equals(Szavak.get(j).getWord()) && word.getLanguage().equals(Szavak.get(j).getLanguage())) {
+            if (word.getWord().equals(Szavak.get(j).getWord())) {
                 for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
                     if (word.getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(0).getId()) {
-                        switch (mezőindex) {
+                        switch (mezoindex) {
                             case 2:
-                                WordsWordUpdateElemi(NewValue, word.getWord(), word.getMeaning().get(0).getId(), word.getLanguage().getId());
-                                return true;
+                                return WordsWordUpdateElemi(NewValue, word.getWord(), word.getMeaning().get(0).getId(), word.getLanguage().getId());
                             case 3:
-                                WordsMeaningUpdateElemi(Integer.decode(NewValue), word.getMeaning().get(0).getId(), word.getWord(), word.getLanguage().getId());
-                                return true;
+                                return WordsMeaningUpdateElemi(Integer.decode(NewValue), word.getMeaning().get(0).getId(), word.getWord(), word.getLanguage().getId());
                             case 4:
-                                WordsLanguage_IDUpdateElemi(Integer.decode(NewValue), word.getLanguage().getId(), word.getMeaning().get(0).getId(), word.getWord());
-                                return true;
+                                return WordsLanguage_IDUpdateElemi(Integer.decode(NewValue), word.getLanguage().getId(), word.getMeaning().get(0).getId(), word.getWord());
 
                         }
                     }
@@ -407,6 +404,10 @@ public class DatabaseAccess {
             }
         }
         return false;
+    }
+    public boolean WordUpdateObject (Word OldWord, Word NewWord)
+    {
+        return  true;
     }
     public boolean WordInsert(Word word) //kipróbálva, működött (kevés teszt)
     {

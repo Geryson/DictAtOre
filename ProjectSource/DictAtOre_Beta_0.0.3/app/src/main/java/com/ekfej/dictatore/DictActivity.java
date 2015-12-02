@@ -77,20 +77,22 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
                 SecondLanguageList.add(""); //null értéket nem adhatok bele, mert kiakad az adapter
             }
             else {
-                SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord()); 
+                SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord());
                 //ha megoldjuk megfelelően a view-ba
             }
         }
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
         SecondWords.setAdapter(adapter2);
 
-        //region pictori fgv tesuztek
+        //region pictori fgv tesztek
         List<Word> insert = new ArrayList<Word>();
-        insert.add(new Word(8));
+        insert.add(new Word(7));
         //databaseAccess.WordInsert(new Word("papa", insert, new Language(2, "Magyar")));
-        //List<Word> s = new ArrayList<Word>();
-        //s.add(new Word("papa", insert, new Language(2, "Magyar")));
+        List<Word> s = new ArrayList<Word>();
+        s.add(new Word("tata", insert, new Language(2, "Magyar")));
         //databaseAccess.WordDelete(s);
+        String n = ""+0+"";
+        //databaseAccess.WordUpdate(s.get(0), n, 4);
         //endregion
 
     }
