@@ -40,7 +40,6 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         List<String> Spinner1List = databaseAccess.LanguageSelect();
         List<String> Spinner2List = databaseAccess.LanguageSelect();
 
-
         for (int i = 0; i < Spinner1List.size(); i++){
             if (Spinner1List.get(i).equals(SecondLanguageBundle)) {
                 Spinner1List.remove(i);
@@ -112,15 +111,14 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (view == Spinner1){
+        int identifier = parent.getId();
+        if (identifier == R.id.spinner)
             FirstLanguageBundle = parent.getSelectedItem().toString();
-
-        }
-        else{
+        if (identifier == R.id.spinner2)
             SecondLanguageBundle = parent.getSelectedItem().toString();
-        }
         RefreshLayout();
     }
 

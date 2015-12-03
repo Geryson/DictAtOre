@@ -405,9 +405,25 @@ public class DatabaseAccess {
         }
         return false;
     }
-    public boolean WordUpdateObject (Word OldWord, Word NewWord)
-    {
-        return  true;
+    public boolean WordUpdateObject (Word OldWord, Word NewWord) //akár mind a 3 értékéát lehet módosítani (kivéve az ID-t)
+    {                                                               //nincs kipróbálva
+        boolean wordb = true, meaningb = true, languageb = true;
+        if (OldWord.getWord().equals(NewWord.getWord())) { wordb = false;}
+        if (OldWord.getMeaning().equals(NewWord.getMeaning())) { meaningb = false;}
+        if (OldWord.getLanguage().equals(NewWord.getLanguage())) {languageb = false; }
+        if (wordb) {
+            WordUpdate(OldWord,NewWord.getWord(), 2);
+            wordb = false;
+        }
+        if (languageb) {
+            WordUpdate(new Word(NewWord.getWord(), OldWord.getMeaning(), OldWord.getLanguage()), ""+NewWord.getLanguage().getId()+"", 4);
+            languageb = false;
+        }
+        if (meaningb) {
+            WordUpdate(new Word(NewWord.getWord(),OldWord.getMeaning(), NewWord.getLanguage()), ""+NewWord.getMeaning().get(0).getId()+"" ,3);
+            meaningb = false;
+        }
+        return (!wordb && !languageb && !meaningb);
     }
     public boolean WordInsert(Word word) //kipróbálva, működött (kevés teszt)
     {
