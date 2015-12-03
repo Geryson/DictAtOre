@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Language;
@@ -15,9 +16,11 @@ import com.ekfej.dictatore.Presenter.Word;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DictActivity extends AppCompatActivity implements View.OnClickListener {
+public class DictActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private ListView FirstWords, SecondWords;
     private Spinner Spinner1, Spinner2;
+    private String FirstLanguageBundle, SecondLanguageBundle;
+    private DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,10 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_dict);
 
         Bundle LangaugeBundle = getIntent().getExtras();
-        String FirstLanguageBundle = LangaugeBundle.getString("FirstLanguage");
-        String SecondLanguageBundle = LangaugeBundle.getString("SecondLanguage");
+        FirstLanguageBundle = LangaugeBundle.getString("FirstLanguage");
+        SecondLanguageBundle = LangaugeBundle.getString("SecondLanguage");
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess = DatabaseAccess.getInstance(this);
         FirstWords = (ListView) findViewById(R.id.FirstWords);
         SecondWords = (ListView) findViewById(R.id.SecondWords);
         Spinner1 = (Spinner) findViewById(R.id.spinner);
@@ -64,25 +67,10 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1.setSelection(Spinner1Position);
         Spinner2.setSelection(Spinner2Position);
 
-        List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
-        FirstWords.setAdapter(adapter);
+        Spinner1.setOnItemSelectedListener(this);
+        Spinner2.setOnItemSelectedListener(this);
 
-        List<Word> DictionaryList = databaseAccess.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
-        List<String> SecondLanguageList = new ArrayList<String>();
-        for (int i =0; i< DictionaryList.size(); i++)
-        {
-            if(DictionaryList.get(i).getMeaning().size() == 0) //a probléma az hogy a secondlist rövidebb mint a firstlist (most már megoldva)
-            {
-                SecondLanguageList.add(""); //null értéket nem adhatok bele, mert kiakad az adapter
-            }
-            else {
-                SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord());
-                //ha megoldjuk megfelelően a view-ba
-            }
-        }
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
-        SecondWords.setAdapter(adapter2);
+        RefreshLayout();
 
         //region pictori fgv tesztek
         List<Word> insert = new ArrayList<Word>();
@@ -97,9 +85,47 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void RefreshLayout() {
+        List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
+        FirstWords.setAdapter(adapter);
+
+        List<Word> DictionaryList = databaseAccess.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
+        List<String> SecondLanguageList = new ArrayList<String>();
+        for (int i =0; i< DictionaryList.size(); i++)
+        {
+            if(DictionaryList.get(i).getMeaning().size() == 0) //a problĂ©ma az hogy a secondlist rĂ¶videbb mint a firstlist (most mĂˇr megoldva)
+            {
+                SecondLanguageList.add(""); //null Ă©rtĂ©ket nem adhatok bele, mert kiakad az adapter
+            }
+            else {
+                SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord());
+                //ha megoldjuk megfelelĹ‘en a view-ba
+            }
+        }
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SecondLanguageList);
+        SecondWords.setAdapter(adapter2);
+    }
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (view == Spinner1){
+            FirstLanguageBundle = parent.getSelectedItem().toString();
+
+        }
+        else{
+            SecondLanguageBundle = parent.getSelectedItem().toString();
+        }
+        RefreshLayout();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }
