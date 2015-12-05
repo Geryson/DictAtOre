@@ -478,7 +478,7 @@ public class DatabaseAccess {
             SecondWords = (Decipherment(SecondLanguage, FirstLanguage, actualWord));
 
             int LanguageIndex, LanguageIndex2;
-            if (FirstLanguage.equals(Nyelvek.get(0)))
+            if (FirstLanguage.equals(Nyelvek.get(0).getName()))
             { LanguageIndex = 0; LanguageIndex2 = 1;}
             else {LanguageIndex = 1; LanguageIndex2 = 0;}
 

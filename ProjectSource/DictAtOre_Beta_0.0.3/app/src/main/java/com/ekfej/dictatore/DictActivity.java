@@ -21,6 +21,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner Spinner1, Spinner2;
     private String FirstLanguageBundle, SecondLanguageBundle;
     private DatabaseAccess databaseAccess;
+    private ArrayAdapter<String> Spinner1Adapter, Spinner2Adapter;
+    private List<String> Spinner1List, Spinner2List;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +39,14 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1 = (Spinner) findViewById(R.id.spinner);
         Spinner2 = (Spinner) findViewById(R.id.spinner2);
 
-        List<String> Spinner1List = databaseAccess.LanguageSelect();
-        List<String> Spinner2List = databaseAccess.LanguageSelect();
+        Spinner1List = databaseAccess.LanguageSelect();
+        Spinner2List = databaseAccess.LanguageSelect();
 
-        for (int i = 0; i < Spinner1List.size(); i++){
-            if (Spinner1List.get(i).equals(SecondLanguageBundle)) {
-                Spinner1List.remove(i);
-                break;
-            }
-        }
-        for (int i = 0; i < Spinner2List.size(); i++){
-            if (Spinner2List.get(i).equals(FirstLanguageBundle)) {
-                Spinner2List.remove(i);
-                break;
-            }
-        }
+        DeleteLangFromList();
 
-        ArrayAdapter<String> Spinner1Adapter = new ArrayAdapter<String>(this,
+        Spinner1Adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Spinner1List);
-        ArrayAdapter<String> Spinner2Adapter = new ArrayAdapter<String>(this,
+        Spinner2Adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Spinner2List);
         Spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -84,6 +75,21 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void DeleteLangFromList() {
+        for (int i = 0; i < Spinner1List.size(); i++){
+            if (Spinner1List.get(i).equals(SecondLanguageBundle)) {
+                Spinner1List.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < Spinner2List.size(); i++){
+            if (Spinner2List.get(i).equals(FirstLanguageBundle)) {
+                Spinner2List.remove(i);
+                break;
+            }
+        }
+    }
+
     private void RefreshLayout() {
         List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
@@ -95,7 +101,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         {
             if(DictionaryList.get(i).getMeaning().size() == 0) //a problĂ©ma az hogy a secondlist rĂ¶videbb mint a firstlist (most mĂˇr megoldva)
             {
-                SecondLanguageList.add(""); //null Ă©rtĂ©ket nem adhatok bele, mert kiakad az adapter
+                SecondLanguageList.add("hiányzó szó"); //null Ă©rtĂ©ket nem adhatok bele, mert kiakad az adapter
             }
             else {
                 SecondLanguageList.add(DictionaryList.get(i).getMeaning().get(0).getWord());
@@ -114,11 +120,24 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String OldFirstLanguage = FirstLanguageBundle;
+        String OldSecondLanguage = SecondLanguageBundle;
+
         int identifier = parent.getId();
         if (identifier == R.id.spinner)
             FirstLanguageBundle = parent.getSelectedItem().toString();
         if (identifier == R.id.spinner2)
             SecondLanguageBundle = parent.getSelectedItem().toString();
+
+        DeleteLangFromList();
+
+        if (!OldFirstLanguage.equals(FirstLanguageBundle)){
+            Spinner2Adapter.add(OldFirstLanguage);
+        }
+        else if (!OldSecondLanguage.equals(SecondLanguageBundle)){
+            Spinner1Adapter.add(OldSecondLanguage);
+        }
+
         RefreshLayout();
     }
 
