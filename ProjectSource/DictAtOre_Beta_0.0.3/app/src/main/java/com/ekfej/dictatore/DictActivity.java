@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Language;
@@ -42,7 +41,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1List = databaseAccess.LanguageSelect();
         Spinner2List = databaseAccess.LanguageSelect();
 
-        DeleteLangFromList();
+        RefreshSpinners();
 
         Spinner1Adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Spinner1List);
@@ -75,19 +74,32 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void DeleteLangFromList() {
+    private void RefreshSpinners() {
+        int firstPosition = 0, secondPosition = 0;
         for (int i = 0; i < Spinner1List.size(); i++){
             if (Spinner1List.get(i).equals(SecondLanguageBundle)) {
                 Spinner1List.remove(i);
-                break;
+            }
+            if (Spinner1List.get(i).equals(FirstLanguageBundle)){
+                firstPosition = i;
             }
         }
         for (int i = 0; i < Spinner2List.size(); i++){
             if (Spinner2List.get(i).equals(FirstLanguageBundle)) {
                 Spinner2List.remove(i);
-                break;
+            }
+            if (Spinner2List.get(i).equals(SecondLanguageBundle)){
+                secondPosition = i;
             }
         }
+        Spinner1List.remove(firstPosition);
+        Spinner2List.remove(secondPosition);
+
+        java.util.Collections.sort(Spinner1List);
+        java.util.Collections.sort(Spinner2List);
+
+        Spinner1List.add(0, FirstLanguageBundle);
+        Spinner2List.add(0, SecondLanguageBundle);
     }
 
     private void RefreshLayout() {
@@ -129,14 +141,18 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         if (identifier == R.id.spinner2)
             SecondLanguageBundle = parent.getSelectedItem().toString();
 
-        DeleteLangFromList();
-
         if (!OldFirstLanguage.equals(FirstLanguageBundle)){
             Spinner2Adapter.add(OldFirstLanguage);
+
         }
         else if (!OldSecondLanguage.equals(SecondLanguageBundle)){
             Spinner1Adapter.add(OldSecondLanguage);
         }
+
+        RefreshSpinners();
+
+        Spinner1.setSelection(Spinner1Adapter.getPosition(FirstLanguageBundle));
+        Spinner2.setSelection(Spinner2Adapter.getPosition(SecondLanguageBundle));
 
         RefreshLayout();
     }
