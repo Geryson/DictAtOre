@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -22,6 +23,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseAccess databaseAccess;
     private ArrayAdapter<String> Spinner1Adapter, Spinner2Adapter;
     private List<String> Spinner1List, Spinner2List;
+    private Button swapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,9 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         Spinner1.setOnItemSelectedListener(this);
         Spinner2.setOnItemSelectedListener(this);
+
+        swapButton = (Button) findViewById(R.id.swapButton);
+        swapButton.setOnClickListener(this);
 
         RefreshLayout();
 
@@ -102,6 +107,12 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner2List.add(0, SecondLanguageBundle);
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
     private void RefreshLayout() {
         List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
@@ -126,7 +137,21 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (v == swapButton){
+            String temp = FirstLanguageBundle;
+            FirstLanguageBundle = SecondLanguageBundle;
+            SecondLanguageBundle = temp;
 
+            Spinner1List.remove(0);
+            Spinner1List.add(0, FirstLanguageBundle);
+            Spinner1Adapter.notifyDataSetChanged();
+
+            Spinner2List.remove(0);
+            Spinner2List.add(0, SecondLanguageBundle);
+            Spinner2Adapter.notifyDataSetChanged();
+
+            RefreshLayout();
+        }
     }
 
 

@@ -22,6 +22,12 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     String kifejezes = null;
 
     @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledgetest);
@@ -41,7 +47,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         String FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
         String SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
-        FirstLanguage.setText(FirstLanguageBundle + " nyelven");
+        FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
 
         expression = (TextView) findViewById(R.id.tudasteszt_wordBox);
         try {

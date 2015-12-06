@@ -18,7 +18,7 @@ import java.util.jar.Attributes;
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton;
-    String Language= null, Language2 = null;
+    String Language = null, Language2 = null;
     String actualactivity;
 
     @Override
@@ -145,7 +145,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                     SecondLanguage.putString("SecondLanguage", Language2);
                     intent.putExtras(SecondLanguage);
 
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
                 else {
                     if (actualactivity.equals("Szótárak")) {
@@ -165,7 +165,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                         SecondLanguage.putString("SecondLanguage", Language2);
                         intent.putExtras(SecondLanguage);
 
-                        startActivity(intent);
+                        startActivityForResult(intent, 2);
                     }
                 }
             }
@@ -176,5 +176,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         LoadList(databaseAccess);
+        Language = null;
+        Language2 = null;
     }
 }

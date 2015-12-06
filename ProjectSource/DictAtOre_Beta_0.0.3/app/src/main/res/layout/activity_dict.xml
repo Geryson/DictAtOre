@@ -23,6 +23,12 @@
             android:id="@+id/spinner"
             android:layout_weight="1" />
 
+        <Button
+            android:layout_width="73dp"
+            android:layout_height="34dp"
+            android:id="@+id/swapButton"
+            android:background="@drawable/dict_swap_button" />
+
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
