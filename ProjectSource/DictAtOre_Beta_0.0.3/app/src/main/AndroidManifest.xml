@@ -20,8 +20,9 @@
             android:label="Nyelv választás" >
         </activity>
         <activity
-            android:name=".Dict_ChooseActivity"
-            android:label="@string/title_activity_szotar__valaszto" >
+            android:name=".Word_InsertActivity"
+            android:label="@string/title_activity_word_insert"
+            android:theme="@style/AppTheme.Popup">
         </activity>
         <activity
             android:name=".Language_InsertActivity"

@@ -1,11 +1,13 @@
 package com.ekfej.dictatore;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -24,6 +26,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> Spinner1Adapter, Spinner2Adapter;
     private List<String> Spinner1List, Spinner2List;
     private Button swapButton;
+    private ImageButton addWordsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,9 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         swapButton = (Button) findViewById(R.id.swapButton);
         swapButton.setOnClickListener(this);
+
+        addWordsButton = (ImageButton) findViewById(R.id.addWordsButton);
+        addWordsButton.setOnClickListener(this);
 
         RefreshLayout();
 
@@ -152,6 +158,16 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
             RefreshLayout();
         }
+
+        if (v == addWordsButton){
+            Intent intent = new Intent(this, Word_InsertActivity.class);
+            Bundle bundy = new Bundle();
+            bundy.putString("FirstLanguage", FirstLanguageBundle);
+            bundy.putString("SecondLanguage", SecondLanguageBundle);
+            intent.putExtras(bundy);
+            startActivity(intent);
+        }
+
     }
 
 
