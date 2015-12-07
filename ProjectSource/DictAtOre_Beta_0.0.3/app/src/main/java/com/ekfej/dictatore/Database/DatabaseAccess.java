@@ -123,7 +123,7 @@ public class DatabaseAccess {
         while (!meaning.isAfterLast()) {
             List<Word> meaningList = new ArrayList<Word>();
             meaningList.add(new Word(meaning.getInt(0)));
-            list.add(new Word(listword.get(index), meaningList, new Language(l, Name)));
+            list.add(new Word(IdList.get(index),listword.get(index), meaningList, new Language(l, Name)));
             index++;
             meaning.moveToNext();
         }
@@ -454,7 +454,34 @@ public class DatabaseAccess {
                       boolean b =  WordInsertElemi(word.getWord(), -1, word.getLanguage().getId());
                     }
                     else {
-                        boolean b = WordInsertElemi(word.getWord(), word.getMeaning().get(0).getId(), word.getLanguage().getId());
+                        boolean is = false;
+                        for (int index =0; index < sumword.size(); index++) {
+                            if (word.getMeaning().get(0).getWord().equals(sumword.get(index).getWord()) && sumword.get(index).getMeaning() == null &&
+                                    sumword.get(index).getLanguage().getName().equals(word.getLanguage().getName())) {
+                                int meaningID = sumword.get(index).getId();
+                                boolean b = WordInsertElemi(word.getWord(), meaningID, word.getLanguage().getId());
+                                WordUpdate(sumword.get(index), "" + meaningID + "", 3);
+                                is = true;
+                                break;
+                            }
+                        }
+                        if (is == false) {
+
+                            boolean b = WordInsertElemi(word.getWord(), -1, word.getLanguage().getId());
+
+                            sumword = WordObjectSelect(word.getLanguage().getName());
+                                for (int i =0; i < sumword.size(); i++) {
+                                    if (word.getWord().equals(sumword.get(i).getWord()) && sumword.get(i).getMeaning().get(0).getId() == 0) {
+                                        int meaningID = sumword.get(i).getId();
+                                        if (NullHossz(word.getMeaning().get(0).getWord()) && NullHossz(word.getMeaning().get(0).getLanguage().getName())) {
+                                            WordInsertElemi(word.getMeaning().get(0).getWord(), meaningID, word.getMeaning().get(0).getLanguage().getId());
+                                            meaningID++;
+                                            WordUpdate(word, "" + meaningID + "", 3);
+                                        } //a második nyelv szava nem tud az elsö nyelv szavára mutatni
+                                        break;
+                                    }
+                                }
+                        }
                     }
                 }
             }

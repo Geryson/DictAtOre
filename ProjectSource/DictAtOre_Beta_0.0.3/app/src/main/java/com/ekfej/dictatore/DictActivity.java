@@ -72,16 +72,6 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         RefreshLayout();
 
-        //region pictori fgv tesztek
-        List<Word> insert = new ArrayList<Word>();
-        insert.add(new Word(7));
-        //databaseAccess.WordInsert(new Word("papa", insert, new Language(2, "Magyar")));
-        List<Word> s = new ArrayList<Word>();
-        s.add(new Word("tata", insert, new Language(2, "Magyar")));
-        //databaseAccess.WordDelete(s);
-        String n = ""+0+"";
-        //databaseAccess.WordUpdate(s.get(0), n, 4);
-        //endregion
 
     }
 
