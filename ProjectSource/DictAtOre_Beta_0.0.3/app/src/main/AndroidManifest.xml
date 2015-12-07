@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".Language_InsertActivity"
-            android:label="Nyelv beállítások"
+            android:label="Nyelv hozzáadása"
             android:theme="@style/AppTheme.Popup">
         </activity>
         <activity

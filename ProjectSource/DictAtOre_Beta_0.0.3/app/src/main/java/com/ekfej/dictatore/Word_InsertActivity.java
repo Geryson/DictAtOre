@@ -6,6 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +56,9 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.8), (int)(height*.6));
+        WindowManager.LayoutParams windowManager = getWindow().getAttributes();
+        windowManager.dimAmount = 0.5f;
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override

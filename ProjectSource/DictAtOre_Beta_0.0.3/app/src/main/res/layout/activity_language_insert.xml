@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Új nyelv neve:"
-            android:id="@+id/textView1" />
+            android:id="@+id/langInsert_textField" />
     </LinearLayout>
 
     <LinearLayout

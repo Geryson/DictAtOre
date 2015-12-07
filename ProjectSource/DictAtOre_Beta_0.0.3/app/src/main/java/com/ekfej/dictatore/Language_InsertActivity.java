@@ -6,8 +6,10 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
@@ -18,6 +20,7 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
     EditText LanguageName;
     String Name;
     String LanguageNamebeforeactivity = null;
+    TextView langInsert_textField;
 
 
     @Override
@@ -31,10 +34,14 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
         LanguageName = (EditText) findViewById(R.id.LanguageNameText);
         LanguageName.getText();
 
+        langInsert_textField = (TextView) findViewById(R.id.langInsert_textField);
+
         Bundle gomb = getIntent().getExtras();
         String gombString = gomb.getString("nextActivity");
         Toast.makeText(this, gombString, Toast.LENGTH_SHORT).show();
         if (gombString.equals("Módosítás")) {
+            setTitle("Nyelv módosítása");
+            langInsert_textField.setText("A nyelv új neve:");
             LanguageNamebeforeactivity = gomb.getString("LanguageName");
             LanguageName.setText(LanguageNamebeforeactivity);
         }
@@ -46,6 +53,9 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * .8), (int) (height * .6));
+        WindowManager.LayoutParams windowManager = getWindow().getAttributes();
+        windowManager.dimAmount = 0.5f;
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     @Override
