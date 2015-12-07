@@ -2,6 +2,7 @@ package com.ekfej.dictatore;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,14 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
             LanguageNamebeforeactivity = gomb.getString("LanguageName");
             LanguageName.setText(LanguageNamebeforeactivity);
         }
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        getWindow().setLayout((int) (width * .8), (int) (height * .6));
     }
 
     @Override
