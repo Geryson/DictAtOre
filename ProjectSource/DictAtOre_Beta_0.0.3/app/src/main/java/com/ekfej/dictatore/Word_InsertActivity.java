@@ -65,6 +65,9 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
                     word2.add(new Word(WordInsert2.getText().toString(), new Language(db.LanguageIdSelect(SecondLBundle), SecondLBundle)));
             db.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.LanguageIdSelect(FirstLBundle), FirstLBundle)));
             //ha nem létezik a meaning akkor azt is létre kell hoznia
+
+            setResult(RESULT_OK);
+
             finish();
 
         }

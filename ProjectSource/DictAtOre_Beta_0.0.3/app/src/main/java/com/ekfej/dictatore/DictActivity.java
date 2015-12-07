@@ -3,7 +3,9 @@ package com.ekfej.dictatore;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,6 +29,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> Spinner1List, Spinner2List;
     private Button swapButton;
     private ImageButton addWordsButton;
+    private View clickSource, touchSource;
+    private int offset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,79 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         databaseAccess = DatabaseAccess.getInstance(this);
         FirstWords = (ListView) findViewById(R.id.FirstWords);
         SecondWords = (ListView) findViewById(R.id.SecondWords);
+
+        FirstWords.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(touchSource == null)
+                    touchSource = v;
+
+                if(v == touchSource) {
+                    SecondWords.dispatchTouchEvent(event);
+                    if(event.getAction() == MotionEvent.ACTION_UP) {
+                        clickSource = v;
+                        touchSource = null;
+                    }
+                }
+
+                return false;
+            }
+        });
+        SecondWords.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(touchSource == null)
+                    touchSource = v;
+
+                if(v == touchSource) {
+                    FirstWords.dispatchTouchEvent(event);
+                    if(event.getAction() == MotionEvent.ACTION_UP) {
+                        clickSource = v;
+                        touchSource = null;
+                    }
+                }
+
+                return false;
+            }
+        });
+        FirstWords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (parent == clickSource) {
+                    // Do something with the ListView was clicked
+                }
+            }
+        });
+        SecondWords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (parent == clickSource) {
+                    // Do something with the ListView was clicked
+                }
+            }
+        });
+        FirstWords.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (view == clickSource)
+                    SecondWords.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop() + offset);
+            }
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+        });
+        SecondWords.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(view == clickSource)
+                    FirstWords.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop() + offset);
+            }
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+        });
+
         Spinner1 = (Spinner) findViewById(R.id.spinner);
         Spinner2 = (Spinner) findViewById(R.id.spinner2);
 
@@ -109,6 +186,11 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        RefreshLayout();
+    }
+
     private void RefreshLayout() {
         List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
@@ -155,7 +237,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
             bundy.putString("FirstLanguage", FirstLanguageBundle);
             bundy.putString("SecondLanguage", SecondLanguageBundle);
             intent.putExtras(bundy);
-            startActivity(intent);
+            startActivityForResult(intent, 20);//random szám
         }
 
     }
