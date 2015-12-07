@@ -166,6 +166,18 @@ public class DatabaseAccess {
         close();
         return Idint;
     }
+    public List<String> Search (String Name, String wordpart) { //nincs tesztelve
+        String sql = "select * from words where  Language_ID = (select ID from  languages where Name = \"" + Name + "\") and word like  \"%" + wordpart + "%\"";
+        List<String> word = new ArrayList<String>();
+        open();
+        Cursor cursor = database.rawQuery(sql, null);
+        cursor.moveToFirst();
+        word.add(cursor.getString(0));
+        cursor.close();
+        close();
+        return word;
+
+    }
     //endregion
 
     //saját
