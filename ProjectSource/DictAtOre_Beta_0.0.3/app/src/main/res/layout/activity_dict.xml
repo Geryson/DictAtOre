@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/addWordsButton"
             android:layout_weight="1"
-            android:src="@drawable/add_button"
+            android:src="@drawable/add_language_button"
             android:scaleType="fitCenter"
             android:background="#00ffffff" />
 

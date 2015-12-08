@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
@@ -23,6 +24,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
     EditText WordInsert1, WordInsert2;
     Button Add;
     String FirstLBundle, SecondLBundle;
+    LinearLayout removeLayout, addMeaningLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +35,23 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         Bundle getlanguage = getIntent().getExtras();
         FirstLBundle = getlanguage.getString("FirstLanguage");
         SecondLBundle = getlanguage.getString("SecondLanguage");
+        WordInsert1 = (EditText) findViewById(R.id.wordInsertFirstWord);
+        WordInsert2 = (EditText) findViewById(R.id.wordInsertSecondWord);
+
+        removeLayout = (LinearLayout) findViewById(R.id.removeLayout);
+        addMeaningLayout = (LinearLayout) findViewById(R.id.addMeaningLayout);
+
+        if (getlanguage.getBoolean("editing")){
+            removeLayout.setVisibility(View.VISIBLE);
+            addMeaningLayout.setVisibility(View.VISIBLE);
+            WordInsert1.setText(getlanguage.getString("firstWord"));
+            WordInsert2.setText(getlanguage.getString("secondWord"));
+        }
 
         FirstLanguageTextView = (TextView) findViewById(R.id.wordInsertFirstLanguage);
         FirstLanguageTextView.setText(FirstLBundle);
         SecondLanguageTextView = (TextView) findViewById(R.id.wordInsertSecondLanguage);
         SecondLanguageTextView.setText(SecondLBundle);
-
-        WordInsert1 = (EditText) findViewById(R.id.wordInsertFirstWord);
-        WordInsert2 = (EditText) findViewById(R.id.wordInsertSecondWord);
-        WordInsert1.getText();
-        WordInsert2.getText();
 
         Add = (Button) findViewById(R.id.insertWord);
         Add.setOnClickListener(this);
