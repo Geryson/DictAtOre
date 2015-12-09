@@ -1,5 +1,6 @@
 package com.ekfej.dictatore;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
     Button Add;
     String FirstLBundle, SecondLBundle;
     LinearLayout removeLayout, addMeaningLayout;
+    ImageView Editing, Deleting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,11 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
             addMeaningLayout.setVisibility(View.VISIBLE);
             WordInsert1.setText(getlanguage.getString("firstWord"));
             WordInsert2.setText(getlanguage.getString("secondWord"));
+
+            Editing = (ImageView) findViewById(R.id.EditingimageView);
+            Editing.setOnClickListener(this);
+            Deleting = (ImageView) findViewById(R.id.DeleteimageView);
+            Deleting.setOnClickListener(this);
         }
 
         FirstLanguageTextView = (TextView) findViewById(R.id.wordInsertFirstLanguage);
@@ -72,8 +80,10 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        DatabaseAccess db = DatabaseAccess.getInstance(this);
+
         if (v == Add) { //ne használd, még nagyon nincs kész
-            DatabaseAccess db = DatabaseAccess.getInstance(this);
+
             List<Word> word2 = new ArrayList<Word>();
                     word2.add(new Word(WordInsert2.getText().toString(), new Language(db.LanguageIdSelect(SecondLBundle), SecondLBundle)));
             db.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.LanguageIdSelect(FirstLBundle), FirstLBundle)));
@@ -83,6 +93,24 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
             finish();
 
+        }
+
+        if (v == Editing) {
+
+            //db.WordUpdateObject(,WordInsert1.getText().toString());
+            //db.WordUpdateObject(,WordInsert2.getText().toString());
+            // tudni kellene hozzá a szó többi mezőjét is, hogy pontosan melyiket akarjuk módosítani
+
+            setResult(RESULT_OK);
+
+            finish();
+        }
+
+        if (v == Deleting) {
+            //ugyanaz igaz itt is mint a módosításnál
+            setResult(RESULT_OK);
+
+            finish();
         }
     }
 }

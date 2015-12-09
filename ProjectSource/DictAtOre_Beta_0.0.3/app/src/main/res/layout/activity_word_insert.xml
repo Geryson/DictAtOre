@@ -87,10 +87,10 @@
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/remove_trash"
-                    android:id="@+id/imageView3" />
+                    android:id="@+id/EditingimageView" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/DeletetextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -118,10 +118,10 @@
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_meaning_button"
-                    android:id="@+id/imageView2" />
+                    android:id="@+id/DeleteimageView" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/EditingtextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
