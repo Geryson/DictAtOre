@@ -4,23 +4,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button TudastesztButton, SzotarakButton;
+    ImageView progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        progress = (ImageView) findViewById(R.id.imageView);
+        Animation an = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale);
+        progress.startAnimation(an);
+        progress.setVisibility(View.INVISIBLE);
+
 		TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //nem kell újrapéldányosítani
         TudastesztButton.setOnClickListener(this);
 
         SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
         SzotarakButton.setOnClickListener(this);
+
+
+
+
+;
     }
 
     @Override
