@@ -37,7 +37,7 @@ public class KnowledgeTestPresenter extends MainPresenter {
         super(context);
         this.language1 = new Language(language1);
         this.language2 = new Language(language2);
-        GetRandomWords(numberOfWords, this.language1, this.language2);
+        //GetRandomWords(numberOfWords, this.language1, this.language2);
     }
 
 
