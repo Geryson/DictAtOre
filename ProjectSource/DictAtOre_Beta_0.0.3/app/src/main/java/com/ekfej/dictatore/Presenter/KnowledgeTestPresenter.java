@@ -14,10 +14,15 @@ public class KnowledgeTestPresenter extends MainPresenter {
 
     private Language language2;
 
+    private Word actualWord;
+
     private Word[] words;
     private int next;
-    public Word GetNextWord() {
-        if (next < wordsCount) return words[next++];
+    public String GetNextWord() {
+        if (next < wordsCount) {
+            actualWord = words[next++];
+            return actualWord.getWord();
+        }
         else return null;
     }
 
@@ -43,8 +48,8 @@ public class KnowledgeTestPresenter extends MainPresenter {
         words = StringWordArray2WordWordArray(number, wordsNames, language1, language2);
     }
 
-    public boolean WordCheck(Word word) {
-        return word.getMeaning().contains(word.getWord());
+    public boolean WordCheck() {
+        return actualWord.getMeaning().contains(actualWord.getWord());
     }
 
 }
