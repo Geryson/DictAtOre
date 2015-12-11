@@ -60,8 +60,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
 
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         try {
-            if (presenter.GetNextWord().getWord() != null) {
-                kifejezes = presenter.GetNextWord().getWord();
+            if (presenter.GetNextWord() != null) {
+                kifejezes = presenter.GetNextWord();
                 expression.setText(kifejezes);
                 //TestNumber++;
             }

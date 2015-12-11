@@ -19,16 +19,15 @@ public class KnowledgeTestPresenter extends MainPresenter {
     private Word[] words;
     private int next;
     public String GetNextWord() {
-        if (next < wordsCount) {
+        if (next < GetWordsCount()) {
             actualWord = words[next++];
             return actualWord.getWord();
         }
         else return null;
     }
 
-    private int wordsCount = words.length;
     public int GetWordsCount() {
-        return wordsCount;
+        return words.length;
     }
 
 
@@ -37,7 +36,7 @@ public class KnowledgeTestPresenter extends MainPresenter {
         super(context);
         this.language1 = new Language(language1);
         this.language2 = new Language(language2);
-        //GetRandomWords(numberOfWords, this.language1, this.language2);
+        GetRandomWords(numberOfWords, this.language1, this.language2);
     }
 
 
