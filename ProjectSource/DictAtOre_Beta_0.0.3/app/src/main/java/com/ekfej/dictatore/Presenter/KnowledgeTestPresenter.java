@@ -16,18 +16,18 @@ public class KnowledgeTestPresenter extends MainPresenter {
 
     private Word actualWord;
 
-    private Word[] words;
+    private List<Word> words;
     private int next;
     public String GetNextWord() {
         if (next < GetWordsCount()) {
-            actualWord = words[next++];
+            actualWord = words.get(next++);
             return actualWord.getWord();
         }
         else return null;
     }
 
     public int GetWordsCount() {
-        return words.length;
+        return words.size();
     }
 
 
@@ -42,8 +42,8 @@ public class KnowledgeTestPresenter extends MainPresenter {
 
 
     private void GetRandomWords(int number, Language language1, Language language2) {
-        String[] wordsNames = db.Expression(language1.getName(), number);
-
+        //String[] wordsNames = db.Expression(language1.getName(), number);
+        List<String> wordsNames = db.Expression(language1.getName(), number);
         words = StringWordArray2WordWordArray(number, wordsNames, language1, language2);
     }
 

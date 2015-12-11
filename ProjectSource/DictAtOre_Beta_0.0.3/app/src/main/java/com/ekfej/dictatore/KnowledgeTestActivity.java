@@ -58,11 +58,12 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
         FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
-
-        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
+       // db.Expression(FirstLanguageBundle,1);
+        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 2);
 
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         expression.setText("nincs ilyen szó");
+
         Test();
 
     }

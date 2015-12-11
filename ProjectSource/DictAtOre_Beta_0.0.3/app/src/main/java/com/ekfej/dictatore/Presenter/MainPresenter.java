@@ -33,24 +33,24 @@ public class MainPresenter {
         return words;
     }
 
-    protected Word[] StringWordArray2WordWordArray(int number, String[] wordsNames, Language language1, Language language2) {
-        Word[] words = new Word[number];
+    protected List<Word> StringWordArray2WordWordArray(int number, List<String> wordsNames, Language language1, Language language2) {
+        List<Word> words = new ArrayList<Word>();
         String language1Name = language1.getName();
         String language2Name = language2.getName();
 
         for (int i = 0; i < number; i++) {
-            words[i] = new Word(
-                    wordsNames[i],
+            words.add(new Word(
+                    wordsNames.get(i),
                     StringMeaningList2WordMeaningList(
                             db.Decipherment(
                                     language2Name,
                                     language1Name,
-                                    wordsNames[i]
+                                    wordsNames.get(i)
                             ),
                             language2
                     ),
                     language1
-            );
+            ));
         }
 
         return words;
