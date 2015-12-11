@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Presenter.KnowledgeTestPresenter;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     Button AgreeButton; //ideiglenes, később egy while ciklussal folyamotasan lesz ellenőrizve
     List<String> decipherment = null;
     String kifejezes = null;
+    TextView progressBox;
+    int TestNumber = 1; //számolja hogy hanyadik feladatál jár
+
 
     @Override
     public void onBackPressed() {
@@ -40,6 +44,9 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         AgreeButton = (Button) findViewById(R.id.AgreeButton);
         AgreeButton.setOnClickListener(this);
 
+        progressBox = (TextView) findViewById(R.id.tudasteszt_progressBox);
+        progressBox.setText(TestNumber + " / " + 15 + " szó");
+
         User_decipherment = (EditText) findViewById(R.id.knowledgeTest_decipherment);
         User_decipherment.getText();
 
@@ -49,11 +56,14 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
         FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
 
+        KnowledgeTestPresenter presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
+
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         try {
-            if (db.Expression(FirstLanguageBundle) != null) {
-                kifejezes = db.Expression(FirstLanguageBundle);
+            if (presenter.GetNextWord().getWord() != null) {
+                kifejezes = presenter.GetNextWord().getWord();
                 expression.setText(kifejezes);
+                //TestNumber++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +88,9 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         if (v == AgreeButton) {
             if (db.DeciphermentVsElement(User_decipherment, decipherment)) {
                 Toast.makeText(this, "Jó megoldás", Toast.LENGTH_SHORT).show();
+                kifejezes = null;
+                User_decipherment = null;
+                TestNumber++;
             }
             else  { Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show(); }
         }
