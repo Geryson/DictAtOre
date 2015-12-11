@@ -23,6 +23,9 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     String kifejezes = null;
     TextView progressBox;
     int TestNumber = 1; //számolja hogy hanyadik feladatál jár
+    KnowledgeTestPresenter presenter;
+    DatabaseAccess db;
+    String FirstLanguageBundle, SecondLanguageBundle;
 
 
     @Override
@@ -36,7 +39,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledgetest);
 
-        DatabaseAccess db = DatabaseAccess.getInstance(this);
+        db = DatabaseAccess.getInstance(this);
 
         Help = (Button) findViewById(R.id.knowledgeTest_helpButton);
         Help.setOnClickListener(this);
@@ -51,14 +54,19 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         User_decipherment.getText();
 
         Bundle LanguageBundle = getIntent().getExtras();
-        String FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
-        String SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
+        FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
+        SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
         FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
 
-        KnowledgeTestPresenter presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
+        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
 
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
+        expression.setText("nincs ilyen szó");
+        Test();
+
+    }
+    public void Test () {
         try {
             if (presenter.GetNextWord() != null) {
                 kifejezes = presenter.GetNextWord();

@@ -540,8 +540,9 @@ public class DatabaseAccess {
         Random rnd = new Random();
         if (szavak.size() <= Size) {
             String[] s = new String[szavak.size()];
-            for (int index=0; index < Size; index++) {
+            for (int index=0; index < szavak.size();) {
                 s[index] = WordsSelect(LanguageName).get(index);
+                index++;
             }
             return  s;
         }
