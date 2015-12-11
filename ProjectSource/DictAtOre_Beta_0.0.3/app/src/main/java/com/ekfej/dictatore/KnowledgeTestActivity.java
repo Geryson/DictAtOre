@@ -51,14 +51,14 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         progressBox.setText(TestNumber + " / " + 15 + " szó");
 
         User_decipherment = (EditText) findViewById(R.id.knowledgeTest_decipherment);
-        User_decipherment.getText();
+        //User_decipherment.getText();
 
         Bundle LanguageBundle = getIntent().getExtras();
         FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
         SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
         FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
-       // db.Expression(FirstLanguageBundle,1);
+
         presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 2);
 
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
@@ -70,9 +70,10 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     public void Test () {
         try {
             if (presenter.GetNextWord() != null) {
+                progressBox.setText(TestNumber + " / " + 15 + " szó");
                 kifejezes = presenter.GetNextWord();
                 expression.setText(kifejezes);
-                //TestNumber++;
+                TestNumber++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +100,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(this, "Jó megoldás", Toast.LENGTH_SHORT).show();
                 kifejezes = null;
                 User_decipherment = null;
-                TestNumber++;
+                Test();
             }
             else  { Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show(); }
         }
