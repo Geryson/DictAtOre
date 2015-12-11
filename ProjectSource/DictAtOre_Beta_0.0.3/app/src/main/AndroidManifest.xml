@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".KnowledgeTestActivity"
-            android:label="Tudásteszt">
+            android:label="Tudásteszt"
+            android:configChanges="orientation|screenSize">
         </activity>
         <activity
             android:name=".DictActivity"

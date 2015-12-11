@@ -15,7 +15,7 @@ import java.util.List;
 public class KnowledgeTestActivity extends AppCompatActivity implements View.OnClickListener {
     EditText User_decipherment; //felhasználó_megoldása
     TextView expression; //Kifejezés
-    TextView FirstLanguage;
+    TextView SecondLanguage;
     Button Help;
     Button AgreeButton; //ideiglenes, később egy while ciklussal folyamotasan lesz ellenőrizve
     List<String> decipherment = null;
@@ -34,22 +34,22 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
 
         DatabaseAccess db = DatabaseAccess.getInstance(this);
 
-        Help = (Button) findViewById(R.id.tudasteszt_helpButton);
+        Help = (Button) findViewById(R.id.knowledgeTest_helpButton);
         Help.setOnClickListener(this);
 
         AgreeButton = (Button) findViewById(R.id.AgreeButton);
         AgreeButton.setOnClickListener(this);
 
-        User_decipherment = (EditText) findViewById(R.id.tudasteszt_editText);
+        User_decipherment = (EditText) findViewById(R.id.knowledgeTest_decipherment);
         User_decipherment.getText();
 
         Bundle LanguageBundle = getIntent().getExtras();
-        String FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
+        String FirstLanguageBundle = LanguageBundle.getString("SecondLanguage");
         String SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
-        FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
-        FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
+        SecondLanguage = (TextView) findViewById(R.id.knowledgeTest_secondLanguage);
+        SecondLanguage.setText(SecondLanguageBundle + " nyelven:");
 
-        expression = (TextView) findViewById(R.id.tudasteszt_wordBox);
+        expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         try {
             if (db.Expression(FirstLanguageBundle) != null) {
                 kifejezes = db.Expression(FirstLanguageBundle);

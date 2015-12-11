@@ -42,7 +42,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_dict);
 
         Bundle LangaugeBundle = getIntent().getExtras();
-        FirstLanguageBundle = LangaugeBundle.getString("FirstLanguage");
+        FirstLanguageBundle = LangaugeBundle.getString("SecondLanguage");
         SecondLanguageBundle = LangaugeBundle.getString("SecondLanguage");
 
         insertWindowIsUp = false;
@@ -175,7 +175,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         if (v == addWordsButton){
             Intent intent = new Intent(this, Word_InsertActivity.class);
             Bundle bundy = new Bundle();
-            bundy.putString("FirstLanguage", FirstLanguageBundle);
+            bundy.putString("SecondLanguage", FirstLanguageBundle);
             bundy.putString("SecondLanguage", SecondLanguageBundle);
             intent.putExtras(bundy);
             startActivityForResult(intent, 20);//random szám
@@ -257,7 +257,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
                 bundy.putString("firstWord", meaning);
                 bundy.putString("secondWord", parent.getItemAtPosition(position).toString());
             }
-            bundy.putString("FirstLanguage", FirstLanguageBundle);
+            bundy.putString("SecondLanguage", FirstLanguageBundle);
             bundy.putString("SecondLanguage", SecondLanguageBundle);
 
             intent.putExtras(bundy);

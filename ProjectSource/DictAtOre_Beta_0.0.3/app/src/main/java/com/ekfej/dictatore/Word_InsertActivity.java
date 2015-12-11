@@ -36,7 +36,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         //region Pictori kontárkodása
         Bundle getlanguage = getIntent().getExtras();
-        FirstLBundle = getlanguage.getString("FirstLanguage");
+        FirstLBundle = getlanguage.getString("SecondLanguage");
         SecondLBundle = getlanguage.getString("SecondLanguage");
         WordInsert1 = (EditText) findViewById(R.id.wordInsertFirstWord);
         WordInsert2 = (EditText) findViewById(R.id.wordInsertSecondWord);

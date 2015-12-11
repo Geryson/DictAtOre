@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="KIFEJEZÉS"
-        android:id="@+id/tudasteszt_wordBox"
+        android:id="@+id/knowledgeTest_expression"
         android:layout_marginTop="21dp"
         android:layout_below="@+id/tudasteszt_header1"
         android:layout_centerHorizontal="true"
@@ -33,30 +33,30 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="&quot;elsőnyelv&quot; nyelven:"
-        android:id="@+id/tudasteszt_FirstLanguage"
-        android:layout_below="@+id/tudasteszt_wordBox"
+        android:id="@+id/knowledgeTest_secondLanguage"
+        android:layout_below="@+id/knowledgeTest_expression"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tudasteszt_editText"
-        android:layout_below="@+id/tudasteszt_FirstLanguage"
+        android:id="@+id/knowledgeTest_decipherment"
+        android:layout_below="@+id/knowledgeTest_secondLanguage"
         android:layout_marginTop="43dp"
         android:width="225dp"
-        android:layout_alignLeft="@+id/tudasteszt_FirstLanguage"
-        android:layout_alignStart="@+id/tudasteszt_FirstLanguage"
-        android:layout_alignRight="@+id/tudasteszt_FirstLanguage"
-        android:layout_alignEnd="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignLeft="@+id/knowledgeTest_secondLanguage"
+        android:layout_alignStart="@+id/knowledgeTest_secondLanguage"
+        android:layout_alignRight="@+id/knowledgeTest_secondLanguage"
+        android:layout_alignEnd="@+id/knowledgeTest_secondLanguage"
         android:inputType="text" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Segítség"
-        android:id="@+id/tudasteszt_helpButton"
-        android:layout_below="@+id/tudasteszt_editText"
+        android:id="@+id/knowledgeTest_helpButton"
+        android:layout_below="@+id/knowledgeTest_decipherment"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:textColor="@color/gombbetu1"
@@ -80,6 +80,6 @@
         android:textColor="@color/gomb1"
         android:background="@color/gombbetu1"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/tudasteszt_helpButton"
+        android:layout_below="@+id/knowledgeTest_helpButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
