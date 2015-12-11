@@ -535,17 +535,23 @@ public class DatabaseAccess {
     //endregion
     //region Tudásteszt
 
-    public String Expression(String LanguageName) throws Exception {
+    public String[] Expression(String LanguageName, int Size) {
+        String[] s = new String[Size];
         List<String> szavak = WordsSelect(LanguageName);
         Random rnd = new Random();
-        if (szavak.size() > 0) {
-            int random = rnd.nextInt(szavak.size());
-            return szavak.get(random);
+        if (s.length <= Size) {
+            for (int index=0; index < Size; index++) {
+                s[index] = WordsSelect(LanguageName).get(index);
+            }
+            return  s;
         }
         else {
-            return null;
-            //throw new Exception("Nincs " + LanguageName + " nyelvű szó az adatbázisban");
+            for (int i=0; i< Size; i++) {
 
+                    int random = rnd.nextInt(szavak.size());
+                    s[i] = szavak.get(random);
+            }
+            return  s;
         }
     }
     public List<String> Decipherment(String Language, String wordLanguage, String word)
