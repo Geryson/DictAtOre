@@ -536,18 +536,18 @@ public class DatabaseAccess {
     //region Tudásteszt
 
     public String[] Expression(String LanguageName, int Size) {
-        String[] s = new String[Size];
         List<String> szavak = WordsSelect(LanguageName);
         Random rnd = new Random();
-        if (s.length <= Size) {
+        if (szavak.size() <= Size) {
+            String[] s = new String[szavak.size()];
             for (int index=0; index < Size; index++) {
                 s[index] = WordsSelect(LanguageName).get(index);
             }
             return  s;
         }
         else {
+            String[] s = new String[Size];
             for (int i=0; i< Size; i++) {
-
                     int random = rnd.nextInt(szavak.size());
                     s[i] = szavak.get(random);
             }
