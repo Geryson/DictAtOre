@@ -244,13 +244,17 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
             Bundle bundy = new Bundle();
 
+            String meaning = "";
+            if (!otherParent.getItemAtPosition(position).toString().equals("hiányzó szó"))
+                meaning = otherParent.getItemAtPosition(position).toString();
+
             bundy.putBoolean("editing", true);
             if (parent == FirstWords){
                 bundy.putString("firstWord", parent.getItemAtPosition(position).toString());
-                bundy.putString("secondWord", otherParent.getItemAtPosition(position).toString());
+                bundy.putString("secondWord", meaning);
             }
             else if (parent == SecondWords){
-                bundy.putString("firstWord", otherParent.getItemAtPosition(position).toString());
+                bundy.putString("firstWord", meaning);
                 bundy.putString("secondWord", parent.getItemAtPosition(position).toString());
             }
             bundy.putString("FirstLanguage", FirstLanguageBundle);

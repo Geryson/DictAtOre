@@ -44,11 +44,16 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         removeLayout = (LinearLayout) findViewById(R.id.removeLayout);
         addMeaningLayout = (LinearLayout) findViewById(R.id.addMeaningLayout);
 
+        Add = (Button) findViewById(R.id.insertWord);
+        Add.setOnClickListener(this);
+
         if (getlanguage.getBoolean("editing")){
             removeLayout.setVisibility(View.VISIBLE);
             addMeaningLayout.setVisibility(View.VISIBLE);
             WordInsert1.setText(getlanguage.getString("firstWord"));
             WordInsert2.setText(getlanguage.getString("secondWord"));
+            Add.setText("Módosítás");
+            setTitle("Szó módosítása");
 
             Editing = (ImageView) findViewById(R.id.EditingimageView);
             Editing.setOnClickListener(this);
@@ -60,9 +65,6 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         FirstLanguageTextView.setText(FirstLBundle);
         SecondLanguageTextView = (TextView) findViewById(R.id.wordInsertSecondLanguage);
         SecondLanguageTextView.setText(SecondLBundle);
-
-        Add = (Button) findViewById(R.id.insertWord);
-        Add.setOnClickListener(this);
 
         //endregion
 
