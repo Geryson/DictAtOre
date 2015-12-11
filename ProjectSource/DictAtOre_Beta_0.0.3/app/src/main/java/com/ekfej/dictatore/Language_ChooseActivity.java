@@ -138,7 +138,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                     Intent intent = new Intent(this, KnowledgeTestActivity.class);
 
                     Bundle FirstLanguage = new Bundle();
-                    FirstLanguage.putString("SecondLanguage", Language);
+                    FirstLanguage.putString("FirstLanguage", Language);
                     intent.putExtras(FirstLanguage);
 
                     Bundle SecondLanguage = new Bundle();
@@ -158,7 +158,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                         */
 
                         Bundle FirstLanguage = new Bundle();
-                        FirstLanguage.putString("SecondLanguage", Language);
+                        FirstLanguage.putString("FirstLanguage", Language);
                         intent.putExtras(FirstLanguage);
 
                         Bundle SecondLanguage = new Bundle();

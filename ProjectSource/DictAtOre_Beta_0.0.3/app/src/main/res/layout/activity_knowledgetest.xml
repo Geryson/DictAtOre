@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="&quot;elsőnyelv&quot; nyelven:"
-        android:id="@+id/knowledgeTest_secondLanguage"
+        android:id="@+id/tudasteszt_FirstLanguage"
         android:layout_below="@+id/knowledgeTest_expression"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
@@ -42,13 +42,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/knowledgeTest_decipherment"
-        android:layout_below="@+id/knowledgeTest_secondLanguage"
+        android:layout_below="@+id/tudasteszt_FirstLanguage"
         android:layout_marginTop="43dp"
         android:width="225dp"
-        android:layout_alignLeft="@+id/knowledgeTest_secondLanguage"
-        android:layout_alignStart="@+id/knowledgeTest_secondLanguage"
-        android:layout_alignRight="@+id/knowledgeTest_secondLanguage"
-        android:layout_alignEnd="@+id/knowledgeTest_secondLanguage"
+        android:layout_alignLeft="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignStart="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignRight="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignEnd="@+id/tudasteszt_FirstLanguage"
         android:inputType="text" />
 
     <Button

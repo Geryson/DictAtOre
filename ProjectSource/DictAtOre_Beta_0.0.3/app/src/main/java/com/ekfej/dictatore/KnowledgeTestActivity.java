@@ -15,7 +15,7 @@ import java.util.List;
 public class KnowledgeTestActivity extends AppCompatActivity implements View.OnClickListener {
     EditText User_decipherment; //felhasználó_megoldása
     TextView expression; //Kifejezés
-    TextView SecondLanguage;
+    TextView FirstLanguage;
     Button Help;
     Button AgreeButton; //ideiglenes, később egy while ciklussal folyamotasan lesz ellenőrizve
     List<String> decipherment = null;
@@ -44,10 +44,10 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         User_decipherment.getText();
 
         Bundle LanguageBundle = getIntent().getExtras();
-        String FirstLanguageBundle = LanguageBundle.getString("SecondLanguage");
+        String FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
         String SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
-        SecondLanguage = (TextView) findViewById(R.id.knowledgeTest_secondLanguage);
-        SecondLanguage.setText(SecondLanguageBundle + " nyelven:");
+        FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
+        FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
 
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         try {
