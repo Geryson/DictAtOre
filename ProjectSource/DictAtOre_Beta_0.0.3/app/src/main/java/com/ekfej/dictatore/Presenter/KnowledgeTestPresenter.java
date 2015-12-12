@@ -53,12 +53,21 @@ public class KnowledgeTestPresenter extends MainPresenter {
     }
 
     public boolean WordCheck(String userInput) {
+        /*String text = helper.GetHelp();
+
+
+        for (int i = -1; (i = text.indexOf(word, i + 1)) != -1; ) {
+            System.out.println(i);
+        }*/
+
+
+
         return actualWord.getMeaning().contains(userInput);
     }
 
-    public String Help(String userInput) {
+    public String Help() {
         if (helper == null) helper = new KnowledgeTestHelpPresenter(actualWord.getMeaning().get(rnd.nextInt(actualWord.getMeaning().size())).getWord());
-        return helper.Help(userInput);
+        return helper.Help();
     }
 
 }

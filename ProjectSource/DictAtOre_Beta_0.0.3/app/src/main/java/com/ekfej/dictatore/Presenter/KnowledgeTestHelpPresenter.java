@@ -10,7 +10,10 @@ import java.util.List;
 public class KnowledgeTestHelpPresenter {
 
     private String helpWord;
+
     private String help;
+    public String GetHelp(){ return help; }
+
     private List<Integer> rndIndexes;
 
 
@@ -38,7 +41,7 @@ public class KnowledgeTestHelpPresenter {
         return buf.toString();
     }
 
-    public String Help(String userInput) {
+    public String Help() {
         int rndIndex = rndIndexes.remove(0);
         ReplaceCharAt(help, rndIndex, helpWord.charAt(rndIndex));
         return help;
