@@ -26,6 +26,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     KnowledgeTestPresenter presenter;
     DatabaseAccess db;
     String FirstLanguageBundle, SecondLanguageBundle;
+    int sumtest= 15;
 
 
     @Override
@@ -48,10 +49,10 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         AgreeButton.setOnClickListener(this);
 
         progressBox = (TextView) findViewById(R.id.tudasteszt_progressBox);
-        progressBox.setText(TestNumber + " / " + 15 + " szó");
+        progressBox.setText(TestNumber + " / " + sumtest + " szó");
 
         User_decipherment = (EditText) findViewById(R.id.knowledgeTest_decipherment);
-        //User_decipherment.getText();
+        User_decipherment.getText();
 
         Bundle LanguageBundle = getIntent().getExtras();
         FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
@@ -59,21 +60,26 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
         FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
 
-        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 2);
-
+        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
+        sumtest = presenter.GetWordsCount();
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         expression.setText("nincs ilyen szó");
-
         Test();
 
     }
     public void Test () {
         try {
-            if (presenter.GetNextWord() != null) {
-                progressBox.setText(TestNumber + " / " + 15 + " szó");
-                kifejezes = presenter.GetNextWord();
+            kifejezes = presenter.GetNextWord();
+            if (kifejezes != null) {
+                progressBox.setText(TestNumber + " / " + sumtest + " szó");
                 expression.setText(kifejezes);
                 TestNumber++;
+            }
+            else {
+                //elfogytak a szavak (lehetne értékelni a teljesítményt)
+                //esetleg egy kis activity mint a languageinsertnél
+                //és oda kiírnánk hány %-os lett a tesztje
+                Toast.makeText(this, "Vége", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,10 +105,15 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             if (db.DeciphermentVsElement(User_decipherment, decipherment)) {
                 Toast.makeText(this, "Jó megoldás", Toast.LENGTH_SHORT).show();
                 kifejezes = null;
-                User_decipherment = null;
+                expression.setText(null);
+                User_decipherment.setText(null);
                 Test();
             }
-            else  { Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show(); }
+            else {
+                if (kifejezes != null) {
+                    Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

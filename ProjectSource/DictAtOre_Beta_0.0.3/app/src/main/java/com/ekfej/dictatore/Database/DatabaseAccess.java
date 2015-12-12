@@ -535,32 +535,24 @@ public class DatabaseAccess {
     //endregion
     //region Tudásteszt
 
-    public List<String> Expression(String LanguageName, int Size) {
+    public String[] Expression(String LanguageName, int Size) {
         List<String> szavak = WordsSelect(LanguageName);
         Random rnd = new Random();
-        List<String> proba = new ArrayList<String>();
         if (szavak.size() <= Size) {
-            int index =0;
-            String[] s = new String[2];
-
-           while (index < s.length) {
-
-            //for (int index=0; index < szavak.size();) {
-                //s[index] = szavak.get(index);
-               proba.add(szavak.get(index));
+            String[] s = new String[szavak.size()];
+            for (int index=0; index < szavak.size();) {
+                s[index] = WordsSelect(LanguageName).get(index);
                 index++;
             }
-
-            return proba;
+            return  s;
         }
         else {
             String[] s = new String[Size];
             for (int i=0; i< Size; i++) {
                     int random = rnd.nextInt(szavak.size());
-                    //s[i] = szavak.get(random);
-                proba.add(szavak.get(random));
+                    s[i] = szavak.get(random);
             }
-            return  proba;
+            return  s;
         }
     }
     public List<String> Decipherment(String Language, String wordLanguage, String word)
