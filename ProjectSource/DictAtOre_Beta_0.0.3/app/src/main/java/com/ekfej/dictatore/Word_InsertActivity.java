@@ -1,11 +1,8 @@
 package com.ekfej.dictatore;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Modell.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Language;
 import com.ekfej.dictatore.Presenter.Word;
+import com.ekfej.dictatore.R;
 
 import java.util.ArrayList;
 import java.util.List;

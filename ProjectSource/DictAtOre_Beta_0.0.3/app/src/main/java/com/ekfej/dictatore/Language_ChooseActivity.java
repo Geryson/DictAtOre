@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Modell.DatabaseAccess;
 
 import java.util.List;
-import java.util.jar.Attributes;
 
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;

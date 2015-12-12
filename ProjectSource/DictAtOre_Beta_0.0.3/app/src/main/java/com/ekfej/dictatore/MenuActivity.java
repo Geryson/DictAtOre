@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
 

@@ -8,9 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ekfej.dictatore.Database.DatabaseAccess;
-import com.ekfej.dictatore.Presenter.KnowledgeTestHelpPresenter;
+import com.ekfej.dictatore.Modell.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.KnowledgeTestPresenter;
+import com.ekfej.dictatore.R;
 
 import java.util.List;
 
@@ -124,6 +124,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             }
         }
         if (v == Help) {
+            User_decipherment.setText(null);
             deciphermentHelpTextView.setText(null);
             deciphermentHelpTextView.setText(presenter.Help());
             //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
