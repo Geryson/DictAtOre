@@ -42,8 +42,12 @@ public class KnowledgeTestHelpPresenter {
     }
 
     public String Help() {
-        int rndIndex = rndIndexes.remove(0);
-        ReplaceCharAt(help, rndIndex, helpWord.charAt(rndIndex));
-        return help;
+        try {
+            int rndIndex = rndIndexes.remove(0);
+            help = ReplaceCharAt(help, rndIndex, helpWord.charAt(rndIndex));
+        }
+        finally {
+            return help;
+        }
     }
 }

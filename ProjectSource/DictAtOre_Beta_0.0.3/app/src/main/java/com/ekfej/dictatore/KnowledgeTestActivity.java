@@ -120,7 +120,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         }
         if (v == Help) {
             User_decipherment.setText(null);
-            User_decipherment.setText(presenter.Help(kifejezes));
+            User_decipherment.setText(presenter.Help());
             //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
         }
     }
