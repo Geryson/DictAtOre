@@ -80,6 +80,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                 //esetleg egy kis activity mint a languageinsertnél
                 //és oda kiírnánk hány %-os lett a tesztje
                 Toast.makeText(this, "Vége", Toast.LENGTH_SHORT).show();
+                finish();
             }
         } catch (Exception e) {
             e.printStackTrace();
