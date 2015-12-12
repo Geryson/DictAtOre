@@ -61,8 +61,10 @@ public class KnowledgeTestPresenter extends MainPresenter {
         }*/
 
 
-
-        return actualWord.getMeaning().contains(userInput);
+        for (Word word : actualWord.getMeaning()) {
+            if (word.getWord().equals(userInput)) return true;
+        }
+        return false;
     }
 
     public String Help() {
