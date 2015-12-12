@@ -540,11 +540,12 @@ public class DatabaseAccess {
         for (int i =0; i< szavak.size(); i++) {
             if (szavak.get(i).getMeaning().get(0) == null) {
                 szavak.remove(i);
+                continue;
             }
             else {
                 boolean nyelv = false;
                 for (int j=0; j <szavak.get(i).getMeaning().size(); j++) {
-                    if (szavak.get(i).getMeaning().get(j).getLanguage().getName() == LanguageName2) {
+                    if (szavak.get(i).getMeaning().get(j).getLanguage().getName().equals(LanguageName2)) {
                         nyelv = true; break;
                     }
                 }
