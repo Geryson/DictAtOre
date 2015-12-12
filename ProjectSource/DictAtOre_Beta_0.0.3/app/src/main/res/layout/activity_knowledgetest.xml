@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -38,6 +38,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nemláttálsemmit"
+        android:id="@+id/deciphermentHelpTextView"
+        android:layout_marginTop="53dp"
+        android:layout_alignEnd="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignStart="@+id/tudasteszt_FirstLanguage"
+        android:layout_below="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignLeft="@+id/tudasteszt_FirstLanguage"
+        android:layout_alignRight="@+id/tudasteszt_FirstLanguage"
+        android:width="225dp"
+        android:layout_alignBottom="@+id/knowledgeTest_decipherment"
+        android:layout_marginLeft="4dp"
+        android:textSize="17dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +65,8 @@
         android:layout_alignStart="@+id/tudasteszt_FirstLanguage"
         android:layout_alignRight="@+id/tudasteszt_FirstLanguage"
         android:layout_alignEnd="@+id/tudasteszt_FirstLanguage"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textSize="17dp" />
 
     <Button
         android:layout_width="wrap_content"

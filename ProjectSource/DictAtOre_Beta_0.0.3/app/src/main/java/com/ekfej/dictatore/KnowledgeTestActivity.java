@@ -28,6 +28,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     DatabaseAccess db;
     String FirstLanguageBundle, SecondLanguageBundle;
     int sumtest= 15;
+    TextView deciphermentHelpTextView;
 
 
     @Override
@@ -51,6 +52,9 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
 
         progressBox = (TextView) findViewById(R.id.tudasteszt_progressBox);
         progressBox.setText(TestNumber + " / " + sumtest + " szó");
+
+        deciphermentHelpTextView = (TextView) findViewById(R.id.deciphermentHelpTextView);
+        deciphermentHelpTextView.setText("");
 
         User_decipherment = (EditText) findViewById(R.id.knowledgeTest_decipherment);
         User_decipherment.getText();
@@ -110,6 +114,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                 kifejezes = null;
                 expression.setText(null);
                 User_decipherment.setText(null);
+                deciphermentHelpTextView.setText(null);
                 Test();
             }
             else {
@@ -119,8 +124,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             }
         }
         if (v == Help) {
-            User_decipherment.setText(null);
-            User_decipherment.setText(presenter.Help());
+            deciphermentHelpTextView.setText(null);
+            deciphermentHelpTextView.setText(presenter.Help());
             //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
         }
     }
