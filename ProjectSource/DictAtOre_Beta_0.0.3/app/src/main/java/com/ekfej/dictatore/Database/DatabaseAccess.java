@@ -535,8 +535,24 @@ public class DatabaseAccess {
     //endregion
     //region Tudásteszt
 
-    public String[] Expression(String LanguageName, int Size) {
-        List<String> szavak = WordsSelect(LanguageName);
+    public String[] Expression(String LanguageName,String LanguageName2, int Size) {
+        List<Word> szavak = WordObjectSelect(LanguageName);
+        for (int i =0; i< szavak.size(); i++) {
+            if (szavak.get(i).getMeaning().get(0) == null) {
+                szavak.remove(i);
+            }
+            else {
+                boolean nyelv = false;
+                for (int j=0; j <szavak.get(i).getMeaning().size(); j++) {
+                    if (szavak.get(i).getMeaning().get(j).getLanguage().getName() == LanguageName2) {
+                        nyelv = true; break;
+                    }
+                }
+                if (nyelv == false) {
+                    szavak.remove(i);
+                }
+            }
+        }
         Random rnd = new Random();
         if (szavak.size() <= Size) {
             String[] s = new String[szavak.size()];
@@ -550,7 +566,7 @@ public class DatabaseAccess {
             String[] s = new String[Size];
             for (int i=0; i< Size; i++) {
                     int random = rnd.nextInt(szavak.size());
-                    s[i] = szavak.get(random);
+                    s[i] = szavak.get(random).getWord();
             }
             return  s;
         }
