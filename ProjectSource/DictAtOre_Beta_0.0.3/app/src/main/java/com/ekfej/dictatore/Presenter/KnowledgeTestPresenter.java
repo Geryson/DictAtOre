@@ -2,8 +2,8 @@ package com.ekfej.dictatore.Presenter;
 
 import android.content.Context;
 
-import java.lang.reflect.Array;
-import java.util.List;
+import java.util.Random;
+
 
 /**
  * Created by Lloyd on 2015. 12. 11..
@@ -16,10 +16,15 @@ public class KnowledgeTestPresenter extends MainPresenter {
 
     private Word actualWord;
 
+    private KnowledgeTestHelpPresenter helper;
+
+    private Random rnd = new Random();
+
     private Word[] words;
     private int next;
     public String GetNextWord() {
         if (next < GetWordsCount()) {
+            helper = null;
             actualWord = words[next++];
             return actualWord.getWord();
         }
@@ -47,8 +52,13 @@ public class KnowledgeTestPresenter extends MainPresenter {
         words = StringWordArray2WordWordArray(wordsNames.length, wordsNames, language1, language2);
     }
 
-    public boolean WordCheck() {
-        return actualWord.getMeaning().contains(actualWord.getWord());
+    public boolean WordCheck(String userInput) {
+        return actualWord.getMeaning().contains(userInput);
+    }
+
+    public String Help(String userInput) {
+        if (helper == null) helper = new KnowledgeTestHelpPresenter(actualWord.getMeaning().get(rnd.nextInt(actualWord.getMeaning().size())).getWord());
+        return helper.Help(userInput);
     }
 
 }
