@@ -538,20 +538,10 @@ public class DatabaseAccess {
     public String[] Expression(String LanguageName,String LanguageName2, int Size) {
         List<Word> szavak = WordObjectSelect(LanguageName);
         for (int i =0; i< szavak.size(); i++) {
-            if (szavak.get(i).getMeaning().get(0) == null) {
-                szavak.remove(i);
-                continue;
-            }
-            else {
-                boolean nyelv = false;
-                for (int j=0; j <szavak.get(i).getMeaning().size(); j++) {
-                    if (szavak.get(i).getMeaning().get(j).getLanguage().getName().equals(LanguageName2)) {
-                        nyelv = true; break;
-                    }
-                }
-                if (nyelv == false) {
+                List<String> d = Decipherment(LanguageName2,LanguageName,szavak.get(i).getWord());
+                    if (d == null) {
                     szavak.remove(i);
-                }
+                        break;
             }
         }
         Random rnd = new Random();

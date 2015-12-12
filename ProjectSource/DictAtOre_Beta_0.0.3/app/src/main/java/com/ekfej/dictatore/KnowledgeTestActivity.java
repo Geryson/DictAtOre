@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Presenter.KnowledgeTestHelpPresenter;
 import com.ekfej.dictatore.Presenter.KnowledgeTestPresenter;
 
 import java.util.List;
@@ -91,6 +92,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             }
             else {
                 //nincs párja a kifejezzésnek, majd valamit kell jelezni (vagy új értéket adni az expression-nak)
+                //elvileg ilyen eset nem történhet már
             }
         }
         catch (Exception e) {
@@ -103,7 +105,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         DatabaseAccess db = DatabaseAccess.getInstance(this);
         if (v == AgreeButton) {
-            if (db.DeciphermentVsElement(User_decipherment, decipherment)) {
+            if (presenter.WordCheck(User_decipherment.getText().toString())) {
                 Toast.makeText(this, "Jó megoldás", Toast.LENGTH_SHORT).show();
                 kifejezes = null;
                 expression.setText(null);
@@ -115,6 +117,11 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                     Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+        if (v == Help) {
+            User_decipherment.setText(null);
+            User_decipherment.setText(presenter.Help(kifejezes));
+            //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
         }
     }
 }
