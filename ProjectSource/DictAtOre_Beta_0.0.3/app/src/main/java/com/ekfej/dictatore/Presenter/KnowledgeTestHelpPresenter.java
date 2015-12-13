@@ -20,8 +20,6 @@ public class KnowledgeTestHelpPresenter {
 
     public KnowledgeTestHelpPresenter(String helpWord) {
         this.helpWord = helpWord;
-        help = helpWord.replaceAll(".", "_");
-        RndIndexesFill(this.helpWord.length());
     }
 
 
@@ -45,6 +43,10 @@ public class KnowledgeTestHelpPresenter {
         try {
             int rndIndex = rndIndexes.remove(0);
             help = ReplaceCharAt(help, rndIndex, helpWord.charAt(rndIndex));
+        }
+        catch (NullPointerException e){
+            help = helpWord.replaceAll(".", "_");
+            RndIndexesFill(this.helpWord.length());
         }
         finally {
             return help;
