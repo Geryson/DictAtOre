@@ -2,7 +2,7 @@ package com.ekfej.dictatore.Presenter;
 
 import android.content.Context;
 
-import com.ekfej.dictatore.Modell.DatabaseAccess;
+import com.ekfej.dictatore.Database.DatabaseAccess;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ekfej.dictatore.Modell.DatabaseAccess;
+import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.R;
 
 public class Language_InsertActivity extends AppCompatActivity implements View.OnClickListener {

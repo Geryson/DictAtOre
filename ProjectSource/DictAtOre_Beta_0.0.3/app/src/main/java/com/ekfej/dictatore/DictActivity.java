@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.ekfej.dictatore.Modell.DatabaseAccess;
+import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Word;
 
 import java.util.ArrayList;

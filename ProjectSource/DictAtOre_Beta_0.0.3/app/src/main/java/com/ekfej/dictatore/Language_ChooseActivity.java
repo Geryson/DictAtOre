@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ekfej.dictatore.Modell.DatabaseAccess;
+import com.ekfej.dictatore.Database.DatabaseAccess;
 
 import java.util.List;
 
