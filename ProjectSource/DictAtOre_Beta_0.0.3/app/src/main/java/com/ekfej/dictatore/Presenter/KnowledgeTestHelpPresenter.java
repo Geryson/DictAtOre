@@ -16,6 +16,9 @@ public class KnowledgeTestHelpPresenter {
 
     private List<Integer> rndIndexes;
 
+    private List<Integer> matchingPositions;
+    public List<Integer> GetMatchingPositions() { return matchingPositions; };
+
 
 
     public KnowledgeTestHelpPresenter(String helpWord) {
@@ -31,6 +34,21 @@ public class KnowledgeTestHelpPresenter {
             rndIndexes.add(i);
         }
         Collections.shuffle(rndIndexes);
+    }
+
+    public void CharCheck(String userInput){
+        char[] helpArray = help.toCharArray();
+        char[] userInputArray = userInput.toCharArray();
+        matchingPositions = new ArrayList<Integer>();
+
+        int checkLength = helpArray.length;
+        if (checkLength > userInputArray.length) checkLength = userInputArray.length;
+
+        for (int i = 0; i < checkLength; i++) {
+            if (helpArray[i] == userInputArray[i]) {
+                matchingPositions.add(i);
+            }
+        }
     }
 
     public static String ReplaceCharAt(String s, int pos, char c) {
