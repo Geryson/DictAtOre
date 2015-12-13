@@ -56,4 +56,15 @@ public class MainPresenter {
         return words;
     }
 
+    protected Language[] StringLanguageList2LanguageLanguageArray(List<String> languages) {
+        int languagesSize = languages.size();
+        Language[] languagesArray = new Language[languagesSize];
+
+        for (int i = 0; i < languagesSize; i++) {
+            languagesArray[i] = new Language(languages.remove(0));
+        }
+
+        return languagesArray;
+    }
+
 }
