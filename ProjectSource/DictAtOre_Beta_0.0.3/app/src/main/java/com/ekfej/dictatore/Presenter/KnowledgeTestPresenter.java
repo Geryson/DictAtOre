@@ -2,6 +2,7 @@ package com.ekfej.dictatore.Presenter;
 
 import android.content.Context;
 
+import java.util.List;
 import java.util.Random;
 
 
@@ -31,10 +32,12 @@ public class KnowledgeTestPresenter extends MainPresenter {
         else return null;
     }
 
-    public int GetWordsCount() {
-        return words.length;
-    }
+    public int GetWordsCount() { return words.length; }
 
+    public List<Integer> GetMatchingPositions() {
+        if (helper == null) return null;
+        return helper.GetMatchingPositions();
+    }
 
 
     public KnowledgeTestPresenter(Context context, String language1, String language2, int numberOfWords) {
@@ -53,13 +56,7 @@ public class KnowledgeTestPresenter extends MainPresenter {
     }
 
     public boolean WordCheck(String userInput) {
-        /*String text = helper.GetHelp();
-
-
-        for (int i = -1; (i = text.indexOf(word, i + 1)) != -1; ) {
-            System.out.println(i);
-        }*/
-
+        if (helper != null) helper.CharCheck(userInput);
 
         for (Word word : actualWord.getMeaning()) {
             if (word.getWord().equals(userInput)) return true;

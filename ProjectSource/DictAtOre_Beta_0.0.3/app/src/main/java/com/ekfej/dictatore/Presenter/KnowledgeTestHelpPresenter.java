@@ -16,12 +16,13 @@ public class KnowledgeTestHelpPresenter {
 
     private List<Integer> rndIndexes;
 
+    private List<Integer> matchingPositions;
+    public List<Integer> GetMatchingPositions() { return matchingPositions; };
+
 
 
     public KnowledgeTestHelpPresenter(String helpWord) {
         this.helpWord = helpWord;
-        help = helpWord.replaceAll(".", "_");
-        RndIndexesFill(this.helpWord.length());
     }
 
 
@@ -35,6 +36,21 @@ public class KnowledgeTestHelpPresenter {
         Collections.shuffle(rndIndexes);
     }
 
+    public void CharCheck(String userInput){
+        char[] helpArray = help.toCharArray();
+        char[] userInputArray = userInput.toCharArray();
+        matchingPositions = new ArrayList<Integer>();
+
+        int checkLength = helpArray.length;
+        if (checkLength > userInputArray.length) checkLength = userInputArray.length;
+
+        for (int i = 0; i < checkLength; i++) {
+            if (helpArray[i] == userInputArray[i]) {
+                matchingPositions.add(i);
+            }
+        }
+    }
+
     public static String ReplaceCharAt(String s, int pos, char c) {
         StringBuffer buf = new StringBuffer(s);
         buf.setCharAt(pos, c);
@@ -45,6 +61,10 @@ public class KnowledgeTestHelpPresenter {
         try {
             int rndIndex = rndIndexes.remove(0);
             help = ReplaceCharAt(help, rndIndex, helpWord.charAt(rndIndex));
+        }
+        catch (NullPointerException e){
+            help = helpWord.replaceAll(".", "_");
+            RndIndexesFill(this.helpWord.length());
         }
         finally {
             return help;
