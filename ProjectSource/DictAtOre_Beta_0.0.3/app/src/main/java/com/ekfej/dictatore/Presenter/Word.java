@@ -68,4 +68,8 @@ public class Word {
         meaning.add(word);
     }
 
+    @Override
+    public String toString() {
+        return word;
+    }
 }
