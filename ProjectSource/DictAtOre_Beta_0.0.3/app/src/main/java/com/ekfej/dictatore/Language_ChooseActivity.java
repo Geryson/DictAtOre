@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.ekfej.dictatore.Database.DatabaseAccess;
 
 import java.util.List;
-import java.util.jar.Attributes;
 
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;

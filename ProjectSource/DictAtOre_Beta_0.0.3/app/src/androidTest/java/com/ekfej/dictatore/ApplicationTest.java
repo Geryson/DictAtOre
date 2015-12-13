@@ -3,7 +3,7 @@ package com.ekfej.dictatore;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Modell.DatabaseAccess;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
