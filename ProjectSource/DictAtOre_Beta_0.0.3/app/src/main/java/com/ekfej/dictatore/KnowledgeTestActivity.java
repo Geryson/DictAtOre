@@ -94,6 +94,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                 deciphermentHelpTextView.setText(null);
                 TestNumber++;
                 userAskedForHelp = false;
+                User_decipherment.setFilters(new InputFilter[]{});
                 AgreeButton.setVisibility(View.INVISIBLE);
             }
             else {

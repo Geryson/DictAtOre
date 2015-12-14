@@ -87,7 +87,7 @@
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/remove_trash"
-                    android:id="@+id/EditingimageView" />
+                    android:id="@+id/DeleteimageView" />
 
                 <TextView
                     android:id="@+id/DeletetextView"
@@ -118,7 +118,7 @@
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_meaning_button"
-                    android:id="@+id/DeleteimageView" />
+                    android:id="@+id/EditingimageView" />
 
                 <TextView
                     android:id="@+id/EditingtextView"
