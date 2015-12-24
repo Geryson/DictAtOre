@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.content.Intent;
 import android.widget.ImageView;
 
+import com.ekfej.dictatore.Database.DatabaseAccess;
+import com.ekfej.dictatore.Database.Elementary;
+
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button TudastesztButton, SzotarakButton;
@@ -31,10 +34,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
         SzotarakButton.setOnClickListener(this);
 
-
-
-
-;
     }
 
     @Override

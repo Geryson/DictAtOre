@@ -5,16 +5,22 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Buda Viktor on 2015.12.24..
  */
-public class Elementary  {
+
+/**
+ * Elemi fgv-ek tárolása
+ */
+public class Elementary {
 
     DictDatabaseHandler db;
 
     private SQLiteDatabase database;
     Context context;
+    //Logger log = new Logger("Elements","log");
 
     public Elementary(Context contextall) {
         context = contextall;
@@ -25,8 +31,16 @@ public class Elementary  {
 
     }
 
+    public Elementary() {
 
-    public boolean NullHossz(String szoveg) { //akkor igaz a szöveg hossza nagyobb mint nulla
+    }
+
+    /**
+     * akkor igaz ha a szöveg hossza nagyobb mint nulla
+     * @param szoveg
+     * @return
+     */
+    public boolean NullHossz(String szoveg) {
         if ( 0 < (szoveg.length())) {
             return true;
         } else {
@@ -45,6 +59,7 @@ public class Elementary  {
             { sql = "insert into Words (word, Language_ID) values (\"" + word + "\" ," + Language_ID + ")";}
             else {sql  = "insert into Words (word, Meaning, Language_ID) values (\"" + word + "\" ," + meaning + " ," + Language_ID + ")";}
             db.database.execSQL(sql);
+
             db.close();
             return true;
         }
@@ -166,7 +181,13 @@ public class Elementary  {
         }
     }
 
-    public boolean ListEqualsElement(String Elem, List<String> List) //akkor igaz ha az elem nincs benne a listába
+    /**
+     * akkor igaz ha az elem nincs benne a listába
+     * @param Elem
+     * @param List
+     * @return bool
+     */
+    public boolean ListEqualsElement(String Elem, List<String> List)
     {
         boolean re = true;
         for (int i=0; i < List.size(); i++)
