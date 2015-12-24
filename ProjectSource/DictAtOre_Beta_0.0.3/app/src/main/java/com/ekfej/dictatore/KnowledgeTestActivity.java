@@ -50,7 +50,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledgetest);
 
-        db = DatabaseAccess.getInstance(this);
+        db = new DatabaseAccess(this);
 
         Help = (Button) findViewById(R.id.knowledgeTest_helpButton);
         Help.setOnClickListener(this);
@@ -108,8 +108,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         try {
-            if (kifejezes != null && db.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes).size() > 0) {
-                decipherment = db.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes);
+            if (kifejezes != null && db.knowledgeTest.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes).size() > 0) {
+                decipherment = db.knowledgeTest.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes);
             }
             else {
                 //nincs párja a kifejezzésnek, majd valamit kell jelezni (vagy új értéket adni az expression-nak)
@@ -124,7 +124,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        DatabaseAccess db = DatabaseAccess.getInstance(this);
+        //DatabaseAccess db = new DatabaseAccess(this);
         if (v == AgreeButton) {
             Test();
         }

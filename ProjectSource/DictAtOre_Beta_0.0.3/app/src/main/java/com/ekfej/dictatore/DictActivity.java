@@ -45,7 +45,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         insertWindowIsUp = false;
 
-        databaseAccess = DatabaseAccess.getInstance((Context) this);
+        databaseAccess = new DatabaseAccess(this);
         FirstWords = (ListView) findViewById(R.id.FirstWords);
         SecondWords = (ListView) findViewById(R.id.SecondWords);
 
@@ -59,8 +59,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1 = (Spinner) findViewById(R.id.spinner);
         Spinner2 = (Spinner) findViewById(R.id.spinner2);
 
-        Spinner1List = databaseAccess.LanguageSelect();
-        Spinner2List = databaseAccess.LanguageSelect();
+        Spinner1List = databaseAccess.lister.LanguageSelect();
+        Spinner2List = databaseAccess.lister.LanguageSelect();
 
         RefreshSpinners();
 
@@ -131,11 +131,11 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void RefreshLayout() {
-        List<String> FirstLanguageList = databaseAccess.WordsSelect(FirstLanguageBundle);
+        List<String> FirstLanguageList = databaseAccess.lister.WordsSelect(FirstLanguageBundle);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FirstLanguageList);
         FirstWords.setAdapter(adapter);
 
-        List<Word> DictionaryList = databaseAccess.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
+        List<Word> DictionaryList = databaseAccess.wordMethod.DictionarySelect(FirstLanguageBundle, SecondLanguageBundle);
         List<String> SecondLanguageList = new ArrayList<String>();
         for (int i =0; i< DictionaryList.size(); i++)
         {

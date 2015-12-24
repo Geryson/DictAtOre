@@ -17,7 +17,7 @@ public class MainPresenter {
 
 
     protected MainPresenter(Context context) {
-        db = DatabaseAccess.getInstance(context);
+        db = new DatabaseAccess(context);
     }
 
 
@@ -42,7 +42,7 @@ public class MainPresenter {
             words[i] = new Word(
                     wordsNames[i],
                     StringMeaningList2WordMeaningList(
-                            db.Decipherment(
+                            db.knowledgeTest.Decipherment(
                                     language2Name,
                                     language1Name,
                                     wordsNames[i]

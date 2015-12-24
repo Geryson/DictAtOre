@@ -80,13 +80,13 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        DatabaseAccess db = DatabaseAccess.getInstance(this);
+        DatabaseAccess db = new DatabaseAccess(this);
 
         if (v == Add) { //ne használd, még nagyon nincs kész
 
             List<Word> word2 = new ArrayList<Word>();
-                    word2.add(new Word(WordInsert2.getText().toString(), new Language(db.LanguageIdSelect(SecondLBundle), SecondLBundle)));
-            db.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.LanguageIdSelect(FirstLBundle), FirstLBundle)));
+                    word2.add(new Word(WordInsert2.getText().toString(), new Language(db.lister.LanguageIdSelect(SecondLBundle), SecondLBundle)));
+            db.wordMethod.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.lister.LanguageIdSelect(FirstLBundle), FirstLBundle)));
             //ha nem létezik a meaning akkor azt is létre kell hoznia
 
             setResult(RESULT_OK);

@@ -22,7 +22,7 @@ public class DictPresenter extends MainPresenter {
         super(context);
         this.language1 = new Language(language1);
         this.language2 = new Language(language2);
-        languages2Choose = StringLanguageList2LanguageLanguageArray(db.LanguageSelect());
+        languages2Choose = StringLanguageList2LanguageLanguageArray(db.lister.LanguageSelect());
     }
 
 
@@ -30,7 +30,7 @@ public class DictPresenter extends MainPresenter {
 
 
 
-        return (Word[])db.DictionarySelect(language1.getName(), language2.getName()).toArray();
+        return (Word[])db.wordMethod.DictionarySelect(language1.getName(), language2.getName()).toArray();
     }
 
 }

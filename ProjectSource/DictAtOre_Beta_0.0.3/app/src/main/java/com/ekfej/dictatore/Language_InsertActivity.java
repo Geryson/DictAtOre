@@ -87,13 +87,14 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
         {
 
                 String hiba = "Nincs hiba";
-                DatabaseAccess db = DatabaseAccess.getInstance(this);
+                DatabaseAccess db = new DatabaseAccess(this);
+
             if (LanguageNamebeforeactivity == null) {
-                if (db.LanguageInsert(LanguageName)) {
+                if (db.languageMethod.LanguageInsert(LanguageName)) {
                     setResult(RESULT_OK);
                     finish();
                 } else {
-                    if (!db.NullHossz(LanguageName.getText().toString())) {
+                    if (!db.elementary.NullHossz(LanguageName.getText().toString())) {
                         hiba = "Üres mező";
                     }
                     else {
@@ -103,12 +104,12 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
                 }
             }
             else {
-                if (db.LanguageUpdate(LanguageName.getText().toString(), LanguageNamebeforeactivity)) {
+                if (db.languageMethod.LanguageUpdate(LanguageName.getText().toString(), LanguageNamebeforeactivity)) {
                     setResult(RESULT_OK);
                     finish();
                 }
                 else {
-                    if (!db.NullHossz(LanguageName.getText().toString())) {
+                    if (!db.elementary.NullHossz(LanguageName.getText().toString())) {
                         hiba = "Üres mező";
                     }
                     /*else {

@@ -50,7 +50,7 @@ public class KnowledgeTestPresenter extends MainPresenter {
 
 
     private void GetRandomWords(int number, Language language1, Language language2) {
-        String[] wordsNames = db.Expression(language1.getName(), language2.getName(), number);
+        String[] wordsNames = db.knowledgeTest.Expression(language1.getName(), language2.getName(), number);
 
         words = StringWordArray2WordWordArray(wordsNames.length, wordsNames, language1, language2);
     }

@@ -19,6 +19,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton;
     String Language = null, Language2 = null;
     String actualactivity;
+    DatabaseAccess db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,9 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         this.listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(ListClick);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        db = new DatabaseAccess(this);
 
-
-         // jelen állapotban úgy működik (tudtam megoldani), hogy mielőtt az insert fgv-t meghívjuk, példányosítani kell a databaseaccess-t
-         // ugyanez igaz a selectre és a töbire is...
-        LoadList(databaseAccess);
+        LoadList(db);
     }
 
     public final ListView.OnItemClickListener ListClick = new AdapterView.OnItemClickListener() {
@@ -67,8 +65,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
             // your action
             if (view != NewLanguageButton && view !=DeleteLanguageButton) {
 
-            DatabaseAccess db = DatabaseAccess.getInstance(this);
-              List<String> L =  db.LanguageSelect();
+              List<String> L =  db.lister.LanguageSelect();
                 if (Language == null)
                 { Language = L.get(position); }
                 else {
@@ -81,7 +78,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     };
     private void LoadList(DatabaseAccess databaseAccess) {
 
-        List<String> quotes = databaseAccess.LanguageSelect();
+        List<String> quotes = databaseAccess.lister.LanguageSelect();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.listView.setAdapter(adapter);
     }
@@ -106,8 +103,8 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
             if(Language != null && Language2 == null) {
                 String nextActivity = "Törlés";
                 Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show();
-                DatabaseAccess db= DatabaseAccess.getInstance(this);
-                db.LanguageDeleteElemi(Language);
+
+                db.languageMethod.LanguageDelete(Language);
                 Language = null;
                 LoadList(db);
             }
@@ -173,8 +170,8 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        LoadList(databaseAccess);
+
+        LoadList(db);
         Language = null;
         Language2 = null;
     }
