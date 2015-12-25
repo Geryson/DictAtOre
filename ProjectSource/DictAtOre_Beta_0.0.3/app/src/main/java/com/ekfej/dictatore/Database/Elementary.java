@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -17,10 +18,9 @@ import java.util.logging.Logger;
 public class Elementary {
 
     DictDatabaseHandler db;
-
+    private final static Logger logger = Logger.getLogger(LoggerDatabase.class.getName());
     private SQLiteDatabase database;
     Context context;
-    //Logger log = new Logger("Elements","log");
 
     public Elementary(Context contextall) {
         context = contextall;
@@ -33,6 +33,10 @@ public class Elementary {
 
     public Elementary() {
 
+    }
+
+    public static void thing() {
+        logger.log(Level.INFO, "sikerült a szót az adatbázisba");
     }
 
     /**
@@ -59,7 +63,6 @@ public class Elementary {
             { sql = "insert into Words (word, Language_ID) values (\"" + word + "\" ," + Language_ID + ")";}
             else {sql  = "insert into Words (word, Meaning, Language_ID) values (\"" + word + "\" ," + meaning + " ," + Language_ID + ")";}
             db.database.execSQL(sql);
-
             db.close();
             return true;
         }
