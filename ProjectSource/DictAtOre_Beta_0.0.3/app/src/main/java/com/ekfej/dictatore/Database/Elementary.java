@@ -4,9 +4,13 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.XMLFormatter;
 
 /**
  * Created by Buda Viktor on 2015.12.24..
@@ -18,9 +22,25 @@ import java.util.logging.Logger;
 public class Elementary {
 
     DictDatabaseHandler db;
-    private final static Logger logger = Logger.getLogger(LoggerDatabase.class.getName());
+    private final static Logger log2 = Logger.getLogger(LoggerDatabase.class.getName());
     private SQLiteDatabase database;
     Context context;
+
+    //region log
+    private static FileHandler fh = null;
+
+    public void init(){
+        try {
+            fh=new FileHandler("Elementlog.log", false);
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
+        Logger l = Logger.getLogger("Element");
+        //fh.setFormatter(new SimpleFormatter());
+        //l.addHandler(fh);
+        l.setLevel(Level.CONFIG);
+    }
+    //endregion
 
     public Elementary(Context contextall) {
         context = contextall;
@@ -29,6 +49,12 @@ public class Elementary {
 
         database = db.database;
 
+      init();
+
+    }
+
+    public void LogInsertLanguage(String Language) {
+        log2.log(Level.INFO, "sikerült felvinni a " + Language + "nyelvet az adatbázisba");
     }
 
     public Elementary() {
@@ -36,8 +62,9 @@ public class Elementary {
     }
 
     public static void thing() {
-        logger.log(Level.INFO, "sikerült a szót az adatbázisba");
+        log2.log(Level.INFO, "sikerült a szót felvinni az adatbázisba");
     }
+
 
     /**
      * akkor igaz ha a szöveg hossza nagyobb mint nulla
@@ -45,7 +72,7 @@ public class Elementary {
      * @return
      */
     public boolean NullHossz(String szoveg) {
-        if ( 0 < (szoveg.length())) {
+        if ( 0 < (szoveg.length()) ) {
             return true;
         } else {
             return false;
@@ -87,6 +114,7 @@ public class Elementary {
 
             String sql = "insert into Languages ( Name) values (\"" + Name + "\")";
             db.database.execSQL(sql);
+            LogInsertLanguage(Name); //loggolás
             db.close();
             return true;
 
