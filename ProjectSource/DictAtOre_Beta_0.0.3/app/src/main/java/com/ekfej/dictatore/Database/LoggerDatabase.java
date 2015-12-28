@@ -31,7 +31,7 @@ public class LoggerDatabase {
         log1.log(Level.INFO, "message 1");
         log1.log(Level.SEVERE, "message 2");
         log1.log(Level.FINE, "message 3");
-        Elementary.thing();
+       // Elementary.thing();
     }
 
     public void ElemInsertLanguage() {
