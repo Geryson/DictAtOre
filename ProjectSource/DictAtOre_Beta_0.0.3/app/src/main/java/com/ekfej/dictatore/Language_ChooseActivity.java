@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
@@ -15,11 +16,11 @@ import com.ekfej.dictatore.Database.DatabaseAccess;
 import java.util.List;
 
 public class Language_ChooseActivity extends AppCompatActivity implements View.OnClickListener {
-    private ListView listView;
-    Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton;
-    String Language = null, Language2 = null;
-    String actualactivity;
+    ListView listView;
+    Button NewLanguageButton, DeleteLanguageButton, UpdateLanguageButton, NextButton, RemoveChosenLangsButton;
+    String Language = null, Language2 = null, actualactivity;
     DatabaseAccess db;
+    TextView FirstSelection, SecondSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,9 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         Toast.makeText(this, nextActivity, Toast.LENGTH_SHORT).show(); // a kiíratás csak jelzi, hogy sikerült, majd ki kell törölni!
         actualactivity = nextActivity;
 
+        FirstSelection = (TextView) findViewById(R.id.firstSelection);
+        SecondSelection = (TextView) findViewById(R.id.secondSelection);
+
         NewLanguageButton = (Button) findViewById(R.id.NewLanguageButton);
         NewLanguageButton.setOnClickListener(this);
         DeleteLanguageButton = (Button) findViewById(R.id.DeleteLanguageButton);
@@ -39,6 +43,8 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         UpdateLanguageButton.setOnClickListener(this);
         NextButton = (Button) findViewById(R.id.TovábbButton);
         NextButton.setOnClickListener(this);
+        RemoveChosenLangsButton = (Button) findViewById(R.id.removeChosenLangs_button);
+        RemoveChosenLangsButton.setOnClickListener(this);
 
         if (nextActivity.length() == 8){
             NewLanguageButton.setVisibility(View.VISIBLE);
@@ -67,10 +73,16 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
 
               List<String> L =  db.lister.LanguageSelect();
                 if (Language == null)
-                { Language = L.get(position); }
+                {
+                    Language = L.get(position);
+                    FirstSelection.setText(Language);
+                }
                 else {
                     if (Language2 == null && !Language.equals(L.get(position)))
-                    { Language2 = L.get(position); }
+                    {
+                        Language2 = L.get(position);
+                        SecondSelection.setText(Language2);
+                    }
                 }
 
             }
@@ -166,6 +178,14 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
                 }
             }
         }
+
+        if (v == RemoveChosenLangsButton && Language != null) {
+            Language = null;
+            Language2 = null;
+            FirstSelection.setText("");
+            SecondSelection.setText("");
+            Toast.makeText(Language_ChooseActivity.this, "Kijelölés törölve", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -174,5 +194,7 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
         LoadList(db);
         Language = null;
         Language2 = null;
+        FirstSelection.setText("");
+        SecondSelection.setText("");
     }
 }
