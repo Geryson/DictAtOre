@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 public class DescriptionActivity extends AppCompatActivity implements View.OnClickListener{
     Button OkBackButton;
     VideoView LearnVideo;
+    TextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +22,27 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 
         OkBackButton = (Button) findViewById(R.id.OkBackbutton);
         OkBackButton.setOnClickListener(this);
-/*
+
+        description = (TextView) findViewById(R.id.decription);
+        String d= "DictAtOre \n" +
+                "Verzió: 1.0 \n" +
+                "License: Creative Commons Attribution License \n" +
+                "Leírás: Ez egy nyelvtanulás elősegítő program \n" +
+                "Segítség az alábbi videóban:";
+        description.setText(d);
+
+        /*
         final VideoView LearnVideo = (VideoView) findViewById(R.id.learnvideo);
-        LearnVideo.setVideoPath();
+        LearnVideo.setVideoPath("file:///android_asset/learn.mp4");
 
         MediaController mediaController = new
                 MediaController(this);
         mediaController.setAnchorView(LearnVideo);
         LearnVideo.setMediaController(mediaController);
 
-
                 LearnVideo.start();
-*/
+        */
+
 
 
 
