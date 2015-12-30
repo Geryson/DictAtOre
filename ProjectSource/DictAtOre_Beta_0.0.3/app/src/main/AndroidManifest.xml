@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ekfej.dictatore">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/images"
@@ -19,24 +22,24 @@
         </activity>
         <activity
             android:name=".Language_ChooseActivity"
-            android:label="Nyelv választás"></activity>
+            android:label="Nyelv választás" />
         <activity
             android:name=".Word_InsertActivity"
             android:label="@string/title_activity_word_insert"
-            android:theme="@style/AppTheme.Popup"></activity>
+            android:theme="@style/AppTheme.Popup" />
         <activity
             android:name=".Language_InsertActivity"
             android:label="Nyelv hozzáadása"
-            android:theme="@style/AppTheme.Popup"></activity>
+            android:theme="@style/AppTheme.Popup" />
         <activity
             android:name=".KnowledgeTestActivity"
             android:configChanges="orientation|screenSize"
-            android:label="Tudásteszt"></activity>
+            android:label="Tudásteszt" />
         <activity
             android:name=".DictActivity"
-            android:label="Szótár"></activity>
-        <activity android:name=".DonateActivity"></activity>
+            android:label="Szótár" />
+        <activity android:name=".DonateActivity" />
+        <activity android:name=".DescriptionActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>

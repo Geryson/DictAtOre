@@ -33,6 +33,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     ImageView progress;
     ImageButton Don;
     WebView donweb;
+    Button HelpButton;
 
 
     @Override
@@ -54,7 +55,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Don = (ImageButton) findViewById(R.id.donButton);
         Don.setOnClickListener(this);
 
-
+        HelpButton = (Button) findViewById(R.id.Sbutton);
+        HelpButton.setOnClickListener(this);
 
 /*
         donweb = (WebView) findViewById(R.id.donweb);
@@ -121,15 +123,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         else {
-            if (v == this.TudastesztButton) {
-                bundy.putString("nextActivity", "Tudásteszt");
+            if (v == HelpButton) {
+                Intent helpintent = new Intent(this, DescriptionActivity.class);
+                startActivity(helpintent);
             } else {
-                bundy.putString("nextActivity", "Szótárak");
+                if (v == this.TudastesztButton) {
+                    bundy.putString("nextActivity", "Tudásteszt");
+                } else {
+                    bundy.putString("nextActivity", "Szótárak");
+                }
+
+                intent.putExtras(bundy);
+
+                startActivity(intent);
             }
-
-            intent.putExtras(bundy);
-
-            startActivity(intent);
         }
     }
 }

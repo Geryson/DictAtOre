@@ -28,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Kijelölés\ntörlése"
+            android:background="@color/gombzod"
             android:id="@+id/removeChosenLangs_button"
             android:layout_gravity="center_horizontal"
             android:lines="2"
@@ -67,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/NewLanguageButton"
+            android:background="@color/gombsapadtsarga"
             android:id="@+id/NewLanguageButton"
             android:layout_alignTop="@+id/listView"
             android:layout_alignRight="@+id/listView"
@@ -78,9 +80,11 @@
             android:layout_height="wrap_content"
             android:text="Törlés"
             android:id="@+id/DeleteLanguageButton"
+            android:background="@color/gombsapadtsarga"
             android:layout_below="@+id/NewLanguageButton"
             android:layout_alignRight="@+id/listView"
             android:layout_alignEnd="@+id/listView"
+            android:layout_marginLeft="5dp"
             android:visibility="invisible"
             android:layout_marginTop="0dp" />
 
@@ -88,9 +92,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Módosít"
+            android:background="@color/gombsapadtsarga"
             android:id="@+id/UpdateLanguageButton"
             android:visibility="invisible"
             android:layout_below="@+id/DeleteLanguageButton"
+            android:layout_marginLeft="5dp"
             android:layout_alignRight="@+id/listView"
             android:layout_alignEnd="@+id/listView" />
     </LinearLayout>
@@ -108,6 +114,7 @@
             android:text="Tovább"
             android:visibility="invisible"
             android:id="@+id/TovábbButton"
+            android:background="@color/gomb1"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/listView"
             android:layout_alignEnd="@+id/listView" />
