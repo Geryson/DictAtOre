@@ -1,5 +1,6 @@
 package com.ekfej.dictatore;
 
+import android.opengl.Visibility;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.util.Timer;
+
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Database.Elementary;
 
@@ -22,7 +25,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     Button TudastesztButton, SzotarakButton;
     ImageView progress;
-    Button Don;
+    ImageButton Don;
     WebView donweb;
 
 
@@ -36,17 +39,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         progress.startAnimation(an);
         progress.setVisibility(View.INVISIBLE);
 
-		TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //nem kell újrapéldányosítani
+        TudastesztButton = (Button) findViewById(R.id.TudastesztButton); //nem kell újrapéldányosítani
         TudastesztButton.setOnClickListener(this);
 
         SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
         SzotarakButton.setOnClickListener(this);
 
-        Don = (Button) findViewById(R.id.donButton);
+        Don = (ImageButton) findViewById(R.id.donButton);
         Don.setOnClickListener(this);
-        Don.setVisibility(View.INVISIBLE);
 
 
+/*
         donweb = (WebView) findViewById(R.id.donweb);
         WebSettings webSettings = donweb.getSettings();
 
@@ -59,9 +62,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //Let links appear in this WebView
         donweb.setWebViewClient(new WebViewClient());
-
+*/
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -90,14 +94,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, Language_ChooseActivity.class);
         Bundle bundy = new Bundle();
 
-        if (v == this.TudastesztButton) {
-            bundy.putString("nextActivity", "Tudásteszt");
-        } else {
-            bundy.putString("nextActivity", "Szótárak");
+        if (Don == v) {
+            Intent donIntent = new Intent(this, DonateActivity.class);
+            startActivity(donIntent);
         }
+        else {
+            if (v == this.TudastesztButton) {
+                bundy.putString("nextActivity", "Tudásteszt");
+            } else {
+                bundy.putString("nextActivity", "Szótárak");
+            }
 
-        intent.putExtras(bundy);
+            intent.putExtras(bundy);
 
-        startActivity(intent);
+            startActivity(intent);
+        }
     }
 }
