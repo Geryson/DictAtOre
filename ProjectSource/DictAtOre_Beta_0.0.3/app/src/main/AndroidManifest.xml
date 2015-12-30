@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ekfej.dictatore" >
+    package="com.ekfej.dictatore">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/images"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MenuActivity"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MenuActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,27 +19,23 @@
         </activity>
         <activity
             android:name=".Language_ChooseActivity"
-            android:label="Nyelv választás" >
-        </activity>
+            android:label="Nyelv választás"></activity>
         <activity
             android:name=".Word_InsertActivity"
             android:label="@string/title_activity_word_insert"
-            android:theme="@style/AppTheme.Popup">
-        </activity>
+            android:theme="@style/AppTheme.Popup"></activity>
         <activity
             android:name=".Language_InsertActivity"
             android:label="Nyelv hozzáadása"
-            android:theme="@style/AppTheme.Popup">
-        </activity>
+            android:theme="@style/AppTheme.Popup"></activity>
         <activity
             android:name=".KnowledgeTestActivity"
-            android:label="Tudásteszt"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"
+            android:label="Tudásteszt"></activity>
         <activity
             android:name=".DictActivity"
-            android:label="Szótár">
-        </activity>
+            android:label="Szótár"></activity>
+        <activity android:name=".DonateActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

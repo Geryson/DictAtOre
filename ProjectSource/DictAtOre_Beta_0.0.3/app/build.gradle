@@ -24,7 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
     compile 'com.android.support:appcompat-v7:23.1.0'
-     //sql database import
-        compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    //sql database import
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 
 }

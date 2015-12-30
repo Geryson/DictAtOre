@@ -6,8 +6,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
@@ -17,6 +22,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     Button TudastesztButton, SzotarakButton;
     ImageView progress;
+    Button Don;
+    WebView donweb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,25 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         SzotarakButton = (Button) findViewById(R.id.SzotarakButton);
         SzotarakButton.setOnClickListener(this);
+
+        Don = (Button) findViewById(R.id.donButton);
+        Don.setOnClickListener(this);
+        Don.setVisibility(View.INVISIBLE);
+
+
+        donweb = (WebView) findViewById(R.id.donweb);
+        WebSettings webSettings = donweb.getSettings();
+
+        donweb.loadUrl("file:///android_asset/www/donate.html");
+
+
+        webSettings.setBuiltInZoomControls(true);
+        // Enable JavaScript
+        webSettings.setJavaScriptEnabled(true);
+
+        //Let links appear in this WebView
+        donweb.setWebViewClient(new WebViewClient());
+
 
     }
 
@@ -62,16 +89,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = new Intent(this, Language_ChooseActivity.class);
         Bundle bundy = new Bundle();
-        if (v == this.TudastesztButton){
+
+        if (v == this.TudastesztButton) {
             bundy.putString("nextActivity", "Tudásteszt");
-        }
-        else{
+        } else {
             bundy.putString("nextActivity", "Szótárak");
         }
 
         intent.putExtras(bundy);
 
         startActivity(intent);
-
     }
 }
