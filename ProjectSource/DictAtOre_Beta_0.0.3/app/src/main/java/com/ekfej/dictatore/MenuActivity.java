@@ -1,5 +1,10 @@
 package com.ekfej.dictatore;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.opengl.Visibility;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +20,7 @@ import android.widget.Button;
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -47,6 +53,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         Don = (ImageButton) findViewById(R.id.donButton);
         Don.setOnClickListener(this);
+
 
 
 /*
@@ -89,14 +96,29 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean isConnectingToInternet(Context applicationContext){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni == null) {
+            // There are no active networks.
+            return false;
+        } else
+            return true;
+
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, Language_ChooseActivity.class);
         Bundle bundy = new Bundle();
 
         if (Don == v) {
-            Intent donIntent = new Intent(this, DonateActivity.class);
-            startActivity(donIntent);
+            if(isConnectingToInternet(getApplicationContext()))   {
+                Intent donIntent = new Intent(this, DonateActivity.class);
+                startActivity(donIntent);
+            }else{
+                Toast.makeText(getApplicationContext(), "nincs internet", Toast.LENGTH_LONG).show();
+            }
         }
         else {
             if (v == this.TudastesztButton) {
