@@ -67,4 +67,15 @@ public class MainPresenter {
         return languagesArray;
     }
 
+    protected List<Language> stringLanguageList2LanguageLanguageList(List<String> languages) {
+        int languagesSize = languages.size();
+        List<Language> languageList = new ArrayList<Language>();
+
+        for (int i = 0; i < languagesSize; i++) {
+            languageList.add(new Language(i, languages.get(i)));
+        }
+
+        return languageList;
+    }
+
 }
