@@ -22,7 +22,7 @@ public class MainPresenter {
 
 
 
-    protected List<Word> StringMeaningList2WordMeaningList(List<String> wordsNames, Language language){
+    protected List<Word> stringMeaningList2WordMeaningList(List<String> wordsNames, Language language){
         List<Word> words = new ArrayList<Word>();
         int wordsNamesSize = wordsNames.size();
 
@@ -33,7 +33,7 @@ public class MainPresenter {
         return words;
     }
 
-    protected Word[] StringWordArray2WordWordArray(int number, String[] wordsNames, Language language1, Language language2) {
+    protected Word[] stringWordArray2WordWordArray(int number, String[] wordsNames, Language language1, Language language2) {
         Word[] words = new Word[number];
         String language1Name = language1.getName();
         String language2Name = language2.getName();
@@ -41,7 +41,7 @@ public class MainPresenter {
         for (int i = 0; i < number; i++) {
             words[i] = new Word(
                     wordsNames[i],
-                    StringMeaningList2WordMeaningList(
+                    stringMeaningList2WordMeaningList(
                             db.knowledgeTest.Decipherment(
                                     language2Name,
                                     language1Name,
@@ -56,7 +56,7 @@ public class MainPresenter {
         return words;
     }
 
-    protected Language[] StringLanguageList2LanguageLanguageArray(List<String> languages) {
+    protected Language[] stringLanguageList2LanguageLanguageArray(List<String> languages) {
         int languagesSize = languages.size();
         Language[] languagesArray = new Language[languagesSize];
 

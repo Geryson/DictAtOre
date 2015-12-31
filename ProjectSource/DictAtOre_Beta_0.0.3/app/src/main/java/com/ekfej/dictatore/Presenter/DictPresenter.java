@@ -100,17 +100,4 @@ public class DictPresenter extends MainPresenter {
         db.wordMethod.WordInsert(word);
     }
 
-
-    public void deleteWord(Word word) {
-        db.wordMethod.WordDelete(ideiglenesAtalakitoDeleteWordhoz(word));
-    }
-
-    private List<Word> ideiglenesAtalakitoDeleteWordhoz(Word word) {
-        List<Word> w = new ArrayList<Word>();
-        w.add(word);
-        w.add(word.getMeaning().get(0));
-
-        return w;
-    }
-
 }
