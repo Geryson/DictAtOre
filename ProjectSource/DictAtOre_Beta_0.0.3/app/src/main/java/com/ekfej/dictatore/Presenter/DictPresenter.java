@@ -79,7 +79,7 @@ public class DictPresenter extends MainPresenter {
     }
 
 
-    public void swapLanguages() {
+    public Word[] swapLanguages() {
         Spinner temp;
         temp = spinner1;
         spinner1 = spinner2;
@@ -89,6 +89,13 @@ public class DictPresenter extends MainPresenter {
         tempId = spinner1.getId();
         spinner1.setId(spinner2.getId());
         spinner2.setId(tempId);
+
+        Language tempLang;
+        tempLang = language1;
+        language1 = language2;
+        language2 = tempLang;
+
+        return words2Display(language1, language2);
     }
 
     private Word[] words2Display(Language language1, Language language2) {
