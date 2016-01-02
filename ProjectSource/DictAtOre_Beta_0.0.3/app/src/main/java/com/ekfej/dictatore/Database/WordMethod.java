@@ -26,11 +26,11 @@ public class WordMethod  {
     //region Szótár
 
     /**
-     * Egy adott szó rekordját törli az adatbzisból
+     * Több adott szó rekordját törli az adatbzisból
      * @param TörlendőSzavak
      * @return
      */
-    public boolean WordDelete(List<Word> TörlendőSzavak) //kipróbálva, kevés teszt
+    public boolean WordsDelete(List<Word> TörlendőSzavak) //kipróbálva, kevés teszt
     {
         Boolean b = false;
         List<Word> Szavak = lister.WordObjectSelect(TörlendőSzavak.get(0).getLanguage().getName());
@@ -46,6 +46,29 @@ public class WordMethod  {
                     }
                 }
             }
+        }
+        return b;
+    }
+
+    /**
+     * Egy adott szó rekordját törli az adatbzisból
+     * @param TörlendőSzó
+     * @return
+     */
+    public boolean WordDelete(Word TörlendőSzó) //nincs kipróbálva
+    {
+        Boolean b = false;
+        List<Word> Szavak = lister.WordObjectSelect(TörlendőSzó.getLanguage().getName());
+            for (int j =0; j < Szavak.size(); j++) {
+                if (TörlendőSzó.getWord().equals(Szavak.get(j).getWord())) {
+                    for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
+                        if (TörlendőSzó.getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(m).getId()) {
+                            b =  elementary.WordDeleteElemi(TörlendőSzó.getWord(), TörlendőSzó.getMeaning().get(0).getId(), TörlendőSzó.getLanguage().getId())
+                                    && elementary.WordDeleteElemi(TörlendőSzó.getMeaning().get(m).getWord(), TörlendőSzó.getId(), TörlendőSzó.getMeaning().get(m).getLanguage().getId());
+                            break;
+                        }
+                    }
+                }
         }
         return b;
     }
@@ -107,11 +130,67 @@ public class WordMethod  {
     }
 
     /**
-     * Egy aott szó felvitele az adatbázisba
+     * egy adott szó felvitele az adatbázisba
      * @param word
      * @return
      */
-    public boolean WordInsert(Word word) //kipróbálva, működött (kevés teszt)
+    public boolean WordInsert(Word word) //nincs kipróbálva
+    {
+        int end =0;
+        if (elementary.NullHossz(word.getWord()) && elementary.NullHossz(word.getLanguage().getName())) {
+            List<String> nyelvek = lister.LanguageSelect();
+            boolean nyelvB = false;
+            for (int j =0; j < nyelvek.size(); j++)
+            {
+                if (word.getLanguage().getName().equals(nyelvek.get(j))) {
+                    nyelvB = true; break;
+                }
+            }
+            if (nyelvB) {
+                List<Word> sumword = lister.WordObjectSelect(word.getLanguage().getName());
+                for (int i = 0; i < sumword.size(); i++) {
+                    for (int index =0; index < sumword.get(i).getMeaning().size(); index++) {
+                        if (word.getWord().equals(sumword.get(i).getWord()) && word.getMeaning().get(0).getId() == sumword.get(i).getMeaning().get(index).getId()) {
+                            nyelvB = false;
+                            break;
+                        }
+                    }
+                }
+                if (nyelvB == true) {
+                    end = 1;
+                    if (word.getMeaning() == null) //ha nincs párja
+                    {
+                        boolean b =  elementary.WordInsertElemi(word.getWord(), -1, word.getLanguage().getId());
+                    }
+                    else {
+                        boolean is = false; // ha van párja és benne van az adatbázisban a párja
+                        for (int index =0; index < sumword.size(); index++) {
+                            if (word.getMeaning().get(0).getWord().equals(sumword.get(index).getWord()) && sumword.get(index).getMeaning() == null &&
+                                    sumword.get(index).getLanguage().getName().equals(word.getLanguage().getName())) {
+                                int meaningID = sumword.get(index).getId();
+                                boolean b = elementary.WordInsertElemi(word.getWord(), meaningID, word.getLanguage().getId());
+                                WordUpdate(sumword.get(index), "" + meaningID + "", 3);
+                                is = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (end == 1)
+        { return true; }
+        else
+        {return false; }
+    }
+
+    /**
+     * Egy adott szó és annak jelentése felvitele az adatbázisba
+     * @param word
+     * @return
+     */
+    public boolean WordsInsert(Word word) //kipróbálva, működött (kevés teszt)
     {
         int end =0;
         if (elementary.NullHossz(word.getWord()) && elementary.NullHossz(word.getLanguage().getName())) {
