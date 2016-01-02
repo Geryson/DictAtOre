@@ -27,26 +27,20 @@ import android.widget.AdapterView;
 
 
     /**
-     * Open the database connection.
+     * Adatbázishoz való csatlakozás
      */
     public void open() {
         this.database = openHelper.getWritableDatabase();
     }
 
     /**
-     * Close the database connection.
+     * Adatbázishoz való csatlakozás megszüntetése
      */
     public void close() {
         if (database != null) {
             this.database.close();
         }
     }
-
-    /**
-     * Read all quotes from the database.
-     *
-     * @return a Lister of quotes
-     */
 
     //endregion
 

@@ -6,7 +6,7 @@ import android.widget.EditText;
 import java.util.List;
 
 /**
- * Created by Buda Viktor on 2015.12.24..
+ * Nyelvet kezelő metódusok
  */
 public class LanguageMethod {
 
@@ -24,8 +24,13 @@ public class LanguageMethod {
 
     //region Presenter rétegnek való fgv-ek
 
-    public boolean LanguageInsert(EditText LanguageName) {
-        String Name = LanguageName.getText().toString();
+    /**
+     * Nyelv beszúrása
+     * @param LanguageName
+     * @return
+     */
+    public boolean LanguageInsert(String LanguageName) {
+        String Name = LanguageName;
         List<String> nyelvek = lister.LanguageSelect();
         if (elementary.ListEqualsElement(Name, nyelvek) && elementary.NullHossz(Name)) {
             elementary.LanguageInsertElemi(Name);
@@ -34,6 +39,12 @@ public class LanguageMethod {
         else { return false; }
     }
 
+    /**
+     * Nxelv módosítása (csak a neve)
+     * @param OldName régi neve
+     * @param NewName új neve
+     * @return
+     */
     public boolean LanguageUpdate(String OldName, String NewName) {
         if (elementary.NullHossz(NewName)) {
             elementary.LanguageUpdateElemi(OldName, NewName);
@@ -43,6 +54,11 @@ public class LanguageMethod {
         }
     }
 
+    /**
+     * Nyelv törlése a neve alapján
+     * @param LanguageName
+     * @return
+     */
     public boolean LanguageDelete(String LanguageName) {
         return elementary.LanguageDeleteElemi(LanguageName);
     }

@@ -53,7 +53,13 @@ public class Elementary {
 
     //region Elemi fgv-ek
 
-
+    /**
+     * Egy szó felvitele az adatbázisba
+     * @param word
+     * @param meaning
+     * @param Language_ID
+     * @return
+     */
     public boolean WordInsertElemi(String word, int meaning, int Language_ID) {
         db.open();
         try {
@@ -73,6 +79,11 @@ public class Elementary {
         }
     }
 
+    /**
+     * Egy nyelv felvitele az adatbázisba
+     * @param Name
+     * @return
+     */
     public boolean LanguageInsertElemi(String Name) {
         db.open();
         try {
@@ -99,6 +110,13 @@ public class Elementary {
             return false;
         }
     }
+
+    /**
+     * Egy nyelv módosítása
+     * @param NewName
+     * @param OldName
+     * @return
+     */
     public boolean LanguageUpdateElemi(String NewName,String OldName) {
         db.open();
         try {
@@ -113,6 +131,15 @@ public class Elementary {
             return  false;
         }
     }
+
+    /**
+     * Egy szó 'word' mezőjének módosítása
+     * @param NewWord
+     * @param OldWord
+     * @param Meaning
+     * @param Language_ID
+     * @return
+     */
     public boolean WordsWordUpdateElemi(String NewWord, String OldWord, int Meaning, int Language_ID) {
         db.open();
         try {
@@ -127,6 +154,15 @@ public class Elementary {
             return  false;
         }
     }
+
+    /**
+     * Egy szó 'meaning' mezőjének módosítása
+     * @param NewMeaning
+     * @param OldMeaning
+     * @param Word
+     * @param Language_ID
+     * @return
+     */
     public boolean WordsMeaningUpdateElemi(int NewMeaning, int OldMeaning, String Word, int Language_ID) {
         db.open();
         try {
@@ -142,6 +178,15 @@ public class Elementary {
             return  false;
         }
     }
+
+    /**
+     * Egy szó 'Language_ID' mezőjének módosítása
+     * @param NewLanguage_ID
+     * @param OldLanguage_ID
+     * @param Meaning
+     * @param Word
+     * @return
+     */
     public boolean WordsLanguage_IDUpdateElemi(int NewLanguage_ID, int OldLanguage_ID, int Meaning, String Word) {
         db.open();
         try {
@@ -156,6 +201,12 @@ public class Elementary {
             return  false;
         }
     }
+
+    /**
+     * Egy nyelv törlése
+     * @param Name
+     * @return
+     */
     public boolean LanguageDeleteElemi(String Name) {
         db.open();
         try {
@@ -171,6 +222,13 @@ public class Elementary {
         }
     }
 
+    /**
+     * Egy szó törlése (melynek minden mezője megegyezik a megadottéval (kivéve az ID)
+     * @param Name
+     * @param meaning
+     * @param Language_ID
+     * @return
+     */
     public boolean WordDeleteElemi(String Name, int meaning, int Language_ID) {
         db.open();
         try {
