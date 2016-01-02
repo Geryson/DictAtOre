@@ -16,12 +16,12 @@ public class Word_InsertPresenter extends MainPresenter {
 
 
 
-    public void updateWord() {
-        //db.wordMethod.WordUpdateObject();
+    public void updateWord(Word oldWord, Word newWord) {
+        db.wordMethod.WordUpdateObject(oldWord, newWord);
     }
 
-    public void addMeaning() {
-
+    public void addMeaning(Word oldWord, Word newWord) {
+        db.wordMethod.WordUpdateObject(oldWord, newWord);
     }
 
     public void deleteWord(Word word) {
