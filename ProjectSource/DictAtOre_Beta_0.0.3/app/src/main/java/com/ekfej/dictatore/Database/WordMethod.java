@@ -24,6 +24,12 @@ public class WordMethod  {
     KnowledgeTest knowledgeTest = new KnowledgeTest(contextall);
 
     //region Szótár
+
+    /**
+     * Egy adott szó rekordját törli az adatbzisból
+     * @param TörlendőSzavak
+     * @return
+     */
     public boolean WordDelete(List<Word> TörlendőSzavak) //kipróbálva, kevés teszt
     {
         Boolean b = false;
@@ -43,6 +49,14 @@ public class WordMethod  {
         }
         return b;
     }
+
+    /**
+     * Egy adott szó valamely mezőjét módosíthatjuk vele (kivéve az ID-t)
+     * @param word
+     * @param NewValue
+     * @param mezoindex
+     * @return
+     */
     public boolean WordUpdate(Word word, String NewValue, int mezoindex) { //egyszerre csak egyet lehet módosítani
         List<Word> Szavak = lister.WordObjectSelect(word.getLanguage().getName());  //kipróbálva, de kevés teszt
         for (int j =0; j < Szavak.size(); j++) {
@@ -64,6 +78,13 @@ public class WordMethod  {
         }
         return false;
     }
+
+    /**
+     * Egy adott szó akárhány mezőjét módosíthatjuk vele egyszerre (kivéve az ID-t)
+     * @param OldWord
+     * @param NewWord
+     * @return
+     */
     public boolean WordUpdateObject (Word OldWord, Word NewWord) //akár mind a 3 értékéát lehet módosítani (kivéve az ID-t)
     {                                                               //nincs kipróbálva
         boolean wordb = true, meaningb = true, languageb = true;
@@ -84,6 +105,12 @@ public class WordMethod  {
         }
         return (!wordb && !languageb && !meaningb);
     }
+
+    /**
+     * Egy aott szó felvitele az adatbázisba
+     * @param word
+     * @return
+     */
     public boolean WordInsert(Word word) //kipróbálva, működött (kevés teszt)
     {
         int end =0;
@@ -152,6 +179,12 @@ public class WordMethod  {
         {return false; }
     }
 
+    /**
+     * Két adott nyelv szópárjait szedi össze egy listába
+     * @param FirstLanguage
+     * @param SecondLanguage
+     * @return
+     */
     public List<Word> DictionarySelect(String FirstLanguage, String SecondLanguage) {
         List<Word> Dictionary = new ArrayList<Word>();
         List<String> FirstWords = lister.WordsSelect(FirstLanguage);

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Buda Viktor on 2015.12.24..
+ * Tudásteszt activiy műveleteihez szükséges adatbázis metódusok
  */
 public class KnowledgeTest {
 
@@ -29,6 +29,13 @@ public class KnowledgeTest {
 
     //region Tudásteszt
 
+    /**
+     * Előállít egy feladatokból álló listát a megadott paraméterek alapján
+     * @param LanguageName
+     * @param LanguageName2
+     * @param Size
+     * @return
+     */
     public String[] Expression(String LanguageName,String LanguageName2, int Size) {
         List<Word> szavak = lister.WordObjectSelect(LanguageName);
         for (int i =0; i< szavak.size(); i++) {
@@ -56,6 +63,14 @@ public class KnowledgeTest {
             return  s;
         }
     }
+
+    /**
+     * Megkeresi a feladathoz tartozó megoldásokat
+     * @param Language
+     * @param wordLanguage
+     * @param word
+     * @return
+     */
     public List<String> Decipherment(String Language, String wordLanguage, String word)
     {
         List<String> decipherment = null;
@@ -72,6 +87,13 @@ public class KnowledgeTest {
         }
         return decipherment;
     }
+
+    /**
+     * Összehasonlítja a lehetséges megoldást a valódi megoldásokkal és eldönte jó-e amegoláds
+     * @param User_decipherment
+     * @param decipherment
+     * @return
+     */
     public boolean DeciphermentVsElement(EditText User_decipherment, List<String> decipherment) {
         String user_d = User_decipherment.getText().toString();
         if ( (!elementary.ListEqualsElement(user_d, decipherment)) && elementary.NullHossz(user_d)) {

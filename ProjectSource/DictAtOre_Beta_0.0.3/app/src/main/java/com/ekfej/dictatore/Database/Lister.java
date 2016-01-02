@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Buda Viktor on 2015.12.24..
+ *adatbázis adatokat listázó fgv-ek
  */
 public class Lister {
 
@@ -26,6 +26,11 @@ public class Lister {
 
 
     //region Listázás
+
+    /**
+     * Kilistázza a nyelvek neveit abc sorrendben
+     * @return
+     */
     public java.util.List<String> LanguageSelect() {
         db.open();
         java.util.List<String> list = new ArrayList<>();
@@ -39,6 +44,12 @@ public class Lister {
         db.close();
         return list;
     }
+
+    /**
+     * Szó objektumokat listáz ki adott nyelven
+     * @param Name
+     * @return
+     */
     public java.util.List<Word> WordObjectSelect(String Name) {
         db.open();
         java.util.List<Word> list = new ArrayList<>();
@@ -80,6 +91,11 @@ public class Lister {
         return list;
     }
 
+    /**
+     * Szavak 'word' mezőit listázza ki az adott nyelven
+     * @param Name
+     * @return
+     */
     public java.util.List<String> WordsSelect(String Name) {
         db.open();
         java.util.List<String> list = new ArrayList<>();
@@ -102,6 +118,11 @@ public class Lister {
         return list;
     }
 
+    /**
+     * Egy szó 'ID' mezőjét adja vissza
+     * @param Name
+     * @return
+     */
     public int LanguageIdSelect (String Name) {
         int Idint = 0;
         String sql = "SELECT ID FROM Languages WHERE Name = \"" + Name + "\"";
@@ -113,6 +134,13 @@ public class Lister {
         db.close();
         return Idint;
     }
+
+    /**
+     * Olyan szavak 'word' mezőjét listázza melyben benne van az adott kifejezés
+     * @param Name
+     * @param wordpart
+     * @return
+     */
     public List<String> Search (String Name, String wordpart) { //nincs tesztelve
         String sql = "select * from words where  Language_ID = (select ID from  languages where Name = \"" + Name + "\") and word like  \"%" + wordpart + "%\"";
         java.util.List<String> word = new ArrayList<String>();
@@ -126,6 +154,13 @@ public class Lister {
 
     }
 
+    /**
+     * Egy adott nyelvű adott szavának egy adott nyelven való jelentését keresi
+     * @param Language
+     * @param wordLanguage
+     * @param word
+     * @return egy adott szó párja
+     */
     public List<String> WordsSelectMatch(String Language, String wordLanguage, String word) {
         db.open();
         List<String> list = new ArrayList<>();
