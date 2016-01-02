@@ -2,8 +2,8 @@ package com.ekfej.dictatore.Presenter;
 
 import android.content.Context;
 import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,34 +11,50 @@ import java.util.List;
  */
 public class DictPresenter extends MainPresenter {
 
+    private Context context;
+
     private Language language1;
 
     private Language language2;
 
-    private List<Language> adapter;
+    private ArrayAdapter<Language> langAdapter;
 
     private Spinner spinner1;
 
     private Spinner spinner2;
 
+    private ArrayAdapter<Word> language1Words;
+
+    private ArrayAdapter<Word> language2FirstMeanings;
+
+    private List<ArrayAdapter<Word>> language2Meanings;
 
 
-    public DictPresenter(Context context, int language1Index, int language2Index, List<Language> adapter, Spinner spinner1, Spinner spinner2) {
+
+    public DictPresenter(Context context, int language1Index, int language2Index, ArrayAdapter<Language> langAdapter,
+                         Spinner spinner1, Spinner spinner2, ArrayAdapter<Word> language1Words, ArrayAdapter<Word> language2Meanings) {
         super(context);
-        this.adapter = adapter;
+        this.context = context;
+        this.langAdapter = langAdapter;
         this.spinner1 = spinner1;
         this.spinner2 = spinner2;
+        this.language1Words = language1Words;
+        this.language2FirstMeanings = language2Meanings;
 
-        adapter = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
+        //langAdapter.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
+        List<Language> temp = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
+        for (Language x : temp) {
+            langAdapter.add(x);
+        }
 
-        language1 = adapter.get(language1Index);
-        language2 = adapter.get(language2Index);
+        language1 = langAdapter.getItem(language1Index);
+        language2 = langAdapter.getItem(language2Index);
 
         spinner1.setSelection(language1Index);
         spinner2.setSelection(language2Index);
 
-        adapter.remove(language1Index);
-        adapter.remove(language2Index);
+        langAdapter.remove(language1);
+        langAdapter.remove(language2);
     }
 
 
@@ -49,37 +65,37 @@ public class DictPresenter extends MainPresenter {
      * @param selectedLanguageIndex A kiválasztott elem sor indexe.
      * @return Egy Word típusú tömböt ad vissza.
      */
-    public Word[] languageChanged(int spinnerId, int selectedLanguageIndex) {
+    public List<ArrayAdapter<Word>> languageChanged(int spinnerId, int selectedLanguageIndex) {
         if (spinnerId == 0) {
             Language old = language1;
-            language1 = adapter.get(selectedLanguageIndex);
+            language1 = langAdapter.getItem(selectedLanguageIndex);
 
-            adapter.remove(selectedLanguageIndex);
+            langAdapter.remove(language1);
             insertLanguage2Adapter(old);
         }
         else {
             Language old = language2;
-            language2 = adapter.get(selectedLanguageIndex);
+            language2 = langAdapter.getItem(selectedLanguageIndex);
 
-            adapter.remove(selectedLanguageIndex);
+            langAdapter.remove(language2);
             insertLanguage2Adapter(old);
         }
 
-        return words2Display(language1, language2);
+        return fillWordAdapters(words2Display(language1, language2));
     }
 
     private void insertLanguage2Adapter(Language lang) {
         int langId = lang.getId();
 
         int i = 0;
-        while (adapter.get(i).getId() < langId) {
+        while (langAdapter.getItem(i).getId() < langId) {
             i++;
         }
-        adapter.add(i, lang);
+        langAdapter.insert(lang, i);
     }
 
 
-    public Word[] swapLanguages() {
+    public List<ArrayAdapter<Word>> swapLanguages() {
         Spinner temp;
         temp = spinner1;
         spinner1 = spinner2;
@@ -95,11 +111,24 @@ public class DictPresenter extends MainPresenter {
         language1 = language2;
         language2 = tempLang;
 
-        return words2Display(language1, language2);
+        return fillWordAdapters(words2Display(language1, language2));
     }
 
     private Word[] words2Display(Language language1, Language language2) {
         return (Word[])db.wordMethod.DictionarySelect(language1.getName(), language2.getName()).toArray();
+    }
+
+    private List<ArrayAdapter<Word>> fillWordAdapters(Word[] words) {
+        for (Word w : words) {
+            language1Words.add(w);
+            language2FirstMeanings.add(w.getMeaning().get(0));
+
+            ArrayAdapter<Word> tempAA = new ArrayAdapter<Word>(context, android.R.layout.simple_spinner_item, w.getMeaning());
+            tempAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            language2Meanings.add(tempAA);
+        }
+
+        return language2Meanings;
     }
 
 
