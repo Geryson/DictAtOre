@@ -2,6 +2,7 @@ package com.ekfej.dictatore.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.ekfej.dictatore.Presenter.Word;
@@ -83,6 +84,7 @@ public class KnowledgeTest {
         catch (Exception e)
         {
             e.printStackTrace();
+            Log.e("KnowledgeTest", e.toString());
             //return decipherment;
         }
         return decipherment;

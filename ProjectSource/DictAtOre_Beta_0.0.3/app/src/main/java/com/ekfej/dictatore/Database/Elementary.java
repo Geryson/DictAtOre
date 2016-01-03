@@ -3,6 +3,7 @@ package com.ekfej.dictatore.Database;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.ekfej.dictatore.DictatoreLogger.LoggerMain;
 
@@ -68,12 +69,13 @@ public class Elementary {
             { sql = "insert into Words (word, Language_ID) values (\"" + word + "\" ," + Language_ID + ")";}
             else {sql  = "insert into Words (word, Meaning, Language_ID) values (\"" + word + "\" ," + meaning + " ," + Language_ID + ")";}
             db.database.execSQL(sql);
+            Log.i("database insert", sql);
             db.close();
             return true;
         }
         catch (SQLException e) {
-            loggerMain.LogError("WordInsertElemi", e);
             e.printStackTrace();
+            Log.e("Word Insert Elemi", e.toString());
             db.close();
             return false;
         }
@@ -98,7 +100,7 @@ public class Elementary {
 
             String sql = "insert into Languages ( Name) values (\"" + Name + "\")";
             db.database.execSQL(sql);
-
+            Log.i("database insert", sql);
             db.close();
             return true;
 
@@ -106,6 +108,7 @@ public class Elementary {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            Log.e("Language Insert Elemi", e.toString());
             db.close();
             return false;
         }
@@ -122,11 +125,13 @@ public class Elementary {
         try {
             String sql = "update Languages SET Name= \"" + NewName + "\" where Name= \"" + OldName + "\"";
             db.database.execSQL(sql);
+            Log.i("database update", sql);
             db.close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            Log.e("Language UpdateElemi", e.toString());
             db.close();
             return  false;
         }
@@ -145,11 +150,13 @@ public class Elementary {
         try {
             String sql = "update words Set word=\""+ NewWord + "\"  where word=\"" + OldWord + "\" and Language_ID=" + Language_ID + " and meaning =" + Meaning;
             db.database.execSQL(sql);
+            Log.i("database update", sql);
             db.close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            Log.e("Word word UpdateElemi", e.toString());
             db.close();
             return  false;
         }
@@ -169,11 +176,13 @@ public class Elementary {
             //if (NewMeaning == -1) { NewMeaning = null;}
             String sql = "update words Set meaning="+ NewMeaning + " where meaning=" + OldMeaning + " and Language_ID=" + Language_ID + " and word =\"" + Word + "\"";
             db.database.execSQL(sql);
+            Log.i("database update", sql);
             db.close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            Log.e("Word Meaning UpdateElemi", e.toString());
             db.close();
             return  false;
         }
@@ -192,11 +201,13 @@ public class Elementary {
         try {
             String sql = "update words Set Language_ID="+ NewLanguage_ID + "  where Language_ID=" + OldLanguage_ID + " and meaning=" + Meaning + " and word=\"" + Word + "\"";
             db.database.execSQL(sql);
+            Log.i("database update", sql);
             db.close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            Log.e("Word Language_ID UpdateElemi", e.toString());
             db.close();
             return  false;
         }
@@ -212,11 +223,13 @@ public class Elementary {
         try {
             String sql = "delete from Languages where Name= \"" + Name + "\"";
             db.database.execSQL(sql);
+            Log.i("database delete", sql);
             db.close();
             return true;
         }
         catch(SQLException e) {
             e.printStackTrace();
+            Log.e("LanguageDeleteElemi", e.toString());
             db.close();
             return false;
         }
@@ -234,10 +247,12 @@ public class Elementary {
         try {
             String sql = "delete from Words where word= \"" + Name + "\" and meaning = " + meaning + " and Language_ID = " + Language_ID;
             db.database.execSQL(sql);
+            Log.i("database delete", sql);
             db.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            Log.e("WordDeleteElemi", e.toString());
             db.close();
             return false;
         }
