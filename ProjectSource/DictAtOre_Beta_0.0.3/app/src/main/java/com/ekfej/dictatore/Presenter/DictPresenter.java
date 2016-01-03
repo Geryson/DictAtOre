@@ -14,8 +14,10 @@ public class DictPresenter extends MainPresenter {
     private Context context;
 
     private Language language1;
+    public String getLanguage1() { return language1.getName(); }
 
     private Language language2;
+    public String getLanguage2() { return language2.getName(); }
 
     private ArrayAdapter<Language> langAdapter;
 
