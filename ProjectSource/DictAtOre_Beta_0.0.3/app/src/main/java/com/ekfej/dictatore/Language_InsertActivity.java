@@ -90,7 +90,7 @@ public class Language_InsertActivity extends AppCompatActivity implements View.O
                 DatabaseAccess db = new DatabaseAccess(this);
 
             if (LanguageNamebeforeactivity == null) {
-                if (db.languageMethod.LanguageInsert(LanguageName)) {
+                if (db.languageMethod.LanguageInsert(LanguageName.getText().toString())) {
                     setResult(RESULT_OK);
                     finish();
                 } else {
