@@ -11,8 +11,6 @@ import java.util.List;
  */
 public class DictPresenter extends MainPresenter {
 
-    private Word_InsertPresenter insertPresenter;
-
     private Context context;
 
     private Language language1;
@@ -136,27 +134,4 @@ public class DictPresenter extends MainPresenter {
         return language2Meanings;
     }
 
-    public void addWord(Word word) {
-        if (insertPresenter == null) insertPresenter = new Word_InsertPresenter(db);
-
-        insertPresenter.addWord(word);
-    }
-
-    public void updateWord(Word oldWord, Word newWord) {
-        if (insertPresenter == null) insertPresenter = new Word_InsertPresenter(db);
-
-        insertPresenter.updateWord(oldWord, newWord);
-    }
-
-    public void addMeaning(Word oldWord, Word newWord) {
-        if (insertPresenter == null) insertPresenter = new Word_InsertPresenter(db);
-
-        insertPresenter.addMeaning(oldWord, newWord);
-    }
-
-    public void deleteWord(Word word) {
-        if (insertPresenter == null) insertPresenter = new Word_InsertPresenter(db);
-
-        insertPresenter.deleteWord(word);
-    }
 }

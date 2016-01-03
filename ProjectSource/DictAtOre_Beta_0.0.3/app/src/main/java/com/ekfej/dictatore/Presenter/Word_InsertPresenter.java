@@ -10,13 +10,11 @@ import java.util.List;
 /**
  * Created by Lloyd on 2015. 12. 31..
  */
-public class Word_InsertPresenter {
+public class Word_InsertPresenter extends MainPresenter {
 
-    private DatabaseAccess db;
-
-    public Word_InsertPresenter(DatabaseAccess db)
+    public Word_InsertPresenter(Context context)
     {
-        this.db = db;
+        super(context);
     }
 
     public void addWord(Word word) {

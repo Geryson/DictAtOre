@@ -23,18 +23,6 @@ public class Language_ChoosePresenter extends MainPresenter{
 
 
 
-    public void addLanguage(String languageName) {
-        if (insertPresenter == null) insertPresenter = new Language_InsertPresenter(db);
-
-        insertPresenter.addLanguage(languageName);
-    }
-
-    public void updateLanguage(int languageIndex, String newName) {
-        if (insertPresenter == null) insertPresenter = new Language_InsertPresenter(db);
-
-        insertPresenter.updateLanguage(languages[languageIndex].getName(), newName);
-    }
-
     public void deleteLanguage(int languageIndex) {
         db.languageMethod.LanguageDelete(languages[languageIndex].getName());
     }

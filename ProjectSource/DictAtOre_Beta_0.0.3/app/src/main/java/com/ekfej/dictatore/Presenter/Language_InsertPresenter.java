@@ -8,14 +8,10 @@ import com.ekfej.dictatore.Database.DatabaseAccess;
 /**
  * Created by Lloyd on 2015. 12. 31..
  */
-public class Language_InsertPresenter {
+public class Language_InsertPresenter extends MainPresenter {
 
-    private DatabaseAccess db;
-
-
-
-    public Language_InsertPresenter(DatabaseAccess db) {
-        this.db = db;
+    public Language_InsertPresenter(Context context) {
+        super(context);
     }
 
 
