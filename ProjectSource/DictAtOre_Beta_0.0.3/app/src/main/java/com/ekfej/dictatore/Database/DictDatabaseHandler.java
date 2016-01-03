@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 
+import android.util.Log;
 import android.widget.AdapterView;
 
     public class DictDatabaseHandler {
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
     public static DictDatabaseHandler getInstance(Context context) {
         if (instance == null) {
             instance = new DictDatabaseHandler(context);
+            Log.i("Database connect", "Sikeres kapcsolat");
         }
 
         return instance;

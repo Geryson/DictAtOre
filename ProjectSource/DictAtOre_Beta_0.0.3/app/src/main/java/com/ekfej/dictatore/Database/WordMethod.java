@@ -163,14 +163,13 @@ public class WordMethod  {
                         boolean b =  elementary.WordInsertElemi(word.getWord(), -1, word.getLanguage().getId());
                     }
                     else {
-                        boolean is = false; // ha van párja és benne van az adatbázisban a párja
+                         // ha van párja és benne van az adatbázisban a párja
                         for (int index =0; index < sumword.size(); index++) {
                             if (word.getMeaning().get(0).getWord().equals(sumword.get(index).getWord()) && sumword.get(index).getMeaning() == null &&
                                     sumword.get(index).getLanguage().getName().equals(word.getLanguage().getName())) {
                                 int meaningID = sumword.get(index).getId();
                                 boolean b = elementary.WordInsertElemi(word.getWord(), meaningID, word.getLanguage().getId());
                                 WordUpdate(sumword.get(index), "" + meaningID + "", 3);
-                                is = true;
                                 break;
                             }
                         }
