@@ -1,11 +1,15 @@
 package com.ekfej.dictatore;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,28 +19,28 @@ import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.KnowledgeTestPresenter;
-import com.ekfej.dictatore.R;
+import com.ekfej.dictatore.Presenter.Language;
 
 import java.util.List;
 
 public class KnowledgeTestActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
     EditText User_decipherment; //felhasználó_megoldása
     TextView expression; //Kifejezés
-    TextView FirstLanguage;
+    TextView FirstLanguageTextview;
     Button Help;
     Button AgreeButton; //ideiglenes, később egy while ciklussal folyamotasan lesz ellenőrizve
     List<String> decipherment = null;
-    String kifejezes = null;
+    String kifejezes = null, lastTypedText;
     TextView progressBox;
     int TestNumber = 1; //számolja hogy hanyadik feladatál jár
     KnowledgeTestPresenter presenter;
     DatabaseAccess db;
-    String FirstLanguageBundle, SecondLanguageBundle;
     int sumtest= 15;
     TextView deciphermentHelpTextView;
     boolean userAskedForHelp;
     String helpText;
     StringBuilder builder;
+    private Language firstLanguage, secondLanguage;
 
 
     @Override
@@ -69,12 +73,13 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         User_decipherment.addTextChangedListener(this);
 
         Bundle LanguageBundle = getIntent().getExtras();
-        FirstLanguageBundle = LanguageBundle.getString("FirstLanguage");
-        SecondLanguageBundle = LanguageBundle.getString("SecondLanguage");
-        FirstLanguage = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
-        FirstLanguage.setText(SecondLanguageBundle + " nyelven:");
+        firstLanguage = LanguageBundle.getParcelable("firstLanguage");
+        secondLanguage = LanguageBundle.getParcelable("secondLanguage");
 
-        presenter = new KnowledgeTestPresenter(this, FirstLanguageBundle, SecondLanguageBundle, 15);
+        FirstLanguageTextview = (TextView) findViewById(R.id.tudasteszt_FirstLanguage);
+        FirstLanguageTextview.setText(firstLanguage.getName() + " nyelven:");
+
+        presenter = new KnowledgeTestPresenter(this, firstLanguage.getName(), secondLanguage.getName(), 15);
         sumtest = presenter.GetWordsCount();
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         expression.setText("nincs ilyen szó");
@@ -108,8 +113,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         try {
-            if (kifejezes != null && db.knowledgeTest.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes).size() > 0) {
-                decipherment = db.knowledgeTest.Decipherment(SecondLanguageBundle, FirstLanguageBundle, kifejezes);
+            if (kifejezes != null && db.knowledgeTest.Decipherment(secondLanguage.getName(), firstLanguage.getName(), kifejezes).size() > 0) {
+                decipherment = db.knowledgeTest.Decipherment(secondLanguage.getName(), firstLanguage.getName(), kifejezes);
             }
             else {
                 //nincs párja a kifejezzésnek, majd valamit kell jelezni (vagy új értéket adni az expression-nak)
@@ -151,34 +156,49 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        lastTypedText = s.toString();
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (!userAskedForHelp){
-            if (presenter.WordCheck(User_decipherment.getText().toString())){
-                CorrectDecipherment_GetNextWord();
+        if (!s.toString().equals(lastTypedText)) {
+            if (!userAskedForHelp){
+                if (presenter.WordCheck(User_decipherment.getText().toString())){
+                    CorrectDecipherment_GetNextWord();
+                }
             }
-        }
-        else if (User_decipherment.getText().length() != 0){
-            int currentPosition = s.length() - 1;
-            if (deciphermentHelpTextView.getText().charAt(currentPosition) != '_'){
-                Toast.makeText(KnowledgeTestActivity.this, "WOW!", Toast.LENGTH_SHORT).show();//ehelyett jönne a színezés
-            }
+            else if (User_decipherment.getText().length() != 0){
+                List<Integer> correctChars = presenter.GetMatchingPositions();
 
-            if (deciphermentHelpTextView.getText().charAt(currentPosition) != s.charAt(currentPosition)){
-                builder = new StringBuilder();
-                builder.append(deciphermentHelpTextView.getText());
-                builder.setCharAt(currentPosition, s.charAt(currentPosition));
-                deciphermentHelpTextView.setText(builder);
-            }
+                int currentPosition = s.length() - 1;
+                if (deciphermentHelpTextView.getText().charAt(currentPosition) != '_'){
+                    Toast.makeText(KnowledgeTestActivity.this, "WOW!", Toast.LENGTH_SHORT).show();//ehelyett jönne a színezés
+                }
 
-            if (presenter.WordCheck(User_decipherment.getText().toString())){
-                CorrectDecipherment_GetNextWord();
-            }
-            else if (count == deciphermentHelpTextView.getText().length()) {
-                Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show();
+                if (deciphermentHelpTextView.getText().charAt(currentPosition) != s.charAt(currentPosition)){
+                    builder = new StringBuilder();
+                    builder.append(deciphermentHelpTextView.getText());
+                    builder.setCharAt(currentPosition, s.charAt(currentPosition));
+                    deciphermentHelpTextView.setText(builder);
+                }
+
+                if (correctChars != null) {
+                    Spannable word = new SpannableString(helpText);
+                    for (int i = 0; i < helpText.length(); i++) {
+                        if (correctChars.contains(i)){
+                            word.setSpan(new ForegroundColorSpan(Color.GREEN), i, i, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            helpText.replace(helpText, word);
+                        }
+                    }
+                }
+
+                if (presenter.WordCheck(User_decipherment.getText().toString())){
+                    CorrectDecipherment_GetNextWord();
+                }
+                else if (count == deciphermentHelpTextView.getText().length()) {
+                    Toast.makeText(this, "Rossz megoldás", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -186,6 +206,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     @Override
     public void afterTextChanged(Editable s) {
         if (helpText != null) {
+
+
             builder = new StringBuilder();
             builder.append(deciphermentHelpTextView.getText());
             if (s.length() >= 1) {
@@ -197,5 +219,6 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             }
             deciphermentHelpTextView.setText(builder);
         }
+
     }
 }

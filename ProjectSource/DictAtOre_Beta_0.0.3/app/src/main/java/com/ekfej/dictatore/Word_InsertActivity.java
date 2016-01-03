@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Language;
 import com.ekfej.dictatore.Presenter.Word;
+import com.ekfej.dictatore.Presenter.Word_InsertPresenter;
 import com.ekfej.dictatore.R;
 
 import java.util.ArrayList;
@@ -23,9 +25,10 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
     TextView FirstLanguageTextView, SecondLanguageTextView;
     EditText WordInsert1, WordInsert2;
     Button Add;
-    String FirstLBundle, SecondLBundle;
+    Language firstLanguage, secondLanguage;
     LinearLayout removeLayout, addMeaningLayout;
     ImageView Editing, Deleting;
+    Word_InsertPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,8 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         //region Pictori kontárkodása
         Bundle getlanguage = getIntent().getExtras();
-        FirstLBundle = getlanguage.getString("FirstLanguage");
-        SecondLBundle = getlanguage.getString("SecondLanguage");
+        firstLanguage = getlanguage.getParcelable("firstLanguage");
+        secondLanguage = getlanguage.getParcelable("secondLanguage");
         WordInsert1 = (EditText) findViewById(R.id.wordInsertFirstWord);
         WordInsert2 = (EditText) findViewById(R.id.wordInsertSecondWord);
 
@@ -60,9 +63,9 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         }
 
         FirstLanguageTextView = (TextView) findViewById(R.id.wordInsertFirstLanguage);
-        FirstLanguageTextView.setText(FirstLBundle);
+        FirstLanguageTextView.setText(firstLanguage.getName());
         SecondLanguageTextView = (TextView) findViewById(R.id.wordInsertSecondLanguage);
-        SecondLanguageTextView.setText(SecondLBundle);
+        SecondLanguageTextView.setText(secondLanguage.getName());
 
         //endregion
 
@@ -76,6 +79,8 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.5f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        presenter = new Word_InsertPresenter(this);
     }
 
     @Override
@@ -84,10 +89,17 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         if (v == Add) { //ne használd, még nagyon nincs kész
 
-            List<Word> word2 = new ArrayList<Word>();
-                    word2.add(new Word(WordInsert2.getText().toString(), new Language(db.lister.LanguageIdSelect(SecondLBundle), SecondLBundle)));
-            db.wordMethod.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.lister.LanguageIdSelect(FirstLBundle), FirstLBundle)));
+            //List<Word> word2 = new ArrayList<Word>();
+            //word2.add(new Word(WordInsert2.getText().toString(), new Language(db.lister.LanguageIdSelect(SecondLBundle), SecondLBundle)));
+            //db.wordMethod.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.lister.LanguageIdSelect(FirstLBundle), FirstLBundle)));
             //ha nem létezik a meaning akkor azt is létre kell hoznia
+
+            ArrayList<Word> meanings = new ArrayList<>();
+            meanings.add(new Word(WordInsert2.getText().toString(), secondLanguage));
+
+            Word newWord = new Word(WordInsert1.getText().toString(), meanings, firstLanguage);
+
+            presenter.addWord(newWord);
 
             setResult(RESULT_OK);
 
@@ -97,9 +109,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         if (v == Editing) {
 
-            //db.WordUpdateObject(,WordInsert1.getText().toString());
-            //db.WordUpdateObject(,WordInsert2.getText().toString());
-            // tudni kellene hozzá a szó többi mezőjét is, hogy pontosan melyiket akarjuk módosítani
+            WordInsert1.getText();
 
             setResult(RESULT_OK);
 
