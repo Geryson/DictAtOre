@@ -121,17 +121,21 @@ public class DictPresenter extends MainPresenter {
         return (Word[])db.wordMethod.DictionarySelect(language1.getName(), language2.getName()).toArray();
     }
 
-    private List<ArrayAdapter<Word>> fillWordAdapters(Word[] words) {
+    private void fillWordAdapters(Word[] words) {
         for (Word w : words) {
             language1Words.add(w);
             language2FirstMeanings.add(w.getMeaning().get(0));
+            w.getMeaning().remove(0);
 
-            ArrayAdapter<Word> tempAA = new ArrayAdapter<Word>(context, android.R.layout.simple_spinner_item, w.getMeaning());
-            tempAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            language2Meanings.add(tempAA);
+            if (w.getMeaning().size() == 0) {
+                language2Meanings.add(null);
+            }
+            else {
+                ArrayAdapter<Word> tempAA = new ArrayAdapter<Word>(context, android.R.layout.simple_spinner_item, w.getMeaning());
+                tempAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                language2Meanings.add(tempAA);
+            }
         }
-
-        return language2Meanings;
     }
 
 }
