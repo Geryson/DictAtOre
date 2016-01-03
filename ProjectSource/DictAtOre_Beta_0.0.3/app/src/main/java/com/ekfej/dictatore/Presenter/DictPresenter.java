@@ -34,14 +34,15 @@ public class DictPresenter extends MainPresenter {
 
 
     public DictPresenter(Context context, int language1Index, int language2Index, ArrayAdapter<Language> langAdapter,
-                         Spinner spinner1, Spinner spinner2, ArrayAdapter<Word> language1Words, ArrayAdapter<Word> language2Meanings) {
+                         Spinner spinner1, Spinner spinner2, ArrayAdapter<Word> language1Words, ArrayAdapter<Word> language2FirstMeanings, List<ArrayAdapter<Word>> language2Meanings) {
         super(context);
         this.context = context;
         this.langAdapter = langAdapter;
         this.spinner1 = spinner1;
         this.spinner2 = spinner2;
         this.language1Words = language1Words;
-        this.language2FirstMeanings = language2Meanings;
+        this.language2FirstMeanings = language2FirstMeanings;
+        this.language2Meanings = language2Meanings;
 
         //langAdapter.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
         List<Language> temp = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
@@ -67,7 +68,7 @@ public class DictPresenter extends MainPresenter {
      * @param selectedLanguageIndex A kiválasztott elem sor indexe.
      * @return Egy Word típusú tömböt ad vissza.
      */
-    public List<ArrayAdapter<Word>> languageChanged(int spinnerId, int selectedLanguageIndex) {
+    public void languageChanged(int spinnerId, int selectedLanguageIndex) {
         if (spinnerId == 0) {
             Language old = language1;
             language1 = langAdapter.getItem(selectedLanguageIndex);
@@ -83,7 +84,7 @@ public class DictPresenter extends MainPresenter {
             insertLanguage2Adapter(old);
         }
 
-        return fillWordAdapters(words2Display(language1, language2));
+        fillWordAdapters(words2Display(language1, language2));
     }
 
     private void insertLanguage2Adapter(Language lang) {
@@ -97,7 +98,7 @@ public class DictPresenter extends MainPresenter {
     }
 
 
-    public List<ArrayAdapter<Word>> swapLanguages() {
+    public void swapLanguages() {
         Spinner temp;
         temp = spinner1;
         spinner1 = spinner2;
@@ -113,7 +114,7 @@ public class DictPresenter extends MainPresenter {
         language1 = language2;
         language2 = tempLang;
 
-        return fillWordAdapters(words2Display(language1, language2));
+        fillWordAdapters(words2Display(language1, language2));
     }
 
     private Word[] words2Display(Language language1, Language language2) {
@@ -131,11 +132,6 @@ public class DictPresenter extends MainPresenter {
         }
 
         return language2Meanings;
-    }
-
-
-    public void addWord(Word word) {
-        db.wordMethod.WordInsert(word);
     }
 
 }
