@@ -66,17 +66,12 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner1 = (Spinner) findViewById(R.id.spinner);
         Spinner2 = (Spinner) findViewById(R.id.spinner2);
 
-
-
         Spinner1Adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         Spinner2Adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         Spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner1.setAdapter(Spinner1Adapter);
-        Spinner2.setAdapter(Spinner2Adapter);
-
 
         Spinner1.setOnItemSelectedListener(this);
         Spinner2.setOnItemSelectedListener(this);
@@ -92,6 +87,9 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         presenter = new DictPresenter(this, firstLanguage.getId(), secondLanguage.getId(), langAdapter,
                 Spinner1, Spinner2, Spinner1Adapter, Spinner2Adapter, language2Meanings);
+
+        Spinner1.setAdapter(langAdapter);
+        Spinner2.setAdapter(langAdapter);
 
         RefreshLayout();
 
