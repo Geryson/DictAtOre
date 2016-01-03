@@ -21,7 +21,7 @@ public class Language_InsertPresenter {
 
 
     public void addLanguage(String languageName) {
-        //db.languageMethod.LanguageInsert(languageName);
+        db.languageMethod.LanguageInsert(languageName);
     }
 
     public void updateLanguage(String oldName, String newName) {
