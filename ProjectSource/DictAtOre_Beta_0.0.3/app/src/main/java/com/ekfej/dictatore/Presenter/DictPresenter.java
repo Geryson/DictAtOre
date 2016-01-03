@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class DictPresenter extends MainPresenter {
         this.language1Words = language1Words;
         this.language2FirstMeanings = language2FirstMeanings;
         this.language2Meanings = language2Meanings;
+        this.language2Meanings = new ArrayList<ArrayAdapter<Word>>();
 
         //langAdapter.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
         List<Language> temp = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
@@ -58,6 +60,8 @@ public class DictPresenter extends MainPresenter {
 
         langAdapter.remove(language1);
         langAdapter.remove(language2);
+
+        fillWordAdapters(words2Display(language1, language2));
     }
 
 
@@ -118,14 +122,21 @@ public class DictPresenter extends MainPresenter {
     }
 
     private Word[] words2Display(Language language1, Language language2) {
-        return (Word[])db.wordMethod.DictionarySelect(language1.getName(), language2.getName()).toArray();
+        //return (Word[])db.wordMethod.DictionarySelect(language1.getName(), language2.getName()).toArray();
+        List<Word> words = db.wordMethod.DictionarySelect(language1.getName(), language2.getName());
+        return words.toArray(new Word[words.size()]);
     }
 
     private void fillWordAdapters(Word[] words) {
         for (Word w : words) {
             language1Words.add(w);
-            language2FirstMeanings.add(w.getMeaning().get(0));
-            w.getMeaning().remove(0);
+            if (w.getMeaning().size() == 0) language2FirstMeanings.add(new Word("nincs..", new Language("..nincs")));
+            else {
+                language2FirstMeanings.add(w.getMeaning().get(0));
+                w.getMeaning().remove(0);
+            }
+            /*language2FirstMeanings.add(w.getMeaning().get(0));
+            w.getMeaning().remove(0);*/
 
             if (w.getMeaning().size() == 0) {
                 language2Meanings.add(null);
