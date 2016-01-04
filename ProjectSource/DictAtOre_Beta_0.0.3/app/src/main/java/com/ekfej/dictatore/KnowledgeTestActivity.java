@@ -2,6 +2,7 @@ package com.ekfej.dictatore;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -41,6 +42,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     String helpText;
     StringBuilder builder;
     private Language firstLanguage, secondLanguage;
+    MediaPlayer succes;
 
 
     @Override
@@ -84,6 +86,8 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         expression.setText("nincs ilyen szó");
         Test();
+
+        succes = MediaPlayer.create(this, R.raw.succes);
 
     }
     public void Test () {
@@ -149,6 +153,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
         Toast.makeText(this, "Jó megoldás", Toast.LENGTH_SHORT).show();
+        succes.start();
         User_decipherment.setEnabled(false);
         AgreeButton.setVisibility(View.VISIBLE);
         Help.setEnabled(false);
