@@ -2,6 +2,7 @@ package com.ekfej.dictatore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -116,6 +117,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void RefreshLayout() {
+        Spinner1Adapter.notifyDataSetChanged();
+        Spinner2Adapter.notifyDataSetChanged();
         FirstWords.setAdapter(Spinner1Adapter);
         SecondWords.setAdapter(Spinner2Adapter);
     }
@@ -168,11 +171,11 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (!popupMenuIsUp && parent != FirstWords) {
+        ArrayAdapter<Word> meanings = language2Meanings.get(position);
+
+        if (!popupMenuIsUp && parent != FirstWords && meanings != null) {
 
             PopupMenu popup = new PopupMenu(this, view);
-
-            ArrayAdapter<Word> meanings = language2Meanings.get(position);
 
             for (int i = 0; i < meanings.getCount(); i++) {
                 popup.getMenu().add(meanings.getItem(i).getWord());
@@ -203,31 +206,34 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if (!insertWindowIsUp) {
-            Intent intent = new Intent(this, Word_InsertActivity.class);
 
-            Bundle bundy = new Bundle();
+        Intent intent = new Intent(this, Word_InsertActivity.class);
 
+        Bundle bundy = new Bundle();
 
+        bundy.putBoolean("editing", true);
 
-            String meaning = "";
-            if (!SecondWords.getItemAtPosition(position).toString().equals("hiányzó szó"))
-                meaning = SecondWords.getItemAtPosition(position).toString();
+        ArrayAdapter<Word> meanings = language2Meanings.get(position);
+        ArrayList<Word> secondWord = new ArrayList<Word>();
 
-            bundy.putBoolean("editing", true);
+        secondWord.add((Word) SecondWords.getItemAtPosition(position));
 
-            bundy.putString("firstWord", parent.getItemAtPosition(position).toString());
-            bundy.putString("secondWord", meaning);
-
-            bundy.putParcelable("firstLanguage", firstLanguage);
-            bundy.putParcelable("secondLanguage", secondLanguage);
-
-            intent.putExtras(bundy);
-            startActivity(intent);
-            insertWindowIsUp = true;
-        } else {
-            insertWindowIsUp = false;
+        if (meanings != null) {
+            for (int i = 0; i < meanings.getCount(); i++) {
+                secondWord.add(meanings.getItem(i));
+            }
         }
+
+        bundy.putParcelable("firstWord", (Word) FirstWords.getItemAtPosition(position));
+        bundy.putParcelableArrayList("secondWord", secondWord);
+
+        bundy.putParcelable("firstLanguage", firstLanguage);
+        bundy.putParcelable("secondLanguage", secondLanguage);
+
+        intent.putExtras(bundy);
+        startActivity(intent);
+
+
         return true;
     }
 }

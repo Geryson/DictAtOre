@@ -10,20 +10,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.Language;
 import com.ekfej.dictatore.Presenter.Word;
 import com.ekfej.dictatore.Presenter.Word_InsertPresenter;
-import com.ekfej.dictatore.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Word_InsertActivity extends AppCompatActivity implements View.OnClickListener {
     TextView FirstLanguageTextView, SecondLanguageTextView;
     EditText WordInsert1, WordInsert2;
+    Word firstWord;
+    ArrayList<Word> secondWord;
+    Spinner secondaryWordsSpinner;
     Button Add;
     Language firstLanguage, secondLanguage;
     LinearLayout removeLayout, addMeaningLayout;
@@ -48,11 +50,24 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         Add = (Button) findViewById(R.id.insertWord);
         Add.setOnClickListener(this);
 
+        firstWord = getlanguage.getParcelable("firstWord");
+        secondWord = getlanguage.getParcelableArrayList("secondWord");
+
+        secondaryWordsSpinner = (Spinner) findViewById(R.id.secondaryWordsSpinner);
+        ArrayAdapter<Word> meanings = new ArrayAdapter<Word>(this, android.R.layout.simple_spinner_dropdown_item, secondWord);
+
+
         if (getlanguage.getBoolean("editing")){
             removeLayout.setVisibility(View.VISIBLE);
             addMeaningLayout.setVisibility(View.VISIBLE);
-            WordInsert1.setText(getlanguage.getString("firstWord"));
-            WordInsert2.setText(getlanguage.getString("secondWord"));
+            WordInsert1.setText(firstWord.getWord());
+            if (secondWord.size() == 1) {
+                WordInsert2.setText(secondWord.get(0).getWord());
+            }
+            else{
+                WordInsert2.setVisibility(View.GONE);
+                secondaryWordsSpinner.setVisibility(View.VISIBLE);
+            }
             Add.setText("Módosítás");
             setTitle("Szó módosítása");
 
@@ -60,6 +75,8 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
             Editing.setOnClickListener(this);
             Deleting = (ImageView) findViewById(R.id.DeleteimageView);
             Deleting.setOnClickListener(this);
+
+            secondaryWordsSpinner.setAdapter(meanings);
         }
 
         FirstLanguageTextView = (TextView) findViewById(R.id.wordInsertFirstLanguage);
@@ -117,6 +134,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (v == Deleting) {
+            presenter.deleteWord(firstWord);
             //ugyanaz igaz itt is mint a módosításnál
             setResult(RESULT_OK);
 
