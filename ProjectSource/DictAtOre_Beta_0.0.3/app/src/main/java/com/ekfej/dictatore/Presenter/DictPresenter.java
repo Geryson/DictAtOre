@@ -159,16 +159,27 @@ public class DictPresenter extends MainPresenter {
         language1Words.clear();
         language2FirstMeanings.clear();
         language2Meanings.clear();
-        for (Word w : words) {
-            language1Words.add(w);
-            if (w.getMeaning().size() == 0) language2FirstMeanings.add(new Word("nincs..", new Language("..nincs")));
+        for (Word wrd : words) {
+            System.out.println(wrd.getMeaning());
+            language1Words.add(wrd);
+
+            ArrayList<Word> meaningList = new ArrayList<Word>();
+            for (int i = 0; i < wrd.getMeaning().size(); i++) {
+                meaningList.add(i, wrd.getMeaning().get(i));
+            }
+
+            Word w = new Word(wrd.getWord(), meaningList, wrd.getLanguage());
+
+            if (w.getMeaning().size() == 0) {
+                language2FirstMeanings.add(new Word("nincs..", new Language("..nincs")));
+            }
             else {
                 language2FirstMeanings.add(w.getMeaning().get(0));
             }
-            /*language2FirstMeanings.add(w.getMeaning().get(0));
-            w.getMeaning().remove(0);*/
+            //language2FirstMeanings.add(w.getMeaning().get(0));
+            //w.getMeaning().remove(0);
 
-            if (w.getMeaning().size() == 0) {
+            if (w.getMeaning().size() == 0 || w.getMeaning().size() == 1) {
                 language2Meanings.add(null);
             }
             else {
