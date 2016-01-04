@@ -15,12 +15,12 @@ public class DictPresenter extends MainPresenter {
     private Context context;
 
     private Language language1;
-    public String getLanguage1() { return language1.getName(); }
 
     private Language language2;
-    public String getLanguage2() { return language2.getName(); }
 
-    private ArrayAdapter<Language> langAdapter;
+    private ArrayAdapter<Language> langAdapter1;
+
+    private ArrayAdapter<Language> langAdapter2;
 
     private Spinner spinner1;
 
@@ -34,11 +34,15 @@ public class DictPresenter extends MainPresenter {
 
 
 
-    public DictPresenter(Context context, int language1Index, int language2Index, ArrayAdapter<Language> langAdapter,
-                         Spinner spinner1, Spinner spinner2, ArrayAdapter<Word> language1Words, ArrayAdapter<Word> language2FirstMeanings, List<ArrayAdapter<Word>> language2Meanings) {
+    public DictPresenter(Context context, int language1Index, int language2Index,
+                         ArrayAdapter<Language> langAdapter1, ArrayAdapter<Language> langAdapter2,
+                         Spinner spinner1, Spinner spinner2,
+                         ArrayAdapter<Word> language1Words, ArrayAdapter<Word> language2FirstMeanings,
+                         List<ArrayAdapter<Word>> language2Meanings) {
         super(context);
         this.context = context;
-        this.langAdapter = langAdapter;
+        this.langAdapter1 = langAdapter1;
+        this.langAdapter2 = langAdapter2;
         this.spinner1 = spinner1;
         this.spinner2 = spinner2;
         this.language1Words = language1Words;
@@ -46,20 +50,27 @@ public class DictPresenter extends MainPresenter {
         this.language2Meanings = language2Meanings;
         this.language2Meanings = new ArrayList<ArrayAdapter<Word>>();
 
-        //langAdapter.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
+        //langAdapter1.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
         List<Language> temp = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
         for (Language x : temp) {
-            langAdapter.add(x);
+            langAdapter1.add(x);
         }
 
-        language1 = langAdapter.getItem(language1Index);
-        language2 = langAdapter.getItem(language2Index);
+        language1 = langAdapter1.getItem(language1Index);
+        language2 = langAdapter1.getItem(language2Index);
 
-        spinner1.setSelection(language1Index);
-        spinner2.setSelection(language2Index);
+        //spinner1.setSelection(0);
+        //spinner2.setSelection(0);
 
-        langAdapter.remove(language1);
-        langAdapter.remove(language2);
+        langAdapter1.remove(language1);
+        langAdapter1.remove(language2);
+
+        for (int i = 0; i < langAdapter1.getCount(); i++) {
+            this.langAdapter2.add(langAdapter1.getItem(i));
+        }
+
+        langAdapter1.insert(language1, 0);
+        langAdapter2.insert(language2, 0);
 
         fillWordAdapters(words2Display(language1, language2));
     }
@@ -75,30 +86,48 @@ public class DictPresenter extends MainPresenter {
     public void languageChanged(int spinnerId, int selectedLanguageIndex) {
         if (spinnerId == 0) {
             Language old = language1;
-            language1 = langAdapter.getItem(selectedLanguageIndex);
+            language1 = langAdapter1.getItem(selectedLanguageIndex);
 
-            langAdapter.remove(language1);
-            insertLanguage2Adapter(old);
+            //langAdapter1.remove(language1);
+            langAdapter1.insert(language1, 0);
+            insertLanguage2Adapter1(old);
+
+            langAdapter2.remove(language1);
+            insertLanguage2Adapter2(old);
         }
-        else {
+        else if (spinnerId == 1) {
             Language old = language2;
-            language2 = langAdapter.getItem(selectedLanguageIndex);
+            language2 = langAdapter2.getItem(selectedLanguageIndex);
 
-            langAdapter.remove(language2);
-            insertLanguage2Adapter(old);
+            //langAdapter2.remove(language2);
+            langAdapter2.insert(language2, 0);
+            insertLanguage2Adapter2(old);
+
+            langAdapter1.remove(language2);
+            insertLanguage2Adapter1(old);
         }
 
         fillWordAdapters(words2Display(language1, language2));
     }
 
-    private void insertLanguage2Adapter(Language lang) {
+    private void insertLanguage2Adapter1(Language lang) {
         int langId = lang.getId();
 
         int i = 0;
-        while (langAdapter.getItem(i).getId() < langId) {
+        while (langAdapter1.getItem(i).getId() < langId) {
             i++;
         }
-        langAdapter.insert(lang, i);
+        langAdapter1.insert(lang, i);
+    }
+
+    private void insertLanguage2Adapter2(Language lang) {
+        int langId = lang.getId();
+
+        int i = 0;
+        while (langAdapter2.getItem(i).getId() < langId) {
+            i++;
+        }
+        langAdapter2.insert(lang, i);
     }
 
 
@@ -128,6 +157,9 @@ public class DictPresenter extends MainPresenter {
     }
 
     private void fillWordAdapters(Word[] words) {
+        language1Words.clear();
+        language2FirstMeanings.clear();
+        language2Meanings.clear();
         for (Word w : words) {
             language1Words.add(w);
             if (w.getMeaning().size() == 0) language2FirstMeanings.add(new Word("nincs..", new Language("..nincs")));

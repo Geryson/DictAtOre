@@ -37,7 +37,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private boolean insertWindowIsUp;
     private DictPresenter presenter;
     private Language firstLanguage, secondLanguage;
-    private ArrayAdapter<Language> langAdapter;
+    private ArrayAdapter<Language> langAdapter1, langAdapter2;
     private List<ArrayAdapter<Word>> language2Meanings;
 
     @Override
@@ -81,18 +81,19 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         addWordsButton = (ImageButton) findViewById(R.id.addWordsButton);
         addWordsButton.setOnClickListener(this);
 
-        langAdapter = new ArrayAdapter<Language>(this, android.R.layout.simple_spinner_item);
-        langAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        langAdapter1 = new ArrayAdapter<Language>(this, android.R.layout.simple_spinner_item);
+        langAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        langAdapter2 = new ArrayAdapter<Language>(this, android.R.layout.simple_spinner_item);
+        langAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        presenter = new DictPresenter(this, firstLanguage.getId(), secondLanguage.getId(), langAdapter,
+        presenter = new DictPresenter(this, firstLanguage.getId(), secondLanguage.getId(), langAdapter1, langAdapter2,
                 Spinner1, Spinner2, Spinner1Adapter, Spinner2Adapter, language2Meanings);
 
-        Spinner1.setAdapter(langAdapter);
-        Spinner2.setAdapter(langAdapter);
+
+        Spinner1.setAdapter(langAdapter1);
+        Spinner2.setAdapter(langAdapter2);
 
         RefreshLayout();
-
-
     }
 
     @Override
