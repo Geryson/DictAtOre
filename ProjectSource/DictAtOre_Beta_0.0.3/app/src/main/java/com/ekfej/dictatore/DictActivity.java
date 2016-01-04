@@ -54,6 +54,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
 
         FirstWords = (ListView) findViewById(R.id.FirstWords);
+
         SecondWords = (ListView) findViewById(R.id.SecondWords);
 
         FirstWords.setOnTouchListener(this);
@@ -67,11 +68,9 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner2 = (Spinner) findViewById(R.id.spinner2);
 
         Spinner1Adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item);
+                android.R.layout.simple_list_item_1);
         Spinner2Adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item);
-        Spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                android.R.layout.simple_list_item_1);
 
         Spinner1.setOnItemSelectedListener(this);
         Spinner2.setOnItemSelectedListener(this);
@@ -180,8 +179,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
                 bundy.putString("firstWord", meaning);
                 bundy.putString("secondWord", parent.getItemAtPosition(position).toString());
             }
-            bundy.putString("FirstLanguage", presenter.getLanguage1());
-            bundy.putString("SecondLanguage", presenter.getLanguage2());
+            bundy.putParcelable("firstLanguage", firstLanguage);
+            bundy.putParcelable("secondLanguage", secondLanguage);
 
             intent.putExtras(bundy);
             startActivity(intent);
