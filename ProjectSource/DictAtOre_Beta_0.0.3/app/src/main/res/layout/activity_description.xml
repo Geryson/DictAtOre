@@ -27,13 +27,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <!--
+
         <VideoView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/learnvideo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/OkBackbutton" />
-    -->
+            android:layout_alignBottom="@+id/decription"
+            android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

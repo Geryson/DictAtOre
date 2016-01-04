@@ -1,5 +1,6 @@
 package com.ekfej.dictatore;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -31,21 +32,22 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
                 "Segítség az alábbi videóban:";
         description.setText(d);
 
-        /*
         final VideoView LearnVideo = (VideoView) findViewById(R.id.learnvideo);
-        LearnVideo.setVideoPath("file:///android_asset/learn.mp4");
+
+        String uriPath = "android.resource://" + getPackageName() + "/" + R.raw.learn;
+        Uri uri = Uri.parse(uriPath);
+        //LearnVideo.setVideoPath();
+
+        LearnVideo.setVideoURI(uri);
+
+        //LearnVideo.start();
 
         MediaController mediaController = new
                 MediaController(this);
         mediaController.setAnchorView(LearnVideo);
         LearnVideo.setMediaController(mediaController);
 
-                LearnVideo.start();
-        */
-
-
-
-
+        /*
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -56,6 +58,8 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.5f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        */
+
     }
 
     @Override
