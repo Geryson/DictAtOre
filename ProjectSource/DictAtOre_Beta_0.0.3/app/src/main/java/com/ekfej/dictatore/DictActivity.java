@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ekfej.dictatore.Database.DatabaseAccess;
 import com.ekfej.dictatore.Presenter.DictPresenter;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DictActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener,
- View.OnTouchListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener{
+ View.OnTouchListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener, AdapterView.OnItemLongClickListener{
     private ListView FirstWords, SecondWords;
     private Spinner Spinner1, Spinner2;
     private DatabaseAccess databaseAccess;
@@ -34,7 +37,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton addWordsButton;
     private View clickSource, touchSource;
     private int offset = 0;
-    private boolean insertWindowIsUp;
+    private boolean insertWindowIsUp, popupMenuIsUp;
     private DictPresenter presenter;
     private Language firstLanguage, secondLanguage;
     private ArrayAdapter<Language> langAdapter1, langAdapter2;
@@ -51,7 +54,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         secondLanguage = LangaugeBundle.getParcelable("secondLanguage");
 
         insertWindowIsUp = false;
-
+        popupMenuIsUp = true;
 
         FirstWords = (ListView) findViewById(R.id.FirstWords);
 
@@ -60,7 +63,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         FirstWords.setOnTouchListener(this);
         SecondWords.setOnTouchListener(this);
         FirstWords.setOnItemClickListener(this);
-        SecondWords.setOnItemClickListener(FirstWords.getOnItemClickListener());
+        SecondWords.setOnItemClickListener(this);
+        SecondWords.setOnItemLongClickListener(this);
         FirstWords.setOnScrollListener(this);
         SecondWords.setOnScrollListener(this);
 
@@ -86,6 +90,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         langAdapter2 = new ArrayAdapter<Language>(this, android.R.layout.simple_spinner_item);
         langAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        language2Meanings = new ArrayList<ArrayAdapter<Word>>();
+
         presenter = new DictPresenter(this, firstLanguage.getId(), secondLanguage.getId(), langAdapter1, langAdapter2,
                 Spinner1, Spinner2, Spinner1Adapter, Spinner2Adapter, language2Meanings);
 
@@ -94,6 +100,8 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
         Spinner2.setAdapter(langAdapter2);
 
         RefreshLayout();
+
+
     }
 
     @Override
@@ -141,6 +149,7 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
         ListView otherList = v == FirstWords ? SecondWords : FirstWords;
 
         if(touchSource == null)
@@ -159,36 +168,21 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //az elágazás azért kell, mert egy nyomással 2 listát is megnyomunk (az összekapcsolás miatt), enélkül 2 activity nyílna
-        if (!insertWindowIsUp){
-            ListView otherParent = parent == FirstWords ? SecondWords : FirstWords;
+        if (!popupMenuIsUp && parent != FirstWords) {
 
-            Intent intent = new Intent(this, Word_InsertActivity.class);
+            PopupMenu popup = new PopupMenu(this, view);
 
-            Bundle bundy = new Bundle();
+            ArrayAdapter<Word> meanings = language2Meanings.get(position);
 
-            String meaning = "";
-            if (!otherParent.getItemAtPosition(position).toString().equals("hiányzó szó"))
-                meaning = otherParent.getItemAtPosition(position).toString();
-
-            bundy.putBoolean("editing", true);
-            if (parent == FirstWords){
-                bundy.putString("firstWord", parent.getItemAtPosition(position).toString());
-                bundy.putString("secondWord", meaning);
+            for (int i = 0; i < meanings.getCount(); i++) {
+                popup.getMenu().add(meanings.getItem(i).getWord());
             }
-            else if (parent == SecondWords){
-                bundy.putString("firstWord", meaning);
-                bundy.putString("secondWord", parent.getItemAtPosition(position).toString());
-            }
-            bundy.putParcelable("firstLanguage", firstLanguage);
-            bundy.putParcelable("secondLanguage", secondLanguage);
 
-            intent.putExtras(bundy);
-            startActivity(intent);
-            insertWindowIsUp = true;
+            popup.show();
+            popupMenuIsUp = true;
         }
         else{
-            insertWindowIsUp = false;
+            popupMenuIsUp = false;
         }
 
     }
@@ -204,5 +198,36 @@ public class DictActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == clickSource)
             otherList.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop() + offset);
+    }
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (!insertWindowIsUp) {
+            Intent intent = new Intent(this, Word_InsertActivity.class);
+
+            Bundle bundy = new Bundle();
+
+
+
+            String meaning = "";
+            if (!SecondWords.getItemAtPosition(position).toString().equals("hiányzó szó"))
+                meaning = SecondWords.getItemAtPosition(position).toString();
+
+            bundy.putBoolean("editing", true);
+
+            bundy.putString("firstWord", parent.getItemAtPosition(position).toString());
+            bundy.putString("secondWord", meaning);
+
+            bundy.putParcelable("firstLanguage", firstLanguage);
+            bundy.putParcelable("secondLanguage", secondLanguage);
+
+            intent.putExtras(bundy);
+            startActivity(intent);
+            insertWindowIsUp = true;
+        } else {
+            insertWindowIsUp = false;
+        }
+        return true;
     }
 }
