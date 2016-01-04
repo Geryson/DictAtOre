@@ -164,7 +164,6 @@ public class DictPresenter extends MainPresenter {
             if (w.getMeaning().size() == 0) language2FirstMeanings.add(new Word("nincs..", new Language("..nincs")));
             else {
                 language2FirstMeanings.add(w.getMeaning().get(0));
-                w.getMeaning().remove(0);
             }
             /*language2FirstMeanings.add(w.getMeaning().get(0));
             w.getMeaning().remove(0);*/
@@ -175,6 +174,7 @@ public class DictPresenter extends MainPresenter {
             else {
                 ArrayAdapter<Word> tempAA = new ArrayAdapter<Word>(context, android.R.layout.simple_spinner_item, w.getMeaning());
                 tempAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                tempAA.remove(w.getMeaning().get(0));
                 language2Meanings.add(tempAA);
             }
         }
