@@ -48,7 +48,6 @@ public class DictPresenter extends MainPresenter {
         this.language1Words = language1Words;
         this.language2FirstMeanings = language2FirstMeanings;
         this.language2Meanings = language2Meanings;
-        this.language2Meanings = new ArrayList<ArrayAdapter<Word>>();
 
         //langAdapter1.addAll(stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect()));
         List<Language> temp = stringLanguageList2LanguageLanguageList(db.lister.LanguageSelect());
