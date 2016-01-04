@@ -6,9 +6,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +31,19 @@ public class Language_ChooseActivity extends AppCompatActivity implements View.O
     Language Language1 = null, Language2 = null;
     DatabaseAccess db;
     TextView FirstSelection, SecondSelection;
+    ImageView progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_choose);
+
+        /*
+        progress = (ImageView) findViewById(R.id.imageViewanim2);
+        Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scaleleft);
+        progress.setVisibility(View.INVISIBLE);
+        progress.startAnimation(anim2);
+        */
 
         Bundle bundy = getIntent().getExtras();
         String nextActivity = bundy.getString("nextActivity"); //kiszedjük az intent extra tartalmát

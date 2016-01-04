@@ -69,4 +69,20 @@ public class KnowledgeTestPresenter extends MainPresenter {
         return helper.Help();
     }
 
+
+    public int sumpointmax() {
+        int sum = 0;
+        for (int i=0; i < words.length; i++ )
+        {
+            int max = 0;
+            for (int j=0; j < words[i].getMeaning().size(); j++)
+            {
+                int max2 = words[i].getMeaning().get(j).getWord().length();
+                if (max < max2)  { max = max2; }
+            }
+           sum += max;
+        }
+        return sum + words.length;
+    }
+
 }

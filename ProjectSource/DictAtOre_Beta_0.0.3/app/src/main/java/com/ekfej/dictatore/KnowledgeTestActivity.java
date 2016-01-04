@@ -11,6 +11,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
     StringBuilder builder;
     private Language firstLanguage, secondLanguage;
     MediaPlayer succes;
+    int helpsumdb = 0, sumpointmax, sumpointuser;
 
 
     @Override
@@ -82,6 +84,7 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
         FirstLanguageTextview.setText(firstLanguage.getName() + " nyelven:");
 
         presenter = new KnowledgeTestPresenter(this, firstLanguage.getName(), secondLanguage.getName(), 15);
+        sumpointmax = presenter.sumpointmax(); sumpointuser = sumpointmax;
         sumtest = presenter.GetWordsCount();
         expression = (TextView) findViewById(R.id.knowledgeTest_expression);
         expression.setText("nincs ilyen szó");
@@ -110,11 +113,38 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
                 //elfogytak a szavak (lehetne értékelni a teljesítményt)
                 //esetleg egy kis activity mint a languageinsertnél
                 //és oda kiírnánk hány %-os lett a tesztje
-                Toast.makeText(this, "Vége", Toast.LENGTH_SHORT).show();
+
+                String szovegeseredmeny;
+                double eredmeny = sumpointuser *100 / sumpointmax;
+
+                 if(eredmeny > 90) {
+                     szovegeseredmeny = "Kiváló teljesítmény!";
+                 }
+                else {
+                     if(eredmeny > 75) {
+                         szovegeseredmeny = "Jól teljesítettél! ";
+                     }
+                     else {
+                         if(eredmeny > 65) {
+                             szovegeseredmeny = "Egész ügyes vagy, de még fejlődnöd kell! ";
+                         }
+                         else {
+                             if(eredmeny > 50) {
+                                 szovegeseredmeny = "Nem volt rossz, de tanulj még sokat! ";
+                             }
+                             else {
+                                     szovegeseredmeny = "Ez nagyon gyenge! ";
+                             }
+                         }
+                     }
+                 }
+
+                Toast.makeText(this, szovegeseredmeny + eredmeny + "%", Toast.LENGTH_LONG).show();
                 finish();
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("KnowlEdgeTest", e.toString());
         }
         try {
             if (kifejezes != null && db.knowledgeTest.Decipherment(secondLanguage.getName(), firstLanguage.getName(), kifejezes).size() > 0) {
@@ -123,28 +153,37 @@ public class KnowledgeTestActivity extends AppCompatActivity implements View.OnC
             else {
                 //nincs párja a kifejezzésnek, majd valamit kell jelezni (vagy új értéket adni az expression-nak)
                 //elvileg ilyen eset nem történhet már
+                Log.e("KnowledgeTest", "Nincs jelentése a szónak");
             }
         }
         catch (Exception e) {
             e.printStackTrace();
+            Log.e("KnowlEdgeTest", e.toString());
         }
 
     }
 
     @Override
     public void onClick(View v) {
+
         //DatabaseAccess db = new DatabaseAccess(this);
         if (v == AgreeButton) {
+            sumpointuser -= helpsumdb; helpsumdb =0;
             Test();
         }
         if (v == Help) {
-            userAskedForHelp = true;
-            User_decipherment.setText("");
-            //deciphermentHelpTextView.setText(null);
-            helpText = presenter.Help();// hogy ne legyen 2x meghívva
-            deciphermentHelpTextView.setText(helpText);
-            User_decipherment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(helpText.length())});
-            //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
+
+            if (!presenter.WordCheck(deciphermentHelpTextView.getText().toString())) {
+                helpsumdb++;
+                userAskedForHelp = true;
+                User_decipherment.setText("");
+                //deciphermentHelpTextView.setText(null);
+                helpText = presenter.Help();// hogy ne legyen 2x meghívva
+                deciphermentHelpTextView.setText(helpText);
+                User_decipherment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(helpText.length())});
+                //valójában nem ebbe, hanem a mögötte lévő TextView-ba kell belerakni
+            }
+            else {}
         }
     }
 
