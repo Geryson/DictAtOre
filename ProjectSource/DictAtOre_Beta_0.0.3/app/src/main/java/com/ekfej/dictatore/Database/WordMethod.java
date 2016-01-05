@@ -62,8 +62,8 @@ public class WordMethod  {
             for (int j =0; j < Szavak.size(); j++) {
                 if (TörlendőSzó.getWord().equals(Szavak.get(j).getWord())) {
                     for (int m =0; m <Szavak.get(j).getMeaning().size(); m++) {
-                        if (TörlendőSzó.getMeaning().get(0).getId() == Szavak.get(j).getMeaning().get(m).getId()) {
-                            b =  elementary.WordDeleteElemi(TörlendőSzó.getWord(), TörlendőSzó.getMeaning().get(0).getId(), TörlendőSzó.getLanguage().getId())
+                        if (TörlendőSzó.getMeaning().get(0).getWord().equals(lister.WordIdSelect(Szavak.get(j).getMeaning().get(m).getId()))) {
+                            b =  elementary.WordDeleteElemi(TörlendőSzó.getWord(), Szavak.get(j).getMeaning().get(m).getId(), TörlendőSzó.getLanguage().getId())
                                     && elementary.WordDeleteElemi(TörlendőSzó.getMeaning().get(m).getWord(), TörlendőSzó.getId(), TörlendőSzó.getMeaning().get(m).getLanguage().getId());
                             break;
                         }

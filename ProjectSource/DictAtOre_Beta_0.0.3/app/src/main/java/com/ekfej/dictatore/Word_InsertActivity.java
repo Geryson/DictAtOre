@@ -19,6 +19,7 @@ import com.ekfej.dictatore.Presenter.Word;
 import com.ekfej.dictatore.Presenter.Word_InsertPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Word_InsertActivity extends AppCompatActivity implements View.OnClickListener {
     TextView FirstLanguageTextView, SecondLanguageTextView;
@@ -125,8 +126,9 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (v == Editing) {
+        List<Word> me = new ArrayList<Word>(); me.add(new Word(WordInsert2.getText().toString() , secondWord.get(0).getLanguage() ));
 
-            WordInsert1.getText();
+            presenter.updateWord((new Word(firstWord.getWord(), firstWord.getMeaning(), firstWord.getLanguage())), new Word(WordInsert1.getText().toString(), me, firstWord.getLanguage()));
 
             setResult(RESULT_OK);
 
@@ -135,7 +137,7 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         if (v == Deleting) {
             presenter.deleteWord(firstWord);
-            //ugyanaz igaz itt is mint a módosításnál
+
             setResult(RESULT_OK);
 
             finish();

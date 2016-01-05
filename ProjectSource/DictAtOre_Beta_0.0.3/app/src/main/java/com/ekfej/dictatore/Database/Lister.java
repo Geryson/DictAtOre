@@ -119,7 +119,7 @@ public class Lister {
     }
 
     /**
-     * Egy szó 'ID' mezőjét adja vissza
+     * Egy nyelv 'ID' mezőjét adja vissza
      * @param Name
      * @return
      */
@@ -133,6 +133,22 @@ public class Lister {
         cursor.close();
         db.close();
         return Idint;
+    }
+    /**
+     * Egy szó 'ID' mezőjét adja vissza
+     * @param ID
+     * @return
+     */
+    public String WordIdSelect (int ID) {
+        String w;
+        String sql = "SELECT word FROM words WHERE ID = " + ID;
+        db.open();
+        Cursor cursor = db.database.rawQuery(sql, null);
+        cursor.moveToFirst();
+        w = cursor.getString(0);
+        cursor.close();
+        db.close();
+        return w;
     }
 
     /**
