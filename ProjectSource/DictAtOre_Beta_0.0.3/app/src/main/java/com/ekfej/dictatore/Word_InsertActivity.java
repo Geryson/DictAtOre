@@ -107,9 +107,9 @@ public class Word_InsertActivity extends AppCompatActivity implements View.OnCli
 
         if (v == Add) { //ne használd, még nagyon nincs kész
 
-            //List<Word> word2 = new ArrayList<Word>();
-            //word2.add(new Word(WordInsert2.getText().toString(), new Language(db.lister.LanguageIdSelect(SecondLBundle), SecondLBundle)));
-            //db.wordMethod.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.lister.LanguageIdSelect(FirstLBundle), FirstLBundle)));
+            List<Word> word2 = new ArrayList<Word>();
+            word2.add(new Word(WordInsert2.getText().toString(), new Language(db.lister.LanguageIdSelect(secondLanguage.getName()), secondLanguage.getName())));
+            db.wordMethod.WordInsert(new Word(WordInsert1.getText().toString(), word2, new Language(db.lister.LanguageIdSelect(firstLanguage.getName()), firstLanguage.getName())));
             //ha nem létezik a meaning akkor azt is létre kell hoznia
 
             ArrayList<Word> meanings = new ArrayList<>();
